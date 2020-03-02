@@ -34,7 +34,7 @@ define POSTBUILDCMDS
 endef
 
 ifeq ($(config),debug)
-TARGETDIR = .
+TARGETDIR = app
 TARGET = $(TARGETDIR)/debug-linux
 OBJDIR = obj/debug-linux
 DEFINES += -DPGR_LINUX -DPGR_DEBUG -D_DEBUG
@@ -43,7 +43,7 @@ ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g -std=c++17
 ALL_LDFLAGS += $(LDFLAGS)
 
 else ifeq ($(config),release)
-TARGETDIR = .
+TARGETDIR = app
 TARGET = $(TARGETDIR)/release-linux
 OBJDIR = obj/release-linux
 DEFINES += -DPGR_LINUX -DPGR_RELEASE -DNDEBUG
@@ -68,9 +68,9 @@ OBJECTS += $(OBJDIR)/App.o
 OBJECTS += $(OBJDIR)/Buffer.o
 OBJECTS += $(OBJDIR)/BufferManager.o
 OBJECTS += $(OBJDIR)/Camera.o
+OBJECTS += $(OBJDIR)/Engine.o
 OBJECTS += $(OBJDIR)/Input.o
 OBJECTS += $(OBJDIR)/Layers.o
-OBJECTS += $(OBJDIR)/Main.o
 OBJECTS += $(OBJDIR)/Node.o
 OBJECTS += $(OBJDIR)/OpenGL.o
 OBJECTS += $(OBJDIR)/Program.o
@@ -150,10 +150,10 @@ endif
 $(OBJDIR)/App.o: src/app/App.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/Input.o: src/core/Input.cpp
+$(OBJDIR)/Engine.o: src/core/Engine.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/Main.o: src/core/Main.cpp
+$(OBJDIR)/Input.o: src/core/Input.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Timer.o: src/core/Timer.cpp
