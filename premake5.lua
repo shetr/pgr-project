@@ -4,15 +4,16 @@ workspace "pgr-project"
     configurations { "debug", "release" }
     cppdialect "C++17"
 
-    targetdir "./"
+    targetdir "app/"
     targetname ("%{cfg.buildcfg}-%{cfg.system}%{cfg.architecture}")
     objdir "obj/%{cfg.buildcfg}-%{cfg.system}%{cfg.architecture}/"
 
-    includedirs "libraries/include"
+    includedirs "include"
     --libdirs "lib"
 
     filter "system:windows"
         defines { "PGR_WINDOWS", "WIN32" }
+        libdirs "lib"
 
     filter "system:linux"
         defines { "PGR_LINUX" }
@@ -39,7 +40,7 @@ project("app")
     --postbuildcommands { "{COPY} ../../res %{cfg.targetdir}/"}
     --libdirs "lib"
     filter "system:windows"
-        links { "freeglut", "assimp", "DevIL", "AntTweakBar", "zlib" }
+        links { "freeglut", "assimp", "DevIL", "AntTweakBar", "zlib", "IrrXML" }
     filter "system:linux"
         links { "glut", "assimp", "IL", "AntTweakBar", "z", "GLEW", "X11", "dl", "pthread", "GLX" }
     filter {}
