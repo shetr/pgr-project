@@ -1,5 +1,5 @@
 
-workspace "PGR"
+workspace "pgr-project"
     --location ("solutions/" .. _ACTION)
     configurations { "debug", "release" }
     cppdialect "C++17"
@@ -8,7 +8,7 @@ workspace "PGR"
     targetname ("%{cfg.buildcfg}-%{cfg.system}%{cfg.architecture}")
     objdir "obj/%{cfg.buildcfg}-%{cfg.system}%{cfg.architecture}/"
 
-    includedirs "include"
+    includedirs "libraries/include"
     --libdirs "lib"
 
     filter "system:windows"
