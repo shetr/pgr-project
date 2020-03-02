@@ -3,7 +3,6 @@
 #include "Window.hpp"
 #include "Input.hpp"
 #include "render/OpenGL.hpp"
-#include "pgr.h"
 
 #include <iostream>
 
