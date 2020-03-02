@@ -1,15 +1,16 @@
 
-#include <core/Main.hpp>
+#include <core/Engine.hpp>
 
 using namespace sadekpet;
+
 
 int main(int argc, char** argv) {
     int  res;
     App* app = new App();
-    Main::Create({&argc, argv}, {.windowSize = {512, 512}, .windowTitle = "TestName", .debugLevel = DebugLevel::DEBUG_HIGH}, app);
+    Engine::Create(EngineArgs({&argc, argv}), EngineConfig({WindowSize({512, 512}), "TestName", DebugLevel::DEBUG_HIGH}), app);
     {
-        Unique<Main> main = Unique<Main>(Main::Get());
-        res = main->Run();
+        Unique<Engine> engine = Unique<Engine>(Engine::Get());
+        res = engine->Run();
     }
     return res;
 }

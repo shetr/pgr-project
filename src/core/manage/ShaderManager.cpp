@@ -4,11 +4,12 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <fstream>
 
 namespace sadekpet {
 
 ShaderManager* ShaderManager::s_instance = nullptr;
-String ShaderManager::s_shadersPath = "./res/shaders/";
+String ShaderManager::s_shadersPath = "res/shaders/";
 
 ShaderManager* ShaderManager::Init()
 {

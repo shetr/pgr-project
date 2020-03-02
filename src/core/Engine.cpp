@@ -1,4 +1,4 @@
-#include "Main.hpp"
+#include "Engine.hpp"
 
 #include "Window.hpp"
 #include "Input.hpp"
@@ -8,34 +8,34 @@
 
 namespace sadekpet {
 
-Main* Main::s_main = nullptr;
+Engine* Engine::s_engine = nullptr;
 
-void Main::Create(MainArgs args, MainConfig config, App* app)
+void Engine::Create(EngineArgs args, EngineConfig config, App* app)
 {
-    if(s_main == nullptr) {
-        s_main = new Main(args, config, app);
+    if(s_engine == nullptr) {
+		s_engine = new Engine(args, config, app);
     }
 }
-Main* Main::Get()
+Engine* Engine::Get()
 {
-    return s_main;
+    return s_engine;
 }
 
-Main::Main(MainArgs args, MainConfig config, App* app)
+Engine::Engine(EngineArgs args, EngineConfig config, App* app)
     : m_args(args), m_config(config), m_app(app)
 {
 }
-Main::~Main()
+Engine::~Engine()
 {
-    s_main = nullptr;
+	s_engine = nullptr;
 }
-int Main::Run()
+int Engine::Run()
 {
     Init();
     glutMainLoop();
     return 0;
 }
-void Main::Init()
+void Engine::Init()
 {
     m_timer.Measure();
 
@@ -64,11 +64,11 @@ void Main::Init()
 
     UpdateWorldTransfrom();
 
-    glutDisplayFunc(&Main::DrawCallback);
-    glutIdleFunc(&Main::IdleCallback);
+    glutDisplayFunc(&Engine::DrawCallback);
+    glutIdleFunc(&Engine::IdleCallback);
 }
 
-void Main::Draw()
+void Engine::Draw()
 {
     m_renderer.Clear();
     for(size_t l = 0; l < Layers::Count(); l++) {
@@ -80,7 +80,7 @@ void Main::Draw()
     m_renderer.SwapBuffers();
 }
 
-void Main::Update()
+void Engine::Update()
 {
     m_timer.Measure();
     m_app->Update(m_timer.GetDelta());
@@ -93,7 +93,7 @@ void Main::Update()
     UpdateWorldTransfrom();
 }
 
-void Main::UpdateWorldTransfrom()
+void Engine::UpdateWorldTransfrom()
 {
     for(size_t l = 0; l < Layers::Count(); l++) {
         Layer& layer = Layers::Get(l);
@@ -103,13 +103,13 @@ void Main::UpdateWorldTransfrom()
     }
 }
 
-void Main::DrawCallback()
+void Engine::DrawCallback()
 {
-    s_main->Draw();
+	s_engine->Draw();
 }
-void Main::IdleCallback()
+void Engine::IdleCallback()
 {
-    s_main->Update();
+	s_engine->Update();
     glutPostRedisplay();
 }
 

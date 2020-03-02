@@ -5,9 +5,10 @@ workspace "pgr-project"
     cppdialect "C++17"
 
     targetdir "app/"
+    debugdir "app/" 
     targetname ("%{cfg.buildcfg}-%{cfg.system}%{cfg.architecture}")
     objdir "obj/%{cfg.buildcfg}-%{cfg.system}%{cfg.architecture}/"
-
+       
     includedirs "include"
     --libdirs "lib"
 
@@ -35,12 +36,12 @@ project("app")
     --location ("solutions/" .. _ACTION)
     kind "ConsoleApp"
     language "C++"
-    files ("src/**")
+    files ("src/**", "app/res/**")
     includedirs "src"
     --postbuildcommands { "{COPY} ../../res %{cfg.targetdir}/"}
     --libdirs "lib"
     filter "system:windows"
-        links { "freeglut", "assimp", "DevIL", "AntTweakBar", "zlib", "IrrXML" }
+        links { "freeglut", "assimp", "DevIL", "AntTweakBar", "zlibstatic", "IrrXML" }
     filter "system:linux"
         links { "glut", "assimp", "IL", "AntTweakBar", "z", "GLEW", "X11", "dl", "pthread", "GLX" }
     filter {}

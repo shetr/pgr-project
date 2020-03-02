@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="debug|Win32">
+      <Configuration>debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="release|Win32">
+      <Configuration>release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{665E880B-D267-887C-5BE3-9E7CC7EB937C}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>app</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>app\</OutDir>
+    <IntDir>obj\debug-windows\</IntDir>
+    <TargetName>debug-windows</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>app\</OutDir>
+    <IntDir>obj\release-windows\</IntDir>
+    <TargetName>release-windows</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>PGR_WINDOWS;WIN32;PGR_DEBUG;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>freeglut.lib;assimp.lib;DevIL.lib;AntTweakBar.lib;zlibstatic.lib;IrrXML.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>PGR_WINDOWS;WIN32;PGR_RELEASE;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>include;src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Full</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>freeglut.lib;assimp.lib;DevIL.lib;AntTweakBar.lib;zlibstatic.lib;IrrXML.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="src\app\App.hpp" />
+    <ClInclude Include="src\core\EventSystem.hpp" />
+    <ClInclude Include="src\core\Input.hpp" />
+    <ClInclude Include="src\core\Engine.hpp" />
+    <ClInclude Include="src\core\Timer.hpp" />
+    <ClInclude Include="src\core\Window.hpp" />
+    <ClInclude Include="src\core\debug.hpp" />
+    <ClInclude Include="src\core\manage\BufferManager.hpp" />
+    <ClInclude Include="src\core\manage\ShaderManager.hpp" />
+    <ClInclude Include="src\core\manage\TextureManager.hpp" />
+    <ClInclude Include="src\core\render\Buffer.hpp" />
+    <ClInclude Include="src\core\render\Material.hpp" />
+    <ClInclude Include="src\core\render\Mesh.hpp" />
+    <ClInclude Include="src\core\render\OpenGL.hpp" />
+    <ClInclude Include="src\core\render\Program.hpp" />
+    <ClInclude Include="src\core\render\Renderer.hpp" />
+    <ClInclude Include="src\core\render\Shader.hpp" />
+    <ClInclude Include="src\core\render\Texture.hpp" />
+    <ClInclude Include="src\core\render\Uniforms.hpp" />
+    <ClInclude Include="src\core\render\VertexArray.hpp" />
+    <ClInclude Include="src\core\render\VertexTypes.hpp" />
+    <ClInclude Include="src\core\scene\Camera.hpp" />
+    <ClInclude Include="src\core\scene\Layers.hpp" />
+    <ClInclude Include="src\core\scene\Node.hpp" />
+    <ClInclude Include="src\core\types.hpp" />
+    <ClInclude Include="src\core\ui\Rectangle.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\app\App.cpp" />
+    <ClCompile Include="src\core\Input.cpp" />
+    <ClCompile Include="src\core\Engine.cpp" />
+    <ClCompile Include="src\core\Timer.cpp" />
+    <ClCompile Include="src\core\Window.cpp" />
+    <ClCompile Include="src\core\manage\BufferManager.cpp" />
+    <ClCompile Include="src\core\manage\ShaderManager.cpp" />
+    <ClCompile Include="src\core\render\Buffer.cpp" />
+    <ClCompile Include="src\core\render\OpenGL.cpp" />
+    <ClCompile Include="src\core\render\Program.cpp" />
+    <ClCompile Include="src\core\render\Renderer.cpp" />
+    <ClCompile Include="src\core\render\Shader.cpp" />
+    <ClCompile Include="src\core\render\Texture.cpp" />
+    <ClCompile Include="src\core\render\Uniforms.cpp" />
+    <ClCompile Include="src\core\render\VertexArray.cpp" />
+    <ClCompile Include="src\core\render\VertexTypes.cpp" />
+    <ClCompile Include="src\core\render\gl_core_4_4.c" />
+    <ClCompile Include="src\core\scene\Camera.cpp" />
+    <ClCompile Include="src\core\scene\Layers.cpp" />
+    <ClCompile Include="src\core\scene\Node.cpp" />
+    <ClCompile Include="src\core\ui\Rectangle.cpp" />
+    <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

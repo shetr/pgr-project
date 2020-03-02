@@ -36,23 +36,25 @@ private:
     List<void*>::iterator m_it;
     Handler m_handler;
     Listener* m_listener;
+	bool m_attached;
 public:
     EventHandler()
-        : m_it(nullptr), m_listener(nullptr), m_handler(nullptr) {}
+        : m_listener(nullptr), m_handler(nullptr), m_attached(false) {}
     EventHandler(Listener* listener, Handler handler)
-        : m_it(nullptr), m_listener(listener), m_handler(handler) {}
+        : m_listener(listener), m_handler(handler), m_attached(false) {}
     
     inline void OnEvent(const Event& event) override { 
         (m_listener->*m_handler)(event); 
     }
     inline bool IsAttached() override { 
-        return m_it._M_node; 
+        return m_attached;
     }
     inline void SetIterator(List<void*>::iterator it) override { 
         m_it = it; 
+		m_attached = true;
     }
     inline void RemoveIterator() override{
-        m_it._M_node = nullptr; 
+		m_attached = false;
     }
     inline List<void*>::iterator GetIterator() override { 
         return m_it; 
@@ -123,7 +125,7 @@ public:
     {
         List<void*>& handlers = m_handlersMap[TypeIndex(typeid(Event))];
         handlers.erase(handler->GetIterator());
-        handler->SetIterator(List<void*>::iterator(nullptr));
+        handler->RemoveIterator();
     }
     template<typename Event>
     inline void Execute(const Event& event)

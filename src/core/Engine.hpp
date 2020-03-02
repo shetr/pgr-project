@@ -1,12 +1,12 @@
 /**
- * @file Main.hpp
+ * @file Engine.hpp
  * @author sadekpet 
  * @brief 
  * 
  */
 
-#ifndef PGR_MAIN_HPP
-#define PGR_MAIN_HPP
+#ifndef PGR_ENGINE_HPP
+#define PGR_ENGINE_HPP
 
 #include <core/types.hpp>
 #include <app/App.hpp>
@@ -26,40 +26,40 @@ enum DebugLevel {
   DEBUG_HIGH 
 };
 
-struct MainConfig
+struct EngineConfig
 {
     WindowSize windowSize;
     const char* windowTitle;
     DebugLevel debugLevel;
 };
 
-struct MainArgs
+struct EngineArgs
 {
     int* pargc;
     char** argv;
 };
 
-class Main
+class Engine
 {
 private:
-    static Main* s_main;
+    static Engine* s_engine;
     Renderer m_renderer;
-    MainArgs m_args;
-    MainConfig m_config;
+    EngineArgs m_args;
+    EngineConfig m_config;
     Timer m_timer;
     Unique<Window> m_window;
     Unique<ShaderManager> m_shaderManager;
     Unique<App> m_app;
 public:
-    static void Create(MainArgs args, MainConfig config, App* app);
-    static Main* Get();
-    ~Main();
+    static void Create(EngineArgs args, EngineConfig config, App* app);
+    static Engine* Get();
+    ~Engine();
 
     int Run();
 
     void SetTimeSpeed(float speed) { m_timer.SetTimeSpeed(speed); }
 private:
-    Main(MainArgs args, MainConfig config, App* app);
+    Engine(EngineArgs args, EngineConfig config, App* app);
     void Init();
     void Draw();
     void Update();
@@ -71,4 +71,4 @@ private:
 
 }
 
-#endif // PGR_MAIN_HPP
+#endif // PGR_ENGINE_HPP

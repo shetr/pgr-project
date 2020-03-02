@@ -11,7 +11,7 @@ class VertexArray
 {
 protected:
     uint m_id;
-    uint m_elementCount;
+    uint m_elementCount = 0;
     uint m_size = 0;
 public:
     VertexArray();
