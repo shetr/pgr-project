@@ -48,14 +48,14 @@ void Renderer::OnWindowResize(const WindowSizeEvent& event)
 void Renderer::Draw(Material& material)
 {
     int programID = ShaderManager::BindRenderProgram(material.GetType());
-    Mesh& mesh = material.GetMesh();
-    const Shared<VertexArray>& vertexArray = mesh.GetVertexArray();
+    Primitives& primitives = material.GetPrimitives();
+    const Shared<VertexArray>& vertexArray = primitives.GetVertexArray();
     vertexArray->Bind();
     material.GetTextureUnits().Activate();
     Uniforms& uniforms = material.GetUniforms();
     uniforms.Update();
     uniforms.SetUniforms(programID);
-    GL(DrawElements(static_cast<uint>(mesh.GetType()), mesh.GetCount(), GL_UNSIGNED_INT, 0));
+    GL(DrawElements(static_cast<uint>(primitives.GetType()), primitives.GetCount(), GL_UNSIGNED_INT, 0));
     VertexArray::UnBind();
     GraphicsProgram::UnBind();
 }

@@ -8,7 +8,7 @@
 #ifndef PGR_MATERIAL_HPP
 #define PGR_MATERIAL_HPP
 
-#include "Mesh.hpp"
+#include "Primitives.hpp"
 #include "Uniforms.hpp"
 #include "Texture.hpp"
 
@@ -18,7 +18,7 @@ class Material
 {
 public:
     virtual TypeIndex GetType() const = 0;
-    virtual Mesh& GetMesh() = 0;
+    virtual Primitives& GetPrimitives() = 0;
     virtual Uniforms& GetUniforms() = 0;
     virtual TextureUnits& GetTextureUnits() = 0;
 };

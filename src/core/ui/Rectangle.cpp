@@ -31,7 +31,7 @@ TypeIndex RectangleMaterial::GetType() const
 {
     return TypeIndex(typeid(RectangleMaterial));
 }
-Mesh& RectangleMaterial::GetMesh()
+Primitives& RectangleMaterial::GetPrimitives()
 {
     return m_rectangle;
 }

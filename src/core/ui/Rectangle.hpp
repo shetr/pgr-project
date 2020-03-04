@@ -14,7 +14,7 @@
 
 namespace sadekpet {
 
-class Rectangle : public Mesh
+class Rectangle : public Primitives
 {
 private:
     Vec2D m_vertices[4];
@@ -50,7 +50,7 @@ private:
 public:
     RectangleMaterial() {}
     TypeIndex GetType() const override;
-    Mesh& GetMesh() override;
+    Primitives& GetPrimitives() override;
     Uniforms& GetUniforms() override;
     TextureUnits& GetTextureUnits() override;
 };
