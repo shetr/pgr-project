@@ -2,7 +2,7 @@
 
 #include "OpenGL.hpp"
 #include <core/scene/Node.hpp>
-#include <core/scene/Camera.hpp>
+#include <core/scene/Layers.hpp>
 
 #include <iostream>
 
@@ -34,7 +34,10 @@ void Uniforms::SetUniforms(int programID)
 
 void Uniforms::Update()
 {
-    Camera* camera = Camera::GetCurrent();
+    Layer* layer = Layers::GetCurrent();
+    if(layer == nullptr) { return; }
+    Camera* camera = layer->GetCurrentCamera();
+    if(camera == nullptr) { return; }
     SetMVP(m_owner->GetWorldTransform(), glm::inverse(camera->GetWorldTransform()), camera->GetProjection());
     UpdateImpl();
 }

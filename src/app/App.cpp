@@ -22,8 +22,8 @@ void App::Init()
     Layer& layer = Layers::Get(Layers::Add("2D"));
     m_rectangle = new RectangleNode();
     layer.Add(m_rectangle);
-    Camera* camera = new Camera(glm::mat4(1));
-    Camera::SetCurrent(camera);
+    Camera* camera = new PerspectiveCamera(M_PI_2, 0.1f, 100.0f);
+    layer.SetCurrentCamera(camera);
     layer.Add(camera);
 }
 void App::Update(float deltaTime)

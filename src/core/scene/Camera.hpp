@@ -15,16 +15,42 @@ namespace sadekpet {
 
 class Camera : public Node
 {
-private:
-    static Camera* s_current;
+protected:
+    static Set<Camera*> s_cameras;
     glm::mat4 m_projection;
 public:
-    Camera(const glm::mat4& projection) : m_projection(projection) {}
+    Camera(const glm::mat4& projection = glm::mat4(1.0f)) 
+        : m_projection(projection) { s_cameras.insert(this); }
+    virtual ~Camera() { s_cameras.erase(this); }
     const glm::mat4& GetProjection() const { return m_projection; }
 
-    static Camera* GetCurrent() { return s_current; }
-    static void SetCurrent(Camera* c) { s_current = c; } 
+    virtual void Resize() = 0;
+
+    static Set<Camera*>& Cameras() { return s_cameras; }
+
+protected:
+    float GetAspectRatio();
 };
+
+class PerspectiveCamera : public Camera 
+{
+protected:
+    float m_fov;
+    float m_near;
+    float m_far;
+public:
+    PerspectiveCamera(float fov, float near, float far);
+
+    virtual void Resize();
+protected:
+    void SetProjection();
+};
+
+/*
+class OrthographicCamera : public Camera 
+{
+
+};*/
 
 }
 

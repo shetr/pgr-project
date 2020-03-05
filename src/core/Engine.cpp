@@ -73,10 +73,12 @@ void Engine::Draw()
     m_renderer.Clear();
     for(size_t l = 0; l < Layers::Count(); l++) {
         Layer& layer = Layers::Get(l);
+        Layers::SetCurrent(&layer);
         for(Pair<uint, VisibleNode*> p : layer.Visible()) {
             m_renderer.Draw(p.second->GetMaterial());
         }
     }
+    Layers::SetCurrent(nullptr);
     m_renderer.SwapBuffers();
 }
 
@@ -86,6 +88,7 @@ void Engine::Update()
     m_app->Update(m_timer.GetDelta());
     for(size_t l = 0; l < Layers::Count(); l++) {
         Layer& layer = Layers::Get(l);
+        Layers::SetCurrent(&layer);
         for(Pair<uint, Node*> p : layer.Roots()) {
             p.second->Update(m_timer.GetDelta());
         }
@@ -97,10 +100,12 @@ void Engine::UpdateWorldTransfrom()
 {
     for(size_t l = 0; l < Layers::Count(); l++) {
         Layer& layer = Layers::Get(l);
+        Layers::SetCurrent(&layer);
         for(Pair<uint, Node*> p : layer.Roots()) {
             p.second->UpdateWorldTransform();
         }
     }
+    Layers::SetCurrent(nullptr);
 }
 
 void Engine::DrawCallback()

@@ -16,6 +16,7 @@
 #include <unordered_map>
 #include <vector>
 #include <list>
+#include <set>
 #include <string>
 #include <optional>
 
@@ -40,6 +41,9 @@ using List = std::list<T>;
 
 template<typename K, typename V>
 using UnordMap = std::unordered_map<K, V>;
+
+template<typename K>
+using Set = std::set<K>;
 
 template<typename T>
 using Opt = std::optional<T>;

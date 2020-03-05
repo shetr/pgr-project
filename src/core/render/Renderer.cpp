@@ -1,6 +1,7 @@
 #include "Renderer.hpp"
 
 #include "OpenGL.hpp"
+#include <core/scene/Camera.hpp>
 
 #include <iostream>
 
@@ -43,6 +44,9 @@ void Renderer::OnWindowResize(const WindowSizeEvent& event)
 {
     WindowSize winSize = Window::GetSize();
     GL(Viewport(0, 0, winSize.width, winSize.height));
+    for(Camera* camera: Camera::Cameras()) {
+        camera->Resize();
+    }
 }
 
 void Renderer::Draw(Material& material)
