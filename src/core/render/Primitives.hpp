@@ -25,8 +25,10 @@ enum class PrimitiveType : uint
 
 class Primitives
 {
+protected:
+    Unique<VertexArray> m_vertexArray;
 public:
-    virtual const Shared<VertexArray>& GetVertexArray() = 0;
+    virtual void Bind() const { m_vertexArray->Bind(); }
     virtual PrimitiveType GetType() const = 0;
     virtual int GetCount() const = 0;
 };
@@ -34,14 +36,12 @@ public:
 class Mesh2D : public Primitives
 {
 protected:
-    Shared<VertexBuffer<Vec2D>> m_vericesBuffer;
-    Shared<VertexBuffer<Vec2D>> m_uvsBuffer;
-    Shared<IndexBuffer> m_indicesBuffer;
-    Shared<VertexArray> m_vertexArray;
+    Unique<VertexBuffer<Vec2D>> m_vericesBuffer;
+    Unique<VertexBuffer<Vec2D>> m_uvsBuffer;
+    Unique<IndexBuffer> m_indicesBuffer;
     int m_indicesCount;
 public:
-    Mesh2D(int vertexCount, int indicesCount, Vec2D* vertices, Vec2D* uvs, int* indices);
-    virtual const Shared<VertexArray>& GetVertexArray() override { return m_vertexArray; }
+    Mesh2D(int vertexCount, int indicesCount, glm::vec2* vertices, glm::vec2* uvs, int* indices);
     virtual PrimitiveType GetType() const override { return PrimitiveType::TRIANGLES; }
     virtual int GetCount() const override { return m_indicesCount; }
 };
@@ -49,15 +49,13 @@ public:
 class Mesh3D : public Primitives
 {
 protected:
-    Shared<VertexBuffer<Vec3D>> m_vericesBuffer;
-    Shared<VertexBuffer<Vec2D>> m_uvsBuffer;
-    Shared<VertexBuffer<Vec3D>> m_normalsBuffer;
-    Shared<IndexBuffer> m_indicesBuffer;
-    Shared<VertexArray> m_vertexArray;
+    Unique<VertexBuffer<Vec3D>> m_vericesBuffer;
+    Unique<VertexBuffer<Vec2D>> m_uvsBuffer;
+    Unique<VertexBuffer<Vec3D>> m_normalsBuffer;
+    Unique<IndexBuffer> m_indicesBuffer;
     int m_indicesCount;
 public:
-    Mesh3D(int vertexCount, int indicesCount, Vec3D* vertices, Vec2D* uvs, Vec3D* normals, int* indices);
-    virtual const Shared<VertexArray>& GetVertexArray() override { return m_vertexArray; }
+    Mesh3D(int vertexCount, int indicesCount, glm::vec3* vertices, glm::vec2* uvs, glm::vec3* normals, int* indices);
     virtual PrimitiveType GetType() const override { return PrimitiveType::TRIANGLES; }
     virtual int GetCount() const override { return m_indicesCount; }
 };
@@ -65,13 +63,11 @@ public:
 class Line3D : public Primitives
 {
 protected:
-    Shared<VertexBuffer<Vec3D>> m_vericesBuffer;
-    Shared<IndexBuffer> m_indicesBuffer;
-    Shared<VertexArray> m_vertexArray;
+    Unique<VertexBuffer<Vec3D>> m_vericesBuffer;
+    Unique<IndexBuffer> m_indicesBuffer;
     int m_indicesCount;
 public:
-    Line3D(int vertexCount, int indicesCount, Vec3D* vertices, int* indices);
-    virtual const Shared<VertexArray>& GetVertexArray() override { return m_vertexArray; }
+    Line3D(int vertexCount, int indicesCount, glm::vec3* vertices, int* indices);
     virtual PrimitiveType GetType() const override { return PrimitiveType::LINES; }
     virtual int GetCount() const override { return m_indicesCount; }
 };

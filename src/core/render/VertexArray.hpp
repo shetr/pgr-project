@@ -23,10 +23,10 @@ public:
     int GetSize() const { return m_size; }
     uint GetID() const { return m_id; }
 
-    void SetIndexBuffer(const Shared<IndexBuffer>& indexBuffer);
+    void SetIndexBuffer(const Unique<IndexBuffer>& indexBuffer);
     
     template<typename Vertex>
-    void AddVertexBuffer(const Shared<VertexBuffer<Vertex>>& vertexBuffer){
+    void AddVertexBuffer(const Unique<VertexBuffer<Vertex>>& vertexBuffer){
         Bind();
         vertexBuffer->Bind();
         const VertexLayout& layout = vertexBuffer->GetLayout();

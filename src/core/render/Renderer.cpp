@@ -25,6 +25,8 @@ void Renderer::Init()
 {
     SetClearColor(glm::vec4(0, 0, 0, 1));
     GL(Enable(GL_DEPTH_TEST));
+    GL(CullFace( GL_BACK));
+    GL(Enable(GL_CULL_FACE));
     WindowSize winSize = Window::GetSize();
     GL(Viewport(0, 0, winSize.width, winSize.height));
     m_windowSizeHandler = std::make_unique<WindowSizeHandler>(this, &Renderer::OnWindowResize, Window::Get());
@@ -52,14 +54,13 @@ void Renderer::OnWindowResize(const WindowSizeEvent& event)
 void Renderer::Draw(Material& material)
 {
     int programID = ShaderManager::BindRenderProgram(material.GetType());
-    Primitives& primitives = material.GetPrimitives();
-    const Shared<VertexArray>& vertexArray = primitives.GetVertexArray();
-    vertexArray->Bind();
+    const Shared<Primitives>& primitives = material.GetPrimitives();
+    primitives->Bind();
     material.GetTextureUnits().Activate();
     Uniforms& uniforms = material.GetUniforms();
     uniforms.Update();
     uniforms.SetUniforms(programID);
-    GL(DrawElements(static_cast<uint>(primitives.GetType()), primitives.GetCount(), GL_UNSIGNED_INT, 0));
+    GL(DrawElements(static_cast<uint>(primitives->GetType()), primitives->GetCount(), GL_UNSIGNED_INT, 0));
     VertexArray::UnBind();
     GraphicsProgram::UnBind();
 }

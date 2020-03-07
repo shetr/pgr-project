@@ -4,19 +4,19 @@ namespace sadekpet {
 
 Rectangle::Rectangle() :
     m_vertices{ 
-        {glm::vec2(-0.5f,-0.5f)}, 
-        {glm::vec2(-0.5f, 0.5f)}, 
+        {glm::vec2( 0.5f,-0.5f)},
         {glm::vec2( 0.5f, 0.5f)}, 
-        {glm::vec2( 0.5f,-0.5f)}
+        {glm::vec2(-0.5f, 0.5f)},
+        {glm::vec2(-0.5f,-0.5f)}
     },
     m_indices{0, 1, 2, 0, 2, 3}
 {
-    m_vertexBuffer = Shared<VertexBuffer<Vec2D>>(VertexBuffer<Vec2D>::Create(4*sizeof(Vec2D), m_vertices));
-    m_indexBuffer = Shared<IndexBuffer>(IndexBuffer::Create(6*sizeof(int), m_indices));
+    m_vertexBuffer = Unique<VertexBuffer<Vec2D>>(VertexBuffer<Vec2D>::Create(4*sizeof(Vec2D), m_vertices));
+    m_indexBuffer = Unique<IndexBuffer>(IndexBuffer::Create(6*sizeof(int), m_indices));
     VertexArray* vertexArray = new VertexArray();
     vertexArray->SetIndexBuffer(m_indexBuffer);
     vertexArray->AddVertexBuffer(m_vertexBuffer);
-    m_vertexArray = Shared<VertexArray>(vertexArray);
+    m_vertexArray = Unique<VertexArray>(vertexArray);
 }
 
 void RectangleUniforms::SetUniformsImpl(int programID)
@@ -31,7 +31,7 @@ TypeIndex RectangleMaterial::GetType() const
 {
     return TypeIndex(typeid(RectangleMaterial));
 }
-Primitives& RectangleMaterial::GetPrimitives()
+const Shared<Primitives>& RectangleMaterial::GetPrimitives()
 {
     return m_rectangle;
 }

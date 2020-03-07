@@ -23,6 +23,10 @@ void App::Init()
     m_rectangle = new RectangleNode();
     layer.Add(m_rectangle);
     Camera* camera = new PerspectiveCamera(M_PI_2, 0.1f, 100.0f);
+    Transform& cameraTrans = camera->GetTransform();
+    cameraTrans.pos.z = 3;
+    cameraTrans.rotAxis = glm::vec3(0,1,0);
+    cameraTrans.rotAngle = M_PI_2 /2;
     layer.SetCurrentCamera(camera);
     layer.Add(camera);
 }

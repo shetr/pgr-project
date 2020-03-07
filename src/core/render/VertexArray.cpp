@@ -15,7 +15,7 @@ VertexArray::~VertexArray()
     GL(DeleteVertexArrays(1, &m_id));
 }
 
-void VertexArray::SetIndexBuffer(const Shared<IndexBuffer>& indexBuffer)
+void VertexArray::SetIndexBuffer(const Unique<IndexBuffer>& indexBuffer)
 {
     Bind();
     indexBuffer->Bind();

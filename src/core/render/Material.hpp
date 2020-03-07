@@ -18,7 +18,7 @@ class Material
 {
 public:
     virtual TypeIndex GetType() const = 0;
-    virtual Primitives& GetPrimitives() = 0;
+    virtual const Shared<Primitives>& GetPrimitives() = 0;
     virtual Uniforms& GetUniforms() = 0;
     virtual TextureUnits& GetTextureUnits() = 0;
 };

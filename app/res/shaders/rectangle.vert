@@ -8,5 +8,5 @@ uniform mat4  PVM;
 
 void main()
 {
-    gl_Position = M * vec4(position, 0.0, 1.0) ;
+    gl_Position = PVM * vec4(position, 0.0, 1.0) ;
 }

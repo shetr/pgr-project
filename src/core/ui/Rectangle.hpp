@@ -19,12 +19,10 @@ class Rectangle : public Primitives
 private:
     Vec2D m_vertices[4];
     int m_indices[6];
-    Shared<VertexBuffer<Vec2D>> m_vertexBuffer;
-    Shared<IndexBuffer> m_indexBuffer;
-    Shared<VertexArray> m_vertexArray;
+    Unique<VertexBuffer<Vec2D>> m_vertexBuffer;
+    Unique<IndexBuffer> m_indexBuffer;
 public:
     Rectangle();
-    const Shared<VertexArray>& GetVertexArray() override { return m_vertexArray; }
     PrimitiveType GetType() const override { return PrimitiveType::TRIANGLES; }
     int GetCount() const override { return 6; }
 };
@@ -44,13 +42,13 @@ protected:
 class RectangleMaterial : public Material
 {
 private:
-    Rectangle m_rectangle;
+    Shared<Primitives> m_rectangle = Shared<Primitives>(new Rectangle());
     RectangleUniforms m_uniforms;
     TextureUnits m_textureUnits = TextureUnits({});
 public:
-    RectangleMaterial() {}
+    RectangleMaterial() { }
     TypeIndex GetType() const override;
-    Primitives& GetPrimitives() override;
+    const Shared<Primitives>& GetPrimitives() override;
     Uniforms& GetUniforms() override;
     TextureUnits& GetTextureUnits() override;
 };
