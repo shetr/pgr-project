@@ -1,6 +1,6 @@
 #include "Node.hpp"
 
-#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/transform.hpp>
 
 #include "Layers.hpp"
 
@@ -8,7 +8,7 @@ namespace sadekpet {
 
 glm::mat4 Transform::ToMat4() const
 {
-    return glm::translate(glm::rotate(glm::scale(glm::mat4(1.0f), scale), rotAngle, rotAxis), pos);
+    return glm::translate(pos) * glm::rotate(rotAngle, rotAxis) * glm::scale(scale);
 }
 
 uint Node::s_idGen = 0;

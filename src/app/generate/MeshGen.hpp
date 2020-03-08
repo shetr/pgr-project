@@ -18,7 +18,7 @@ static Mesh3D* BasicSphere(uint segmentation);
 static Mesh3D* BasicSphere(uint meridianCount, uint parallelCount);
 
 private:
-static void MakeRectangle(int* outIndices, int v0, int v1, int v2, int v3);
+static void MakeQuad(int* outIndices, int v0, int v1, int v2, int v3);
 };
 
 }

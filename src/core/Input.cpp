@@ -2,6 +2,8 @@
 
 #include "render/OpenGL.hpp"
 
+#include "Window.hpp"
+
 namespace sadekpet {
 
 Input Input::s_input{};
@@ -38,6 +40,22 @@ bool Input::IsMouseButtonPressed(MouseButton button)
 bool Input::IsCursorInWindow()
 {
     return s_isCursorInWindow;
+}
+MousePos Input::GetMousePos()
+{
+    return s_mousePos;
+}
+void Input::SetMousePos(const MousePos& pos)
+{
+    glutWarpPointer(pos.x, pos.y);
+}
+void Input::SetMousePosToCenter()
+{
+    MousePos pos;
+    WindowSize winSize = Window::GetSize();
+    pos.x = winSize.width/2;
+    pos.y = winSize.height/2;
+    SetMousePos(pos);
 }
 
 bool& Input::KeyPressed(Key key)

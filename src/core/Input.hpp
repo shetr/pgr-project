@@ -116,6 +116,9 @@ public:
     static bool IsSpecialKeyPressed(SpecialKey key);
     static bool IsMouseButtonPressed(MouseButton button);
     static bool IsCursorInWindow();
+    static MousePos GetMousePos();
+    static void SetMousePos(const MousePos& pos);
+    static void SetMousePosToCenter();
 
     PGR_EVENT_ACTIONS(KeyEvent, m_eventSystem)
     PGR_EVENT_ACTIONS(SpecialKeyEvent, m_eventSystem)
