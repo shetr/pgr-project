@@ -27,6 +27,9 @@ public:
     void Activate();
     void Deactivate();
     Camera* GetCamera() { return m_camera; }
+protected:
+    virtual void OnActivate() {} 
+    virtual void OnDeactivate() {} 
 };
 
 class CameraControll
@@ -61,14 +64,27 @@ class MovingCamera : public CameraController
 
 class MovableCamera : public CameraController
 {
+    using MouseMoveHandler = ScopedEventHandler<MouseMoveEvent, MovableCamera>;
 private:
-    float m_moveSpeed = 1.0f;
-    float m_turnSpeed = 1.0f;
+    float m_moveSpeed = 2.0f;
+    float m_turnSpeed = 0.1f;
+    glm::vec2 m_actualDir = glm::vec2(0,0);
+    glm::vec2 m_prevDir = glm::vec2(0,0);
+    glm::vec2 m_nextDir = glm::vec2(0,0);
+    float m_lerpSteps = 8;
+    float m_lerpStep = 1;
+    Unique<MouseMoveHandler> m_mouseMoveHandler;
 public:
     MovableCamera(Camera* camera, Layer* layer);
     float& MoveSpeed() { return m_moveSpeed; }
     float& TurnSpeed() { return m_turnSpeed; }
     void Update(float deltaTime) override;
+    void OnMouseEvent(const MouseMoveEvent& event);
+protected:
+    void OnActivate() override;
+    void OnDeactivate() override;
+private:
+    void LerpStep();
 };
 
 }

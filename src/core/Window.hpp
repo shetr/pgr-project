@@ -50,6 +50,7 @@ public:
     static void SetSize(WindowSize size);
     static bool IsFullScreen();
 
+    static void Close();
     static void EnterFullScreen();
     static void LeaveFullScreen();
 

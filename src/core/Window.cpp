@@ -39,11 +39,16 @@ bool Window::IsFullScreen()
     return static_cast<bool>(glutGet(GLUT_FULL_SCREEN));
 }
 
-void EnterFullScreen()
+void Window::Close()
+{
+    WindowCloseEvent event{s_window};
+    s_window->m_eventSystem.Execute(event);
+}
+void Window::EnterFullScreen()
 {
     glutFullScreen();
 }
-void LeaveFullScreen()
+void Window::LeaveFullScreen()
 {
     glutLeaveFullScreen();
 }

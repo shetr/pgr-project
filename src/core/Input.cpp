@@ -47,6 +47,7 @@ MousePos Input::GetMousePos()
 }
 void Input::SetMousePos(const MousePos& pos)
 {
+    s_mousePos = pos;
     glutWarpPointer(pos.x, pos.y);
 }
 void Input::SetMousePosToCenter()
@@ -56,6 +57,14 @@ void Input::SetMousePosToCenter()
     pos.x = winSize.width/2;
     pos.y = winSize.height/2;
     SetMousePos(pos);
+}
+void Input::HideCursor()
+{
+    glutSetCursor(GLUT_CURSOR_NONE);
+}
+void Input::ShowCursor()
+{
+    glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
 }
 
 bool& Input::KeyPressed(Key key)

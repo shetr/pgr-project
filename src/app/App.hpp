@@ -18,9 +18,11 @@ class App
 {
     using MouseEnterHandler = ScopedEventHandler<MouseEnterEvent, App>;
     using KeyEventHandler = ScopedEventHandler<KeyEvent, App>;
+    using SpecialKeyEventHandler = ScopedEventHandler<SpecialKeyEvent, App>;
 private:
     Unique<MouseEnterHandler> m_mouseEnterHandler;
     Unique<KeyEventHandler> m_keyEventHandler;
+    Unique<SpecialKeyEventHandler> m_specialKeyEventHandler;
     RectangleNode* m_rectangle;
 public:
     App();
@@ -31,6 +33,7 @@ public:
 
     void OnMouseEnter(const MouseEnterEvent& event);
     void OnKeyPressed(const KeyEvent& event);
+    void OnSpecialKeyPressed(const SpecialKeyEvent& event);
 private:
 
 };

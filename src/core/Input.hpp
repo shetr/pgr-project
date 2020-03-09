@@ -119,6 +119,8 @@ public:
     static MousePos GetMousePos();
     static void SetMousePos(const MousePos& pos);
     static void SetMousePosToCenter();
+    static void HideCursor();
+    static void ShowCursor();
 
     PGR_EVENT_ACTIONS(KeyEvent, m_eventSystem)
     PGR_EVENT_ACTIONS(SpecialKeyEvent, m_eventSystem)

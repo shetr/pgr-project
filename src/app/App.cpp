@@ -7,6 +7,7 @@
 #include <core/scene/Layers.hpp>
 #include <core/scene/Camera.hpp>
 #include <app/scene/CameraController.hpp>
+#include <core/Window.hpp>
 
 namespace sadekpet {
 
@@ -19,6 +20,7 @@ void App::Init()
 {
     m_mouseEnterHandler = std::make_unique<MouseEnterHandler>(this, &App::OnMouseEnter, Input::Get());
     m_keyEventHandler = std::make_unique<KeyEventHandler>(this, &App::OnKeyPressed, Input::Get());
+    m_specialKeyEventHandler = std::make_unique<SpecialKeyEventHandler>(this, &App::OnSpecialKeyPressed, Input::Get());
     ShaderManager::AddRenderProgram(TypeIndex(typeid(RectangleMaterial)), "rectangle");
     Layer& layer = Layers::Get(Layers::Add("3D"));
     m_rectangle = new RectangleNode();
@@ -46,6 +48,14 @@ void App::OnKeyPressed(const KeyEvent& event)
     /*if(event.key == 'a') {
         std::cout << "a " << event.pressed << std::endl;
     }*/
+    if(event.key == 'o') {
+        Window::Close();
+    }
+}
+
+void App::OnSpecialKeyPressed(const SpecialKeyEvent& event)
+{
+
 }
 
 }

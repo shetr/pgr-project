@@ -45,6 +45,7 @@ void Engine::Init()
 
     Window::Init(m_config.windowSize, m_config.windowTitle);
     m_window = Unique<Window>(Window::Get());
+    m_windowCloseHandler = std::make_unique<WindowCloseHandler>(this, &Engine::OnClose, Window::Get());
     Input::Init();
     m_shaderManager = Unique<ShaderManager>(ShaderManager::Init());
 
@@ -65,7 +66,18 @@ void Engine::Init()
     UpdateWorldTransfrom();
 
     glutDisplayFunc(&Engine::DrawCallback);
-    glutIdleFunc(&Engine::IdleCallback);
+    if(m_config.loopType == EngineLoop::FIXED_GLUT) {
+        glutTimerFunc(UpdateTime(), &Engine::TimerCallback, 0);
+    } else {
+        glutIdleFunc(&Engine::UpdateCallback);
+    }
+}
+
+
+void Engine::OnClose(const WindowCloseEvent& event)
+{
+    m_exit = true;
+    glutLeaveMainLoop();
 }
 
 void Engine::Draw()
@@ -112,10 +124,28 @@ void Engine::DrawCallback()
 {
 	s_engine->Draw();
 }
-void Engine::IdleCallback()
+void Engine::UpdateCallback()
 {
+    if(s_engine->m_exit) {
+        return;
+    }
 	s_engine->Update();
     glutPostRedisplay();
+}
+
+void Engine::TimerCallback(int id)
+{
+    if(s_engine->m_exit) {
+        return;
+    }
+    glutTimerFunc(s_engine->UpdateTime(), &Engine::TimerCallback, 0);
+	s_engine->Update();
+    glutPostRedisplay();
+}
+
+float Engine::UpdateTime()
+{
+    return 1 / m_config.fps;
 }
 
 }

@@ -1,6 +1,8 @@
 #include "CameraController.hpp"
 
 #include <glm/gtx/transform.hpp>
+#include <core/Window.hpp>
+#include <iostream>
 
 namespace sadekpet {
 
@@ -14,10 +16,12 @@ void CameraController::Activate()
 { 
     m_active = true;
     m_layer->SetCurrentCamera(m_camera);
+    OnActivate();
 }
 void CameraController::Deactivate()
 { 
     m_active = false; 
+    OnDeactivate();
 }
 
 void CameraControll::Set(size_t i)
@@ -51,6 +55,7 @@ void NumericCamControll::OnKeyPressed(const KeyEvent& event)
 MovableCamera::MovableCamera(Camera* camera, Layer* layer)
     : CameraController(camera, layer)
 {
+    m_mouseMoveHandler = std::make_unique<MouseMoveHandler>(this, &MovableCamera::OnMouseEvent, Input::Get());
     Transform& camTrans = camera->GetTransform();
     camTrans.pos = glm::vec3(0,0,0);
     camTrans.rotAxis = glm::vec3(1,0,0);
@@ -60,9 +65,9 @@ MovableCamera::MovableCamera(Camera* camera, Layer* layer)
 }
 void MovableCamera::Update(float deltaTime)
 {
-    if(IsActive()) {
+    if(IsActive() && Input::IsCursorInWindow()) {
         Transform& camTrans = GetCamera()->GetTransform();
-        glm::vec3 lookDir = glm::rotate(camTrans.rotAngle, m_transform.rotAxis) * glm::vec4(0,0,-1, 0);
+        glm::vec3 lookDir = glm::rotate(m_transform.rotAngle, m_transform.rotAxis) * glm::vec4(0,0,-1, 0);
         glm::vec3 sideDir = glm::cross(lookDir, m_transform.rotAxis);
         float addForward = 0;
         float addSide = 0;
@@ -79,6 +84,45 @@ void MovableCamera::Update(float deltaTime)
             addSide += 1;
         }
         m_transform.pos += (addForward*lookDir + addSide*sideDir) * m_moveSpeed * deltaTime;
+        LerpStep();
+        
+        m_actualDir = ((m_lerpSteps - m_lerpStep) * m_prevDir + m_lerpStep * m_nextDir) / m_lerpSteps;
+        std::cout << m_actualDir.x << ", " << m_actualDir.y << std::endl;
+        float sideRot = m_transform.rotAngle - m_actualDir.x * m_turnSpeed * deltaTime;
+        float upRot = camTrans.rotAngle - m_actualDir.y * m_turnSpeed * deltaTime;
+        if(sideRot > M_PI) { sideRot -= 2*M_PI; }
+        else if(sideRot < -M_PI) { sideRot += 2*M_PI; }
+        m_transform.rotAngle = sideRot;
+        if(upRot < M_PI_2 && upRot > -M_PI_2) {
+            camTrans.rotAngle = upRot;
+        }
+    }
+}
+void MovableCamera::OnActivate()
+{
+    Input::HideCursor();
+}
+void MovableCamera::OnDeactivate()
+{
+    Input::ShowCursor();
+}
+
+void MovableCamera::OnMouseEvent(const MouseMoveEvent& event)
+{
+        WindowSize winSize = Window::GetSize();
+        MousePos mousePos = event.pos;
+        m_nextDir = glm::vec2(mousePos.x - winSize.width/2, mousePos.y - winSize.height/2);
+        m_prevDir = m_actualDir;
+        m_lerpStep = 1;
+        if(m_nextDir.x != 0 || m_nextDir.y != 0) {
+            Input::SetMousePosToCenter();
+        }
+}
+
+void MovableCamera::LerpStep()
+{
+    if(m_lerpStep < m_lerpSteps) {
+        m_lerpStep++;
     }
 }
 

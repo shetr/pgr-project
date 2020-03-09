@@ -26,11 +26,19 @@ enum DebugLevel {
   DEBUG_HIGH 
 };
 
+enum class EngineLoop {
+    NON_STOP,
+    FIXED_GLUT,
+    FIXED_CUSTOM
+};
+
 struct EngineConfig
 {
     WindowSize windowSize;
     const char* windowTitle;
     DebugLevel debugLevel;
+    EngineLoop loopType;
+    float fps;
 };
 
 struct EngineArgs
@@ -41,6 +49,7 @@ struct EngineArgs
 
 class Engine
 {
+    using WindowCloseHandler = ScopedEventHandler<WindowCloseEvent, Engine>;
 private:
     static Engine* s_engine;
     Renderer m_renderer;
@@ -48,14 +57,18 @@ private:
     EngineConfig m_config;
     Timer m_timer;
     Unique<Window> m_window;
+    Unique<WindowCloseHandler> m_windowCloseHandler;
     Unique<ShaderManager> m_shaderManager;
     Unique<App> m_app;
+    bool m_exit = false;
 public:
     static void Create(EngineArgs args, EngineConfig config, App* app);
     static Engine* Get();
     ~Engine();
 
     int Run();
+
+    void OnClose(const WindowCloseEvent& event);
 
     void SetTimeSpeed(float speed) { m_timer.SetTimeSpeed(speed); }
 private:
@@ -66,7 +79,10 @@ private:
     void UpdateWorldTransfrom();
 
     static void DrawCallback();
-    static void IdleCallback();
+    static void UpdateCallback();
+    static void TimerCallback(int id);
+
+    float UpdateTime();
 };
 
 }
