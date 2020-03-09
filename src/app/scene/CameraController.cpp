@@ -1,5 +1,6 @@
 #include "CameraController.hpp"
 
+#include <glm/gtx/transform.hpp>
 
 namespace sadekpet {
 
@@ -43,6 +44,41 @@ void NumericCamControll::OnKeyPressed(const KeyEvent& event)
         } else if (event.key == 'n') {
             Next();
         }
+    }
+}
+
+
+MovableCamera::MovableCamera(Camera* camera, Layer* layer)
+    : CameraController(camera, layer)
+{
+    Transform& camTrans = camera->GetTransform();
+    camTrans.pos = glm::vec3(0,0,0);
+    camTrans.rotAxis = glm::vec3(1,0,0);
+    camTrans.rotAngle = 0;
+    m_transform.rotAxis = glm::vec3(0,1,0);
+    m_transform.rotAngle = 0;
+}
+void MovableCamera::Update(float deltaTime)
+{
+    if(IsActive()) {
+        Transform& camTrans = GetCamera()->GetTransform();
+        glm::vec3 lookDir = glm::rotate(camTrans.rotAngle, m_transform.rotAxis) * glm::vec4(0,0,-1, 0);
+        glm::vec3 sideDir = glm::cross(lookDir, m_transform.rotAxis);
+        float addForward = 0;
+        float addSide = 0;
+        if(Input::IsKeyPressed('s')) {
+            addForward -= 1;
+        }
+        if(Input::IsKeyPressed('w')) {
+            addForward += 1;
+        }
+        if(Input::IsKeyPressed('a')) {
+            addSide -= 1;
+        }
+        if(Input::IsKeyPressed('d')) {
+            addSide += 1;
+        }
+        m_transform.pos += (addForward*lookDir + addSide*sideDir) * m_moveSpeed * deltaTime;
     }
 }
 

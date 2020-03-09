@@ -6,6 +6,7 @@
 #include <core/ui/Rectangle.hpp>
 #include <core/scene/Layers.hpp>
 #include <core/scene/Camera.hpp>
+#include <app/scene/CameraController.hpp>
 
 namespace sadekpet {
 
@@ -23,12 +24,10 @@ void App::Init()
     m_rectangle = new RectangleNode();
     layer.Add(m_rectangle);
     Camera* camera = new PerspectiveCamera(M_PI_2, 0.1f, 100.0f);
-    Transform& cameraTrans = camera->GetTransform();
-    cameraTrans.pos.z = 1;
-    cameraTrans.rotAxis = glm::vec3(0,1,0);
-    cameraTrans.rotAngle = M_PI_2 /4;
-    layer.SetCurrentCamera(camera);
-    layer.Add(camera);
+    MovableCamera* movCamera = new MovableCamera(camera, &layer);
+    movCamera->GetTransform().pos.z = 1;
+    layer.Add(movCamera);
+    movCamera->Activate();
 }
 void App::Update(float deltaTime)
 {
@@ -39,14 +38,14 @@ void App::Update(float deltaTime)
 void App::OnMouseEnter(const MouseEnterEvent& event)
 {
     MousePos pos = Input::GetMousePos();
-    std::cout << "Mouse in window: " << event.entered << ", pos:" << pos.x << "," << pos.y << std::endl;
+    //std::cout << "Mouse in window: " << event.entered << ", pos:" << pos.x << "," << pos.y << std::endl;
 }
 
 void App::OnKeyPressed(const KeyEvent& event)
 {
-    if(event.key == 'a') {
+    /*if(event.key == 'a') {
         std::cout << "a " << event.pressed << std::endl;
-    }
+    }*/
 }
 
 }

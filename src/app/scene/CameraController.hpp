@@ -62,8 +62,8 @@ class MovingCamera : public CameraController
 class MovableCamera : public CameraController
 {
 private:
-    float m_moveSpeed = 0.5f;
-    float m_turnSpeed = 0.5f;
+    float m_moveSpeed = 1.0f;
+    float m_turnSpeed = 1.0f;
 public:
     MovableCamera(Camera* camera, Layer* layer);
     float& MoveSpeed() { return m_moveSpeed; }

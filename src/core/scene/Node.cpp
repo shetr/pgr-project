@@ -23,9 +23,9 @@ Node::~Node()
 {
     if(m_parent != nullptr) {
         m_parent->DisconnectChild(this);
-    } else {
+    } /*else {
         m_layer->Roots().erase(GetID());
-    }
+    }*/
     s_nodesMap.erase(GetID());
     for(Pair<uint, Node*> pair : m_childsMap) {
         delete pair.second;
@@ -41,9 +41,9 @@ void Node::ConnectChild(Node* child)
 {
     if(child->m_parent != nullptr) {
         child->m_parent->DisconnectChild(child);
-    } else {
+    } /*else {
         m_layer->Roots().erase(child->GetID());
-    }
+    }*/
     m_childsMap[child->GetID()] = child;
     child->m_parent = this;
 }
@@ -67,6 +67,9 @@ void Node::UpdateWorldTransform()
 {
     glm::mat4 parentTransform = (m_parent == nullptr) ? glm::mat4(1.0f) : m_parent->m_worldTransform;
     m_worldTransform = parentTransform * m_transform.ToMat4();
+    for(Pair<uint, Node*> p : m_childsMap) {
+        p.second->UpdateWorldTransform();
+    }
 }
 
 VisibleNode::~VisibleNode()
