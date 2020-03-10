@@ -3,6 +3,7 @@
 #include "Window.hpp"
 #include "Input.hpp"
 #include "render/OpenGL.hpp"
+#include <app/App.hpp>
 
 #include <iostream>
 
@@ -24,6 +25,7 @@ Engine* Engine::Get()
 Engine::Engine(EngineArgs args, EngineConfig config, App* app)
     : m_args(args), m_config(config), m_app(app)
 {
+    m_updateTime = UpdateTime();
 }
 Engine::~Engine()
 {
@@ -45,7 +47,6 @@ void Engine::Init()
 
     Window::Init(m_config.windowSize, m_config.windowTitle);
     m_window = Unique<Window>(Window::Get());
-    m_windowCloseHandler = std::make_unique<WindowCloseHandler>(this, &Engine::OnClose, Window::Get());
     Input::Init();
     m_shaderManager = Unique<ShaderManager>(ShaderManager::Init());
 
@@ -67,16 +68,19 @@ void Engine::Init()
 
     glutDisplayFunc(&Engine::DrawCallback);
     if(m_config.loopType == EngineLoop::FIXED_GLUT) {
-        glutTimerFunc(UpdateTime(), &Engine::TimerCallback, 0);
+        SetTimerGLUT();
     } else {
         glutIdleFunc(&Engine::UpdateCallback);
     }
 }
 
 
-void Engine::OnClose(const WindowCloseEvent& event)
+void Engine::SetTimeSpeed(float speed) 
+{ 
+    s_engine->m_timer.SetTimeSpeed(speed);
+}
+void Engine::Exit()
 {
-    m_exit = true;
     glutLeaveMainLoop();
 }
 
@@ -97,6 +101,7 @@ void Engine::Draw()
 void Engine::Update()
 {
     m_timer.Measure();
+    //std::cout << "fps: " << (1/ m_timer.GetDelta()) << std::endl;
     m_app->Update(m_timer.GetDelta());
     for(size_t l = 0; l < Layers::Count(); l++) {
         Layer& layer = Layers::Get(l);
@@ -126,26 +131,24 @@ void Engine::DrawCallback()
 }
 void Engine::UpdateCallback()
 {
-    if(s_engine->m_exit) {
-        return;
-    }
 	s_engine->Update();
     glutPostRedisplay();
 }
 
 void Engine::TimerCallback(int id)
 {
-    if(s_engine->m_exit) {
-        return;
-    }
-    glutTimerFunc(s_engine->UpdateTime(), &Engine::TimerCallback, 0);
+    SetTimerGLUT();
 	s_engine->Update();
     glutPostRedisplay();
 }
 
 float Engine::UpdateTime()
 {
-    return 1 / m_config.fps;
+    return 1.0f / m_config.fps;
+}
+void Engine::SetTimerGLUT()
+{
+    glutTimerFunc(1000.0f*s_engine->m_updateTime, &Engine::TimerCallback, 0);
 }
 
 }

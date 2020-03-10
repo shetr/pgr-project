@@ -13,6 +13,9 @@ Mesh2D::Mesh2D(int vertexCount, int indicesCount, glm::vec2* vertices, glm::vec2
     vertexArray->AddVertexBuffer(m_vericesBuffer);
     vertexArray->AddVertexBuffer(m_uvsBuffer);
     m_vertexArray = Unique<VertexArray>(vertexArray);
+    m_vertexArray->UnBind();
+    m_indicesBuffer->UnBind();
+    m_vericesBuffer->UnBind();
 }
 
 Mesh3D::Mesh3D(int vertexCount, int indicesCount, glm::vec3* vertices, glm::vec2* uvs, glm::vec3* normals, int* indices)
@@ -28,6 +31,9 @@ Mesh3D::Mesh3D(int vertexCount, int indicesCount, glm::vec3* vertices, glm::vec2
     vertexArray->AddVertexBuffer(m_uvsBuffer);
     vertexArray->AddVertexBuffer(m_normalsBuffer);
     m_vertexArray = Unique<VertexArray>(vertexArray);
+    m_vertexArray->UnBind();
+    m_indicesBuffer->UnBind();
+    m_vericesBuffer->UnBind();
 }
 
 Line3D::Line3D(int vertexCount, int indicesCount, glm::vec3* vertices, int* indices)
@@ -39,6 +45,9 @@ Line3D::Line3D(int vertexCount, int indicesCount, glm::vec3* vertices, int* indi
     vertexArray->SetIndexBuffer(m_indicesBuffer);
     vertexArray->AddVertexBuffer(m_vericesBuffer);
     m_vertexArray = Unique<VertexArray>(vertexArray);
+    m_vertexArray->UnBind();
+    m_indicesBuffer->UnBind();
+    m_vericesBuffer->UnBind();
 }
 
 }

@@ -1,5 +1,6 @@
 
 #include <core/Engine.hpp>
+#include <app/App.hpp>
 
 using namespace sadekpet;
 

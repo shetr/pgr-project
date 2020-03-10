@@ -17,6 +17,9 @@ Rectangle::Rectangle() :
     vertexArray->SetIndexBuffer(m_indexBuffer);
     vertexArray->AddVertexBuffer(m_vertexBuffer);
     m_vertexArray = Unique<VertexArray>(vertexArray);
+    m_vertexArray->UnBind();
+    m_indexBuffer->UnBind();
+    m_vertexBuffer->UnBind();
 }
 
 void RectangleUniforms::SetUniformsImpl(int programID)

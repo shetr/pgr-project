@@ -9,7 +9,6 @@
 #define PGR_ENGINE_HPP
 
 #include <core/types.hpp>
-#include <app/App.hpp>
 #include "Window.hpp"
 #include "Timer.hpp"
 #include "render/Renderer.hpp"
@@ -47,9 +46,10 @@ struct EngineArgs
     char** argv;
 };
 
+class App;
+
 class Engine
 {
-    using WindowCloseHandler = ScopedEventHandler<WindowCloseEvent, Engine>;
 private:
     static Engine* s_engine;
     Renderer m_renderer;
@@ -57,10 +57,9 @@ private:
     EngineConfig m_config;
     Timer m_timer;
     Unique<Window> m_window;
-    Unique<WindowCloseHandler> m_windowCloseHandler;
     Unique<ShaderManager> m_shaderManager;
     Unique<App> m_app;
-    bool m_exit = false;
+    float m_updateTime;
 public:
     static void Create(EngineArgs args, EngineConfig config, App* app);
     static Engine* Get();
@@ -68,9 +67,8 @@ public:
 
     int Run();
 
-    void OnClose(const WindowCloseEvent& event);
-
-    void SetTimeSpeed(float speed) { m_timer.SetTimeSpeed(speed); }
+    static void SetTimeSpeed(float speed);
+    static void Exit();
 private:
     Engine(EngineArgs args, EngineConfig config, App* app);
     void Init();
@@ -83,6 +81,7 @@ private:
     static void TimerCallback(int id);
 
     float UpdateTime();
+    static void SetTimerGLUT();
 };
 
 }

@@ -12,7 +12,9 @@ Mesh3D* MeshGen::BasicSphere(uint meridianCount, uint parallelCount)
     uint phiCount = meridianCount + 2;
     uint thetaCount = parallelCount + 2;
     int vertexCount = thetaCount*phiCount;
-    int indicesCount = 6*(parallelCount - 1)*phiCount + 3*2*phiCount;
+    int quadIndicesCount = 6*(parallelCount - 1)*phiCount;
+    int triIndicesCount = 3*phiCount;
+    int indicesCount = quadIndicesCount + 2*triIndicesCount;
     int startQuads = 3*phiCount;
     int startUpTri = indicesCount - startQuads;
     Vector<glm::vec3> vertices(vertexCount);
@@ -32,8 +34,8 @@ Mesh3D* MeshGen::BasicSphere(uint meridianCount, uint parallelCount)
             float cosPhi = glm::cos(phi);
 
             vertices[v].x = sinTheta * cosPhi;
-            vertices[v].y = sinTheta * sinPhi;
-            vertices[v].z = mCosTheta;
+            vertices[v].y = mCosTheta;
+            vertices[v].z = sinTheta * sinPhi;
 
             uvs[v].y = uvY;
             if(p==0 || p==phiCount-1) {
@@ -41,23 +43,26 @@ Mesh3D* MeshGen::BasicSphere(uint meridianCount, uint parallelCount)
             } else {
                 uvs[v].x = pRatio;
             }
-            
-            if(v < phiCount) {
-                int i = v*3;
-                indices[i+0] = v;
-                indices[i+1] = v + phiCount;
-                indices[i+2] = v + phiCount + 1;
-            } else if(v < vertexCount - 2 * phiCount) {
-                int i = startQuads + (parallelCount - 1)*p*6;
-                MakeQuad(&indices[i], v, v + phiCount, v + phiCount + 1, v + 1);
-            } else if(v > vertexCount - phiCount) {
-                int i = startUpTri + p*3;
-                indices[i+0] = v - phiCount;
-                indices[i+1] = v - phiCount + 1;
-                indices[i+2] = v;
-            }
-
         }
+    }
+    for(uint v = 0; v < phiCount; v++) {
+        int i = 3*v;
+        indices[i+0] = v;
+        indices[i+1] = v + phiCount;
+        indices[i+2] = v + phiCount + 1;
+    }
+    for(uint t = 1; t < thetaCount - 2; t++) {
+        for(uint p = 0; p < phiCount; p++) {
+            uint v = p + phiCount*t;
+            uint i = (v - phiCount) * 6 + triIndicesCount;
+            MakeQuad(&indices[i], v, v + phiCount, v + phiCount + 1, v + 1);
+        }
+    }
+    for(uint v = 0; v < phiCount; v++) {
+        int i = triIndicesCount + quadIndicesCount + 3*v;
+        indices[i+0] = v;
+        indices[i+1] = v - phiCount - 1;
+        indices[i+2] = v - phiCount;
     }
 
     return new Mesh3D(vertexCount, indicesCount, vertices.data(), uvs.data(), vertices.data(), indices.data());
@@ -69,9 +74,9 @@ void MeshGen::MakeQuad(int* outIndices, int v0, int v1, int v2, int v3)
     outIndices[0] = v0;
     outIndices[1] = v1;
     outIndices[2] = v2;
-    outIndices[0] = v0;
-    outIndices[2] = v2;
-    outIndices[3] = v3;
+    outIndices[3] = v0;
+    outIndices[4] = v2;
+    outIndices[5] = v3;
 }
 
 }

@@ -67,10 +67,12 @@ void MovableCamera::Update(float deltaTime)
 {
     if(IsActive() && Input::IsCursorInWindow()) {
         Transform& camTrans = GetCamera()->GetTransform();
+        glm::vec3 upDir = m_transform.rotAxis;
         glm::vec3 lookDir = glm::rotate(m_transform.rotAngle, m_transform.rotAxis) * glm::vec4(0,0,-1, 0);
         glm::vec3 sideDir = glm::cross(lookDir, m_transform.rotAxis);
         float addForward = 0;
         float addSide = 0;
+        float addUp = 0;
         if(Input::IsKeyPressed('s')) {
             addForward -= 1;
         }
@@ -83,11 +85,16 @@ void MovableCamera::Update(float deltaTime)
         if(Input::IsKeyPressed('d')) {
             addSide += 1;
         }
-        m_transform.pos += (addForward*lookDir + addSide*sideDir) * m_moveSpeed * deltaTime;
+        if(Input::IsKeyPressed('q')) {
+            addUp -= 1;
+        }
+        if(Input::IsKeyPressed('e')) {
+            addUp += 1;
+        }
+        m_transform.pos += (addForward*lookDir + addSide*sideDir + addUp*upDir) * m_moveSpeed * deltaTime;
         LerpStep();
         
         m_actualDir = ((m_lerpSteps - m_lerpStep) * m_prevDir + m_lerpStep * m_nextDir) / m_lerpSteps;
-        std::cout << m_actualDir.x << ", " << m_actualDir.y << std::endl;
         float sideRot = m_transform.rotAngle - m_actualDir.x * m_turnSpeed * deltaTime;
         float upRot = camTrans.rotAngle - m_actualDir.y * m_turnSpeed * deltaTime;
         if(sideRot > M_PI) { sideRot -= 2*M_PI; }

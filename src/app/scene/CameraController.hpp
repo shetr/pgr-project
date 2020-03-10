@@ -71,7 +71,7 @@ private:
     glm::vec2 m_actualDir = glm::vec2(0,0);
     glm::vec2 m_prevDir = glm::vec2(0,0);
     glm::vec2 m_nextDir = glm::vec2(0,0);
-    float m_lerpSteps = 8;
+    float m_lerpSteps = 5;
     float m_lerpStep = 1;
     Unique<MouseMoveHandler> m_mouseMoveHandler;
 public:

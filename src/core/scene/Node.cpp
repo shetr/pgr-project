@@ -2,6 +2,8 @@
 
 #include <glm/gtx/transform.hpp>
 
+#include <iostream>
+
 #include "Layers.hpp"
 
 namespace sadekpet {

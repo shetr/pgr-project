@@ -24,6 +24,7 @@ public:
     void Measure();
     void SetTimeSpeed(float speed) { m_speed = speed; }
     float GetDelta() const { return m_speed * m_delta; }
+    float GetRealDelta() const { return m_delta; }
 };
 
 }
