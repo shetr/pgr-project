@@ -95,9 +95,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\app\App.hpp" />
+    <ClInclude Include="src\app\generate\MeshGen.hpp" />
+    <ClInclude Include="src\app\scene\CameraController.hpp" />
+    <ClInclude Include="src\app\scene\Sphere.hpp" />
+    <ClInclude Include="src\core\Engine.hpp" />
     <ClInclude Include="src\core\EventSystem.hpp" />
     <ClInclude Include="src\core\Input.hpp" />
-    <ClInclude Include="src\core\Engine.hpp" />
     <ClInclude Include="src\core\Timer.hpp" />
     <ClInclude Include="src\core\Window.hpp" />
     <ClInclude Include="src\core\debug.hpp" />
@@ -106,8 +109,8 @@
     <ClInclude Include="src\core\manage\TextureManager.hpp" />
     <ClInclude Include="src\core\render\Buffer.hpp" />
     <ClInclude Include="src\core\render\Material.hpp" />
-    <ClInclude Include="src\core\render\Mesh.hpp" />
     <ClInclude Include="src\core\render\OpenGL.hpp" />
+    <ClInclude Include="src\core\render\Primitives.hpp" />
     <ClInclude Include="src\core\render\Program.hpp" />
     <ClInclude Include="src\core\render\Renderer.hpp" />
     <ClInclude Include="src\core\render\Shader.hpp" />
@@ -123,14 +126,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\app\App.cpp" />
-    <ClCompile Include="src\core\Input.cpp" />
+    <ClCompile Include="src\app\generate\MeshGen.cpp" />
+    <ClCompile Include="src\app\scene\CameraController.cpp" />
+    <ClCompile Include="src\app\scene\Sphere.cpp" />
     <ClCompile Include="src\core\Engine.cpp" />
+    <ClCompile Include="src\core\Input.cpp" />
     <ClCompile Include="src\core\Timer.cpp" />
     <ClCompile Include="src\core\Window.cpp" />
     <ClCompile Include="src\core\manage\BufferManager.cpp" />
     <ClCompile Include="src\core\manage\ShaderManager.cpp" />
     <ClCompile Include="src\core\render\Buffer.cpp" />
     <ClCompile Include="src\core\render\OpenGL.cpp" />
+    <ClCompile Include="src\core\render\Primitives.cpp" />
     <ClCompile Include="src\core\render\Program.cpp" />
     <ClCompile Include="src\core\render\Renderer.cpp" />
     <ClCompile Include="src\core\render\Shader.cpp" />

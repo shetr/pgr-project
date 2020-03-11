@@ -60,6 +60,13 @@ template<typename ClassType, typename MemberType> size_t memberOffset(MemberType
     return (char*)&((ClassType*)nullptr->*member) - (char*)nullptr;
 }
 
+#ifndef M_PI
+#define M_PI 3.14159f
+#endif
+#ifndef M_PI_2
+#define M_PI_2 (3.14159f/2)
+#endif
+
 }
 
 #endif // PGR_TYPES_HPP

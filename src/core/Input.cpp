@@ -7,7 +7,7 @@
 namespace sadekpet {
 
 Input Input::s_input{};
-bool Input::s_keyPressed[sizeof(Key)] = {false};
+bool Input::s_keyPressed[256] = {false};
 bool Input::s_specialKeyPressed[PGR_SPECIAL_COUNT] = {false};
 bool Input::s_mouseButtonPressed[PGR_MOUSE_BUTTON_COUNT] = {false};
 MousePos Input::s_mousePos = {0,0};

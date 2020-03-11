@@ -4,6 +4,12 @@
     <Filter Include="app">
       <UniqueIdentifier>{665E880B-D267-887C-5BE3-9E7CC7EB937C}</UniqueIdentifier>
     </Filter>
+    <Filter Include="app\generate">
+      <UniqueIdentifier>{409E12DA-2C01-A27E-D586-DA34C1C86D01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="app\scene">
+      <UniqueIdentifier>{23908695-8FFA-3A0C-D838-ECB144E21861}</UniqueIdentifier>
+    </Filter>
     <Filter Include="core">
       <UniqueIdentifier>{4E40957C-3A77-960D-E363-7C10CF79120F}</UniqueIdentifier>
     </Filter>
@@ -23,6 +29,18 @@
   <ItemGroup>
     <ClInclude Include="src\app\App.hpp">
       <Filter>app</Filter>
+    </ClInclude>
+    <ClInclude Include="src\app\generate\MeshGen.hpp">
+      <Filter>app\generate</Filter>
+    </ClInclude>
+    <ClInclude Include="src\app\scene\CameraController.hpp">
+      <Filter>app\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\app\scene\Sphere.hpp">
+      <Filter>app\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\Engine.hpp">
+      <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="src\core\EventSystem.hpp">
       <Filter>core</Filter>
@@ -54,10 +72,10 @@
     <ClInclude Include="src\core\render\Material.hpp">
       <Filter>core\render</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\render\Mesh.hpp">
+    <ClInclude Include="src\core\render\OpenGL.hpp">
       <Filter>core\render</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\render\OpenGL.hpp">
+    <ClInclude Include="src\core\render\Primitives.hpp">
       <Filter>core\render</Filter>
     </ClInclude>
     <ClInclude Include="src\core\render\Program.hpp">
@@ -96,13 +114,22 @@
     <ClInclude Include="src\core\ui\Rectangle.hpp">
       <Filter>core\ui</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\Engine.hpp">
-      <Filter>core</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\app\App.cpp">
       <Filter>app</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\generate\MeshGen.cpp">
+      <Filter>app\generate</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\scene\CameraController.cpp">
+      <Filter>app\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\scene\Sphere.cpp">
+      <Filter>app\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\Engine.cpp">
+      <Filter>core</Filter>
     </ClCompile>
     <ClCompile Include="src\core\Input.cpp">
       <Filter>core</Filter>
@@ -123,6 +150,9 @@
       <Filter>core\render</Filter>
     </ClCompile>
     <ClCompile Include="src\core\render\OpenGL.cpp">
+      <Filter>core\render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\render\Primitives.cpp">
       <Filter>core\render</Filter>
     </ClCompile>
     <ClCompile Include="src\core\render\Program.cpp">
@@ -162,8 +192,5 @@
       <Filter>core\ui</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\core\Engine.cpp">
-      <Filter>core</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

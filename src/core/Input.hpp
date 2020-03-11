@@ -102,7 +102,7 @@ class Input :
 {
 private:
     static Input s_input;
-    static bool s_keyPressed[sizeof(Key)];
+    static bool s_keyPressed[256];
     static bool s_specialKeyPressed[PGR_SPECIAL_COUNT];
     static bool s_mouseButtonPressed[PGR_MOUSE_BUTTON_COUNT];
     static MousePos s_mousePos;
