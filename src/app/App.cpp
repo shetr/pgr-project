@@ -33,11 +33,10 @@ void App::Init()
     RectangleNode* rect2 = new RectangleNode();
     rect2->GetTransform().pos.x = -2;
     layer.Add(rect2);
-    //sphere->GetTransform().pos.x = 5;
     layer.Add(sphere);
     Camera* camera = new PerspectiveCamera(M_PI_2, 0.1f, 100.0f);
     MovableCamera* movCamera = new MovableCamera(camera, &layer);
-    movCamera->GetTransform().pos.z = 1;
+    movCamera->GetTransform().pos.z = 3;
     layer.Add(movCamera);
     movCamera->Activate();
 }

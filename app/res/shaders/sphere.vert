@@ -8,7 +8,10 @@ uniform mat4  M;
 uniform mat4  VM; 
 uniform mat4  PVM;
 
+varying out vec2 f_uv;
+
 void main()
 {
-    gl_Position = PVM * vec4(position, 1.0) ;
+    f_uv = uv;
+    gl_Position = PVM * vec4(position, 1.0);
 }

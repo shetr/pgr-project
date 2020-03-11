@@ -22,7 +22,7 @@ Mesh3D* MeshGen::BasicSphere(uint meridianCount, uint parallelCount)
     Vector<int> indices(indicesCount);
 
     for(uint t = 0; t < thetaCount; t++) {
-        float theta = M_PI * ((float)t) / thetaCount;
+        float theta = M_PI * ((float)t) / (thetaCount-1);
         float sinTheta = glm::sin(theta);
         float mCosTheta = -glm::cos(theta);
         float uvY = (mCosTheta + 1) / 2;
@@ -49,20 +49,23 @@ Mesh3D* MeshGen::BasicSphere(uint meridianCount, uint parallelCount)
         int i = 3*v;
         indices[i+0] = v;
         indices[i+1] = v + phiCount;
-        indices[i+2] = v + phiCount + 1;
+        indices[i+2] = (v + 1) % phiCount + phiCount;
     }
     for(uint t = 1; t < thetaCount - 2; t++) {
         for(uint p = 0; p < phiCount; p++) {
             uint v = p + phiCount*t;
+            uint vp1 = (p + 1)% phiCount + phiCount*t;
             uint i = (v - phiCount) * 6 + triIndicesCount;
-            MakeQuad(&indices[i], v, v + phiCount, v + phiCount + 1, v + 1);
+            MakeQuad(&indices[i], v, v + phiCount, vp1 + phiCount, vp1);
         }
     }
-    for(uint v = 0; v < phiCount; v++) {
-        int i = triIndicesCount + quadIndicesCount + 3*v;
-        indices[i+0] = v;
-        indices[i+1] = v - phiCount - 1;
-        indices[i+2] = v - phiCount;
+    for(uint p = 0; p < phiCount; p++) {
+        int i = triIndicesCount + quadIndicesCount + 3*p;
+        int v = (thetaCount - 2)*phiCount + p;
+        int vp1 = (thetaCount - 2)*phiCount + (p + 1) % phiCount;
+        indices[i+0] = vp1;
+        indices[i+1] = v;
+        indices[i+2] = v + phiCount;
     }
 
     return new Mesh3D(vertexCount, indicesCount, vertices.data(), uvs.data(), vertices.data(), indices.data());

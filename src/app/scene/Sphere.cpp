@@ -6,7 +6,7 @@ namespace sadekpet {
 
 SphereMaterial::SphereMaterial()
 {
-    m_mesh = Shared<Primitives>(MeshGen::BasicSphere(5));
+    m_mesh = Shared<Primitives>(MeshGen::BasicSphere(20));
 }
 
 TypeIndex SphereMaterial::GetType() const
