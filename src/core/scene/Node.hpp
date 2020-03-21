@@ -76,9 +76,16 @@ protected:
 
 class VisibleNode : public Node
 {
+private:
+    bool m_isVisible;
 public:
+    VisibleNode() : m_isVisible(true){}
     virtual ~VisibleNode();
     virtual Material& GetMaterial() = 0;
+    bool IsVisible() const { return m_isVisible; }
+    bool& IsVisible() { return m_isVisible; }
+    void Show() { m_isVisible = true; }
+    void Hide() { m_isVisible = false; }
 };
 
 }
