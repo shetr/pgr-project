@@ -36,7 +36,22 @@
     <ClInclude Include="src\app\scene\CameraController.hpp">
       <Filter>app\scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\app\scene\Orbit.hpp">
+      <Filter>app\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\app\scene\Planet.hpp">
+      <Filter>app\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\app\scene\PlanetarySystem.hpp">
+      <Filter>app\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\app\scene\SolarSystem.hpp">
+      <Filter>app\scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\app\scene\Sphere.hpp">
+      <Filter>app\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\app\scene\Sun.hpp">
       <Filter>app\scene</Filter>
     </ClInclude>
     <ClInclude Include="src\core\Engine.hpp">
@@ -56,9 +71,6 @@
     </ClInclude>
     <ClInclude Include="src\core\debug.hpp">
       <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\manage\BufferManager.hpp">
-      <Filter>core\manage</Filter>
     </ClInclude>
     <ClInclude Include="src\core\manage\ShaderManager.hpp">
       <Filter>core\manage</Filter>
@@ -125,7 +137,19 @@
     <ClCompile Include="src\app\scene\CameraController.cpp">
       <Filter>app\scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\app\scene\Orbit.cpp">
+      <Filter>app\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\scene\Planet.cpp">
+      <Filter>app\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\scene\PlanetarySystem.cpp">
+      <Filter>app\scene</Filter>
+    </ClCompile>
     <ClCompile Include="src\app\scene\Sphere.cpp">
+      <Filter>app\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\scene\Sun.cpp">
       <Filter>app\scene</Filter>
     </ClCompile>
     <ClCompile Include="src\core\Engine.cpp">
@@ -139,9 +163,6 @@
     </ClCompile>
     <ClCompile Include="src\core\Window.cpp">
       <Filter>core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\manage\BufferManager.cpp">
-      <Filter>core\manage</Filter>
     </ClCompile>
     <ClCompile Include="src\core\manage\ShaderManager.cpp">
       <Filter>core\manage</Filter>
