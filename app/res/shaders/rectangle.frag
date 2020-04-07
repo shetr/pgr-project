@@ -2,9 +2,9 @@
 
 varying out vec4 fragmentColor;
 
-uniform vec3 color;
+in vec2 f_uv;
 
 void main()
 {
-    fragmentColor = vec4(color, 1);
+    fragmentColor = vec4(f_uv,1, 1);
 }

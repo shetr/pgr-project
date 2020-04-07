@@ -11,6 +11,9 @@
 #include <app/scene/CameraController.hpp>
 #include <app/scene/Sphere.hpp>
 
+#include <app/scene/PlanetarySystem.hpp>
+#include <app/scene/Planet.hpp>
+
 namespace sadekpet {
 
 App::App()
@@ -26,14 +29,28 @@ void App::Init()
     ShaderManager::AddRenderProgram(TypeIndex(typeid(RectangleMaterial)), "rectangle");
     ShaderManager::AddRenderProgram(TypeIndex(typeid(SphereMaterial)), "sphere");
     Layer& layer = Layers::Get(Layers::Add("3D"));
+
     m_rectangle = new RectangleNode();
     SphereNode* sphere = new SphereNode();
-    m_rectangle->GetTransform().pos.x = 3;
+    m_rectangle->GetTransform().pos.x = 2;
     layer.Add(m_rectangle);
-    RectangleNode* rect2 = new RectangleNode();
+    /*RectangleNode* rect2 = new RectangleNode();
     rect2->GetTransform().pos.x = -2;
     layer.Add(rect2);
-    layer.Add(sphere);
+    layer.Add(sphere);*/
+
+    Sun* sun = new Sun(1);
+    m_planetarySystem = new PlanetarySystem(sun);
+    Planet* planet = new Planet(0.5);
+    Orbit* orbit = new Orbit(planet, 2);
+    m_planetarySystem->AddOrbit(orbit);
+
+    layer.Add(sun);
+    layer.Add(planet);
+    layer.Add(orbit);
+    layer.Add(m_planetarySystem);
+
+
     Camera* camera = new PerspectiveCamera(M_PI_2, 0.1f, 100.0f);
     MovableCamera* movCamera = new MovableCamera(camera, &layer);
     movCamera->GetTransform().pos.z = 3;

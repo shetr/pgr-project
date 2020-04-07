@@ -9,13 +9,18 @@
 #ifndef PGR_SUN_HPP
 #define PGR_SUN_HPP
 
-#include <core/scene/Node.hpp>
+#include "SpaceBody.hpp"
+#include "Sphere.hpp"
 
 namespace sadekpet {
 
-class Sun : public VisibleNode
+class Sun : public SpaceBody
 {
-
+private:
+    SphereMaterial m_material;
+public:
+    Sun(float mass) : SpaceBody(mass) { m_material.GetUniforms().SetOwner(this); }
+    Material& GetMaterial() override { return m_material; }
 };
 
 }

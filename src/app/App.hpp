@@ -13,6 +13,7 @@
 namespace sadekpet { 
 
 class RectangleNode;
+class PlanetarySystem;
 
 class App
 {
@@ -24,6 +25,7 @@ private:
     Unique<KeyEventHandler> m_keyEventHandler;
     Unique<SpecialKeyEventHandler> m_specialKeyEventHandler;
     RectangleNode* m_rectangle;
+    PlanetarySystem* m_planetarySystem;
 public:
     App();
     ~App();

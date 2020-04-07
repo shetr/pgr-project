@@ -18,8 +18,11 @@ namespace sadekpet {
 
 class PlanetarySystem : public Node
 {
+private:
+    Sun* m_sun;
+    Vector<Orbit*> m_orbits;
 public:
-    void SetSun(Sun* sun);
+    PlanetarySystem(Sun* sun);
     void AddOrbit(Orbit* orbit);
 };
 

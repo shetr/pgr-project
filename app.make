@@ -66,7 +66,6 @@ OBJECTS :=
 
 OBJECTS += $(OBJDIR)/App.o
 OBJECTS += $(OBJDIR)/Buffer.o
-OBJECTS += $(OBJDIR)/BufferManager.o
 OBJECTS += $(OBJDIR)/Camera.o
 OBJECTS += $(OBJDIR)/CameraController.o
 OBJECTS += $(OBJDIR)/Engine.o
@@ -75,13 +74,18 @@ OBJECTS += $(OBJDIR)/Layers.o
 OBJECTS += $(OBJDIR)/MeshGen.o
 OBJECTS += $(OBJDIR)/Node.o
 OBJECTS += $(OBJDIR)/OpenGL.o
+OBJECTS += $(OBJDIR)/Orbit.o
+OBJECTS += $(OBJDIR)/Planet.o
+OBJECTS += $(OBJDIR)/PlanetarySystem.o
 OBJECTS += $(OBJDIR)/Primitives.o
 OBJECTS += $(OBJDIR)/Program.o
 OBJECTS += $(OBJDIR)/Rectangle.o
 OBJECTS += $(OBJDIR)/Renderer.o
 OBJECTS += $(OBJDIR)/Shader.o
 OBJECTS += $(OBJDIR)/ShaderManager.o
+OBJECTS += $(OBJDIR)/SpaceBody.o
 OBJECTS += $(OBJDIR)/Sphere.o
+OBJECTS += $(OBJDIR)/Sun.o
 OBJECTS += $(OBJDIR)/Texture.o
 OBJECTS += $(OBJDIR)/Timer.o
 OBJECTS += $(OBJDIR)/Uniforms.o
@@ -160,7 +164,22 @@ $(OBJDIR)/MeshGen.o: src/app/generate/MeshGen.cpp
 $(OBJDIR)/CameraController.o: src/app/scene/CameraController.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Orbit.o: src/app/scene/Orbit.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Planet.o: src/app/scene/Planet.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/PlanetarySystem.o: src/app/scene/PlanetarySystem.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/SpaceBody.o: src/app/scene/SpaceBody.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Sphere.o: src/app/scene/Sphere.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Sun.o: src/app/scene/Sun.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Engine.o: src/core/Engine.cpp
@@ -173,9 +192,6 @@ $(OBJDIR)/Timer.o: src/core/Timer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Window.o: src/core/Window.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/BufferManager.o: src/core/manage/BufferManager.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/ShaderManager.o: src/core/manage/ShaderManager.cpp

@@ -91,7 +91,9 @@ void Engine::Draw()
         Layer& layer = Layers::Get(l);
         Layers::SetCurrent(&layer);
         for(Pair<uint, VisibleNode*> p : layer.Visible()) {
-            m_renderer.Draw(p.second->GetMaterial());
+            if(p.second->IsVisible()) {
+                m_renderer.Draw(p.second->GetMaterial());
+            }
         }
     }
     Layers::SetCurrent(nullptr);
