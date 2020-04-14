@@ -48,6 +48,9 @@
     <ClInclude Include="src\app\scene\SolarSystem.hpp">
       <Filter>app\scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\app\scene\SpaceBody.hpp">
+      <Filter>app\scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\app\scene\Sphere.hpp">
       <Filter>app\scene</Filter>
     </ClInclude>
@@ -144,6 +147,9 @@
       <Filter>app\scene</Filter>
     </ClCompile>
     <ClCompile Include="src\app\scene\PlanetarySystem.cpp">
+      <Filter>app\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\scene\SpaceBody.cpp">
       <Filter>app\scene</Filter>
     </ClCompile>
     <ClCompile Include="src\app\scene\Sphere.cpp">
