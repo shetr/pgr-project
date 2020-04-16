@@ -27,7 +27,7 @@ public:
     TextureUnits& GetTextureUnits() override;
 };
 
-class SphereNode : public VisibleNode{
+class SphereNode : public VisibleNode {
 private:
     SphereMaterial m_material;
 public:
