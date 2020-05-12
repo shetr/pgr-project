@@ -71,8 +71,10 @@ OBJECTS += $(OBJDIR)/CameraController.o
 OBJECTS += $(OBJDIR)/Engine.o
 OBJECTS += $(OBJDIR)/Input.o
 OBJECTS += $(OBJDIR)/Layers.o
+OBJECTS += $(OBJDIR)/Math.o
 OBJECTS += $(OBJDIR)/MeshGen.o
 OBJECTS += $(OBJDIR)/Node.o
+OBJECTS += $(OBJDIR)/Noise.o
 OBJECTS += $(OBJDIR)/OpenGL.o
 OBJECTS += $(OBJDIR)/Orbit.o
 OBJECTS += $(OBJDIR)/Planet.o
@@ -161,6 +163,9 @@ $(OBJDIR)/App.o: src/app/App.cpp
 $(OBJDIR)/MeshGen.o: src/app/generate/MeshGen.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Noise.o: src/app/generate/Noise.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/CameraController.o: src/app/scene/CameraController.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
@@ -195,6 +200,9 @@ $(OBJDIR)/Window.o: src/core/Window.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/ShaderManager.o: src/core/manage/ShaderManager.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Math.o: src/core/math/Math.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Buffer.o: src/core/render/Buffer.cpp
