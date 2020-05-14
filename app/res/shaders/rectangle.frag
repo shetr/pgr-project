@@ -1,6 +1,6 @@
-#version 110
+#version 140
 
-varying out vec4 fragmentColor;
+out vec4 fragmentColor;
 
 in vec2 f_uv;
 

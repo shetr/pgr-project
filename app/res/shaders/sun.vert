@@ -1,4 +1,4 @@
-#version 110
+#version 140
 
 in vec3 position;
 in vec2 uv;
@@ -8,7 +8,7 @@ uniform mat4  M;
 uniform mat4  VM; 
 uniform mat4  PVM;
 
-varying out vec2 f_uv;
+out vec2 f_uv;
 
 void main()
 {
