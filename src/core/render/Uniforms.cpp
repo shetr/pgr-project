@@ -42,6 +42,10 @@ void Uniforms::Update()
     UpdateImpl();
 }
 
+void Uniforms::Set(int programID, Uniform<int>& u)
+{
+    GL(Uniform1i(u.GetLocation(programID), u.value));
+}
 void Uniforms::Set(int programID, Uniform<float>& u)
 {
     GL(Uniform1f(u.GetLocation(programID), u.value));

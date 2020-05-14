@@ -10,17 +10,17 @@
 #define PGR_SHPERE_HPP
 
 #include <core/scene/Node.hpp>
-#include <core/render/Material.hpp>
+#include <core/render/ShaderContext.hpp>
 
 namespace sadekpet {
 
-class SphereMaterial : public Material {
+class SphereShaderContext : public ShaderContext {
 private:
     Shared<Primitives> m_mesh;
     Uniforms m_uniforms;
     TextureUnits m_textureUnits = TextureUnits({});
 public:
-    SphereMaterial();
+    SphereShaderContext();
     TypeIndex GetType() const override;
     const Shared<Primitives>& GetPrimitives() override;
     Uniforms& GetUniforms() override;
@@ -29,10 +29,10 @@ public:
 
 class SphereNode : public VisibleNode {
 private:
-    SphereMaterial m_material;
+    SphereShaderContext m_shaderContext;
 public:
-    SphereNode() { m_material.GetUniforms().SetOwner(this); }
-    Material& GetMaterial() override { return m_material; }
+    SphereNode() { m_shaderContext.GetUniforms().SetOwner(this); }
+    ShaderContext& GetShaderContext() override { return m_shaderContext; }
 };
 
 }

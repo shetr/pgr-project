@@ -26,8 +26,8 @@ void App::Init()
     m_mouseEnterHandler = std::make_unique<MouseEnterHandler>(this, &App::OnMouseEnter, Input::Get());
     m_keyEventHandler = std::make_unique<KeyEventHandler>(this, &App::OnKeyPressed, Input::Get());
     m_specialKeyEventHandler = std::make_unique<SpecialKeyEventHandler>(this, &App::OnSpecialKeyPressed, Input::Get());
-    ShaderManager::AddRenderProgram(TypeIndex(typeid(RectangleMaterial)), "rectangle");
-    ShaderManager::AddRenderProgram(TypeIndex(typeid(SphereMaterial)), "sphere");
+    ShaderManager::AddRenderProgram(TypeIndex(typeid(RectangleShaderContext)), "rectangle");
+    ShaderManager::AddRenderProgram(TypeIndex(typeid(SphereShaderContext)), "sphere");
     Layer& layer = Layers::Get(Layers::Add("3D"));
 
     m_rectangle = new RectangleNode();

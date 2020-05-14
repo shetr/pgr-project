@@ -92,7 +92,7 @@ void Engine::Draw()
         Layers::SetCurrent(&layer);
         for(Pair<uint, VisibleNode*> p : layer.Visible()) {
             if(p.second->IsVisible()) {
-                m_renderer.Draw(p.second->GetMaterial());
+                m_renderer.Draw(p.second->GetShaderContext());
             }
         }
     }

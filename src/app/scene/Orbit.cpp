@@ -5,7 +5,7 @@ namespace sadekpet {
 Orbit::Orbit(SpaceBody* body, float radius, float speed, float start)
     : m_body(body), m_radius(radius), m_speed(speed), m_phi(start)
 {
-    m_material.GetUniforms().SetOwner(this);
+    m_shaderContext.GetUniforms().SetOwner(this);
     Hide();
     ConnectChild(body);
     m_body->GetTransform().pos = radius * glm::vec3(1,0,0);

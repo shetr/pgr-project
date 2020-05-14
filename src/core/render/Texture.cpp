@@ -2,6 +2,8 @@
 
 #include "OpenGL.hpp"
 
+#include "Uniforms.hpp"
+
 namespace sadekpet
 {
 
@@ -101,13 +103,16 @@ void Texture3D::SetImage()
         m_data));
 }
 
-void TextureUnits::Activate() const
+void TextureUnits::Activate(int programID) const
 {
-    for(uint i = 0; i < (uint)m_textures.size(); i++) {
-        const Shared<Texture>& tex = m_textures[i];
+    for(uint i = 0; i < (uint)m_unitStorages.size(); i++) {
+        const TextureUnitStorage& unitStorage = m_unitStorages[i];
+        const Shared<Texture>& tex = unitStorage.GetTexture();
         TextureUnit unit = static_cast<TextureUnit>(static_cast<uint>(TextureUnit::_0) + i);
         tex->Bind();
         tex->Activate(unit);
+        Uniform<int> u(unitStorage.GetName(), i);
+        GL(Uniform1i(u.GetLocation(programID), u.value));
     }
 }
 

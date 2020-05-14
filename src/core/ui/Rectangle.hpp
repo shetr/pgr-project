@@ -8,7 +8,7 @@
 #ifndef PGR_RECTANGLE_HPP
 #define PGR_RECTANGLE_HPP
 
-#include <core/render/Material.hpp>
+#include <core/render/ShaderContext.hpp>
 #include <core/render/VertexTypes.hpp>
 #include <core/scene/Node.hpp>
 
@@ -39,14 +39,14 @@ protected:
     void UpdateImpl() override;
 };
 
-class RectangleMaterial : public Material
+class RectangleShaderContext : public ShaderContext
 {
 private:
     Shared<Primitives> m_rectangle = Shared<Primitives>(new Rectangle());
     RectangleUniforms m_uniforms;
     TextureUnits m_textureUnits = TextureUnits({});
 public:
-    RectangleMaterial() { }
+    RectangleShaderContext() { }
     TypeIndex GetType() const override;
     const Shared<Primitives>& GetPrimitives() override;
     Uniforms& GetUniforms() override;
@@ -56,10 +56,10 @@ public:
 class RectangleNode : public VisibleNode
 {
 private:
-    RectangleMaterial m_material;
+    RectangleShaderContext m_shaderContext;
 public:
-    RectangleNode() { m_material.GetUniforms().SetOwner(this); }
-    Material& GetMaterial() override { return m_material; }
+    RectangleNode() { m_shaderContext.GetUniforms().SetOwner(this); }
+    ShaderContext& GetShaderContext() override { return m_shaderContext; }
 };
 
 }

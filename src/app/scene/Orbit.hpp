@@ -18,7 +18,7 @@ namespace sadekpet {
 class Orbit : public VisibleNode
 {
 private:
-    SphereMaterial m_material;
+    SphereShaderContext m_shaderContext;
     SpaceBody* m_body;
     float m_radius;
     float m_speed;
@@ -27,7 +27,7 @@ public:
     Orbit(SpaceBody* body, float radius = 1, float speed = 1, float start = 0);
 
     void Update(float deltaTime) override;
-    Material& GetMaterial() override { return m_material; }
+    ShaderContext& GetShaderContext() override { return m_shaderContext; }
 };
 
 }

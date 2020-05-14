@@ -8,7 +8,7 @@
 #ifndef PGR_SHADER_MANAGER_HPP
 #define PGR_SHADER_MANAGER_HPP
 
-#include <core/render/Material.hpp>
+#include <core/render/ShaderContext.hpp>
 #include <core/render/Program.hpp>
 
 namespace sadekpet {
@@ -22,10 +22,10 @@ private:
 public:
     static ShaderManager* Init();
     ~ShaderManager();
-    static void AddRenderProgram(TypeIndex materialType, String programName);
-    static int BindRenderProgram(TypeIndex materialType);
+    static void AddRenderProgram(TypeIndex shaderContextType, String programName);
+    static int BindRenderProgram(TypeIndex shaderContextType);
 private:
-    static void AddRenderProgram(TypeIndex materialType, GraphicsProgram* program);
+    static void AddRenderProgram(TypeIndex shaderContextType, GraphicsProgram* program);
     static String ReadFile(String name);
     ShaderManager();
 };

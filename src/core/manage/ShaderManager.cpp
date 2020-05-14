@@ -22,7 +22,7 @@ ShaderManager::~ShaderManager()
 {
     s_instance = nullptr;
 }
-void ShaderManager::AddRenderProgram(TypeIndex materialType, String programName)
+void ShaderManager::AddRenderProgram(TypeIndex shaderContextType, String programName)
 {
     String vertName = s_shadersPath+programName+".vert";
     String fragName = s_shadersPath+programName+".frag";
@@ -46,15 +46,15 @@ void ShaderManager::AddRenderProgram(TypeIndex materialType, String programName)
     }
     Opt<GraphicsProgram*> gpuProgram = linker.Link();
     if(gpuProgram.has_value()){
-        AddRenderProgram(materialType, gpuProgram.value());
+        AddRenderProgram(shaderContextType, gpuProgram.value());
     } else {
         std::cout << "Shaders linking failed" << std::endl;
         return;
     }
 }
-int ShaderManager::BindRenderProgram(TypeIndex materialType)
+int ShaderManager::BindRenderProgram(TypeIndex shaderContextType)
 {
-    UnordMap<TypeIndex, Unique<GraphicsProgram>>::iterator it = s_instance->m_renderPrograms.find(materialType);
+    UnordMap<TypeIndex, Unique<GraphicsProgram>>::iterator it = s_instance->m_renderPrograms.find(shaderContextType);
     if(it != s_instance->m_renderPrograms.end()) {
         it->second->Bind();
         return it->second->GetID();
@@ -64,9 +64,9 @@ int ShaderManager::BindRenderProgram(TypeIndex materialType)
     }
 }
 
-void ShaderManager::AddRenderProgram(TypeIndex materialType, GraphicsProgram* program)
+void ShaderManager::AddRenderProgram(TypeIndex shaderContextType, GraphicsProgram* program)
 {
-    s_instance->m_renderPrograms[materialType] = Unique<GraphicsProgram>(program);
+    s_instance->m_renderPrograms[shaderContextType] = Unique<GraphicsProgram>(program);
 }
 String ShaderManager::ReadFile(String name)
 {

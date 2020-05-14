@@ -45,6 +45,7 @@ public:
 protected:
     virtual void SetUniformsImpl(int programID) {};
     virtual void UpdateImpl() {};
+    void Set(int programID, Uniform<int>& u);
     void Set(int programID, Uniform<float>& u);
     void Set(int programID, Uniform<glm::vec2>& u);
     void Set(int programID, Uniform<glm::vec3>& u);

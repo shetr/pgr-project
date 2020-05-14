@@ -4,24 +4,24 @@
 
 namespace sadekpet {
 
-SphereMaterial::SphereMaterial()
+SphereShaderContext::SphereShaderContext()
 {
     m_mesh = Shared<Primitives>(MeshGen::BasicSphere(20));
 }
 
-TypeIndex SphereMaterial::GetType() const
+TypeIndex SphereShaderContext::GetType() const
 {
-    return TypeIndex(typeid(SphereMaterial));
+    return TypeIndex(typeid(SphereShaderContext));
 }
-const Shared<Primitives>& SphereMaterial::GetPrimitives()
+const Shared<Primitives>& SphereShaderContext::GetPrimitives()
 {
     return m_mesh;
 }
-Uniforms& SphereMaterial::GetUniforms()
+Uniforms& SphereShaderContext::GetUniforms()
 {
     return m_uniforms;
 }
-TextureUnits& SphereMaterial::GetTextureUnits()
+TextureUnits& SphereShaderContext::GetTextureUnits()
 {
     return m_textureUnits;
 }

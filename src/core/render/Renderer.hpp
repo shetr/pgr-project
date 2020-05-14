@@ -28,7 +28,7 @@ public:
     void Clear();
     void SwapBuffers();
 
-    void Draw(Material& material);
+    void Draw(ShaderContext& shaderContext);
 
 
     void OnWindowResize(const WindowSizeEvent& event);

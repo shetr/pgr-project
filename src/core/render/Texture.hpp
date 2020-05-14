@@ -129,13 +129,26 @@ protected:
     void SetImage() override;
 };
 
+class TextureUnitStorage
+{
+private:
+    String m_name;
+    Shared<Texture> m_texture;
+public:
+    TextureUnitStorage(String name, const Shared<Texture>& texture) 
+        : m_name(name), m_texture(texture) {}
+
+    const String& GetName() const { return m_name; }
+    const Shared<Texture>& GetTexture() const { return m_texture; }
+};
+
 class TextureUnits
 {
 private:
-    Vector<Shared<Texture>> m_textures;
+    Vector<TextureUnitStorage> m_unitStorages;
 public:
-    TextureUnits(Vector<Shared<Texture>>&& textures) : m_textures(textures) {}
-    void Activate() const;
+    TextureUnits(Vector<TextureUnitStorage>&& unitStorages) : m_unitStorages(unitStorages) {}
+    void Activate(int programID) const;
 };
 
 }

@@ -30,19 +30,19 @@ void RectangleUniforms::UpdateImpl()
 {
 }
 
-TypeIndex RectangleMaterial::GetType() const
+TypeIndex RectangleShaderContext::GetType() const
 {
-    return TypeIndex(typeid(RectangleMaterial));
+    return TypeIndex(typeid(RectangleShaderContext));
 }
-const Shared<Primitives>& RectangleMaterial::GetPrimitives()
+const Shared<Primitives>& RectangleShaderContext::GetPrimitives()
 {
     return m_rectangle;
 }
-Uniforms& RectangleMaterial::GetUniforms()
+Uniforms& RectangleShaderContext::GetUniforms()
 {
     return m_uniforms;
 }
-TextureUnits& RectangleMaterial::GetTextureUnits()
+TextureUnits& RectangleShaderContext::GetTextureUnits()
 {
     return m_textureUnits;
 }

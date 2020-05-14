@@ -51,13 +51,13 @@ void Renderer::OnWindowResize(const WindowSizeEvent& event)
     }
 }
 
-void Renderer::Draw(Material& material)
+void Renderer::Draw(ShaderContext& shaderContext)
 {
-    int programID = ShaderManager::BindRenderProgram(material.GetType());
-    const Shared<Primitives>& primitives = material.GetPrimitives();
+    int programID = ShaderManager::BindRenderProgram(shaderContext.GetType());
+    const Shared<Primitives>& primitives = shaderContext.GetPrimitives();
     primitives->Bind();
-    material.GetTextureUnits().Activate();
-    Uniforms& uniforms = material.GetUniforms();
+    shaderContext.GetTextureUnits().Activate(programID);
+    Uniforms& uniforms = shaderContext.GetUniforms();
     uniforms.Update();
     uniforms.SetUniforms(programID);
     GL(DrawElements(static_cast<uint>(primitives->GetType()), primitives->GetCount(), GL_UNSIGNED_INT, 0));

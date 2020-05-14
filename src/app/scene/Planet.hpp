@@ -17,10 +17,10 @@ namespace sadekpet {
 class Planet : public SpaceBody
 {
 private:
-    SphereMaterial m_material;
+    SphereShaderContext m_shaderContext;
 public:
-    Planet(float mass) : SpaceBody(mass) { m_material.GetUniforms().SetOwner(this); }
-    Material& GetMaterial() override { return m_material; }
+    Planet(float mass) : SpaceBody(mass) { m_shaderContext.GetUniforms().SetOwner(this); }
+    ShaderContext& GetShaderContext() override { return m_shaderContext; }
 };
 
 }

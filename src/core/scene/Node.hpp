@@ -11,7 +11,7 @@
 #define PGR_NODE_HPP
 
 #include <core/types.hpp>
-#include <core/render/Material.hpp>
+#include <core/render/ShaderContext.hpp>
 #include <glm/glm.hpp>
 
 
@@ -81,7 +81,7 @@ private:
 public:
     VisibleNode() : m_isVisible(true){}
     virtual ~VisibleNode();
-    virtual Material& GetMaterial() = 0;
+    virtual ShaderContext& GetShaderContext() = 0;
     bool IsVisible() const { return m_isVisible; }
     bool& IsVisible() { return m_isVisible; }
     void Show() { m_isVisible = true; }
