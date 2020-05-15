@@ -56,9 +56,8 @@ void Renderer::Draw(ShaderContext& shaderContext)
     int programID = ShaderManager::BindRenderProgram(shaderContext.GetType());
     const Shared<Primitives>& primitives = shaderContext.GetPrimitives();
     primitives->Bind();
-    shaderContext.GetTextureUnits().Activate(programID);
+    shaderContext.GetTextureUnits().Activate();
     Uniforms& uniforms = shaderContext.GetUniforms();
-    uniforms.Update();
     uniforms.SetUniforms(programID);
     GL(DrawElements(static_cast<uint>(primitives->GetType()), primitives->GetCount(), GL_UNSIGNED_INT, 0));
     VertexArray::UnBind();

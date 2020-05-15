@@ -19,7 +19,7 @@ class Sun : public SpaceBody
 private:
     SphereShaderContext m_shaderContext;
 public:
-    Sun(float mass) : SpaceBody(mass) { m_shaderContext.GetUniforms().SetOwner(this); }
+    Sun(float mass) : SpaceBody(mass) {  }
     ShaderContext& GetShaderContext() override { return m_shaderContext; }
 };
 

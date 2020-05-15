@@ -19,7 +19,7 @@ class Planet : public SpaceBody
 private:
     SphereShaderContext m_shaderContext;
 public:
-    Planet(float mass) : SpaceBody(mass) { m_shaderContext.GetUniforms().SetOwner(this); }
+    Planet(float mass) : SpaceBody(mass) {  }
     ShaderContext& GetShaderContext() override { return m_shaderContext; }
 };
 

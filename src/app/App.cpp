@@ -5,6 +5,7 @@
 #include <core/Engine.hpp>
 #include <core/Window.hpp>
 #include <core/manage/ShaderManager.hpp>
+#include <core/manage/TextureManager.hpp>
 #include <core/ui/Rectangle.hpp>
 #include <core/scene/Layers.hpp>
 #include <core/scene/Camera.hpp>
@@ -28,6 +29,7 @@ void App::Init()
     m_specialKeyEventHandler = std::make_unique<SpecialKeyEventHandler>(this, &App::OnSpecialKeyPressed, Input::Get());
     ShaderManager::AddRenderProgram(TypeIndex(typeid(RectangleShaderContext)), "rectangle");
     ShaderManager::AddRenderProgram(TypeIndex(typeid(SphereShaderContext)), "sphere");
+    TextureManager::AddTexture2D("sun");
     Layer& layer = Layers::Get(Layers::Add("3D"));
 
     m_rectangle = new RectangleNode();

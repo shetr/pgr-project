@@ -26,7 +26,7 @@ TextureManager::~TextureManager()
     s_instance = nullptr;
 }
 
-bool TextureManager::AddTexture(const String& name)
+bool TextureManager::AddTexture2D(const String& name)
 {
     String fileName = s_texturesPath+name+".png";
 
@@ -41,7 +41,7 @@ bool TextureManager::AddTexture(const String& name)
     // this will load image data to the currently bound image
     if(ilLoadImage(fileName.c_str()) == IL_FALSE) {
         ilDeleteImages(1, &img_id);
-        std::cerr << __FUNCTION__ << " cannot load image " << fileName << std::endl;
+        std::cout << " cannot load image " << fileName << std::endl;
         return false;
     }
 
@@ -62,11 +62,19 @@ bool TextureManager::AddTexture(const String& name)
     //glEnable(GL_TEXTURE_2D);
 
     Shared<Texture> tex (new Texture2D((int)width, (int)height, (uint8_t*)data, Bpp == 4 ? TextureChanels::RGBA : TextureChanels::RGB));
-    s_instance->m_textures.insert({name, TextureUnitStorage(name, tex)});
+    tex->Bind();
+    tex->Init();
+    s_instance->m_textures.insert({name, tex});
 
     // free our data (they were copied to OpenGL)
     delete [] data;
     return true;
+}
+
+Shared<Texture> TextureManager::GetTexture(const String& name)
+{
+    UnordMap<String, Shared<Texture>>::iterator it = s_instance->m_textures.find(name);
+    return it->second;
 }
 
 TextureManager::TextureManager()

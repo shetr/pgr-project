@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "Layers.hpp"
+#include "Camera.hpp"
 
 namespace sadekpet {
 
@@ -77,6 +78,18 @@ void Node::UpdateWorldTransform()
 VisibleNode::~VisibleNode()
 {
     GetLayer()->Visible().erase(GetID());
+}
+
+void VisibleNode::UpdateUniforms()
+{
+    Layer* layer = Layers::GetCurrent();
+    if(layer != nullptr) {
+        Camera* camera = layer->GetCurrentCamera();
+        if(camera != nullptr) { 
+            GetShaderContext().GetUniforms().UpdateMVP(GetWorldTransform(), glm::inverse(camera->GetWorldTransform()), camera->GetProjection());
+        }
+    }
+    UpdateUniformsImpl();
 }
 
 }

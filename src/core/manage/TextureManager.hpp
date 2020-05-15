@@ -11,12 +11,12 @@ class TextureManager
 private:
     static TextureManager* s_instance;
     static String s_texturesPath;
-    UnordMap<String, TextureUnitStorage> m_textures;
+    UnordMap<String, Shared<Texture>> m_textures;
 public:
     static TextureManager* Init();
     ~TextureManager();
-    static bool AddTexture(const String& name);
-    static TextureUnitStorage GetTexture(const String& name);
+    static bool AddTexture2D(const String& name);
+    static Shared<Texture> GetTexture(const String& name);
 
 private:
     TextureManager();

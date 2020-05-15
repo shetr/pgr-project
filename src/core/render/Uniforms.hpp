@@ -15,46 +15,52 @@ namespace sadekpet {
 
 class Node;
 
-template<typename T>
-class Uniform
+class IUniform
 {
 private:
     int m_loc;
+    String m_name;
 public:
-    String name;
-    T value;
-    Uniform(String n, const T& v) : m_loc(-1), name(n), value(v) {}
+    IUniform(String name) : m_loc(-1), m_name(name) {}
+    virtual void Set(int programID) = 0;
+    const String& GetName() const { return m_name; }
+protected:
     int GetLocation(int programID);
+    void Set(int loc, int v);
+    void Set(int loc, float v);
+    void Set(int loc, glm::vec2 v);
+    void Set(int loc, glm::vec3 v);
+    void Set(int loc, glm::vec4 v);
+    void Set(int loc, glm::mat2 v);
+    void Set(int loc, glm::mat3 v);
+    void Set(int loc, glm::mat4 v);
+};
+
+template<typename T>
+class Uniform : public IUniform
+{
+public:
+    T value;
+    Uniform(String name, const T& v) : IUniform(name), value(v) {}
+    void Set(int programID) override {
+        IUniform::Set(GetLocation(programID), value);
+    }
 };
 
 class Uniforms
 {
-protected:
-    Node* m_owner;
 private:
-    Uniform<glm::mat4> m_M;
-    Uniform<glm::mat4> m_VM;
-    Uniform<glm::mat4> m_PVM;
-public: 
+    Vector<Unique<IUniform>> m_uniforms;
+    Uniform<glm::mat4>* m_M;
+    Uniform<glm::mat4>* m_VM;
+    Uniform<glm::mat4>* m_PVM;
+public:
     Uniforms() : Uniforms(glm::mat4(1), glm::mat4(1), glm::mat4(1)) {}
-    Uniforms(const glm::mat4& M, const glm::mat4& V, const glm::mat4& P) 
-        : m_M("M",M), m_VM("VM",V*m_M.value), m_PVM("PVM",P*m_VM.value) {}
-    void SetOwner(Node* owner) { m_owner = owner; }
+    Uniforms(const glm::mat4& M, const glm::mat4& V, const glm::mat4& P);
+    void UpdateMVP(const glm::mat4& M, const glm::mat4& V, const glm::mat4& P);
     void SetUniforms(int programID);
-    void Update();
 protected:
-    virtual void SetUniformsImpl(int programID) {};
-    virtual void UpdateImpl() {};
-    void Set(int programID, Uniform<int>& u);
-    void Set(int programID, Uniform<float>& u);
-    void Set(int programID, Uniform<glm::vec2>& u);
-    void Set(int programID, Uniform<glm::vec3>& u);
-    void Set(int programID, Uniform<glm::vec4>& u);
-    void Set(int programID, Uniform<glm::mat2>& u);
-    void Set(int programID, Uniform<glm::mat3>& u);
-    void Set(int programID, Uniform<glm::mat4>& u);
-private:
-    void SetMVP(const glm::mat4& M, const glm::mat4& V, const glm::mat4& P);
+    void AddUniform(IUniform* uniform);
 };
 
 }

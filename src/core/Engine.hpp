@@ -13,6 +13,7 @@
 #include "Timer.hpp"
 #include "render/Renderer.hpp"
 #include "manage/ShaderManager.hpp"
+#include "manage/TextureManager.hpp"
 #include "scene/Layers.hpp"
 
 
@@ -58,6 +59,7 @@ private:
     Timer m_timer;
     Unique<Window> m_window;
     Unique<ShaderManager> m_shaderManager;
+    Unique<TextureManager> m_textureManager;
     Unique<App> m_app;
     float m_updateTime;
 public:

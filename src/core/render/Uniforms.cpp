@@ -6,73 +6,75 @@
 
 #include <iostream>
 
-template<typename T>
-int sadekpet::Uniform<T>::GetLocation(int programID)
-{
-    if(m_loc == -1) {
-        m_loc = GL(GetUniformLocation(programID, name.c_str()));
-    }
-    return m_loc;
-}
-
 namespace sadekpet {
 
 
-void Uniforms::SetMVP(const glm::mat4& M, const glm::mat4& V, const glm::mat4& P)
+int IUniform::GetLocation(int programID)
 {
-    m_M.value = M;
-    m_VM.value = V*M;
-    m_PVM.value = P*m_VM.value;
+    if(m_loc == -1) {
+        m_loc = GL(GetUniformLocation(programID, m_name.c_str()));
+    }
+    return m_loc;
 }
+void IUniform::Set(int loc, int v)
+{
+    GL(Uniform1i(loc, v));
+}
+void IUniform::Set(int loc, float v)
+{
+    GL(Uniform1f(loc, v));
+}
+void IUniform::Set(int loc, glm::vec2 v)
+{
+    GL(Uniform2f(loc, v.x, v.y));
+}
+void IUniform::Set(int loc, glm::vec3 v)
+{
+    GL(Uniform3f(loc, v.x, v.y, v.z));
+}
+void IUniform::Set(int loc, glm::vec4 v)
+{
+    GL(Uniform4f(loc, v.x, v.y, v.z, v.w));
+}
+void IUniform::Set(int loc, glm::mat2 v)
+{
+    GL(UniformMatrix2fv(loc, 1, false, &v[0][0]));
+}
+void IUniform::Set(int loc, glm::mat3 v)
+{
+    GL(UniformMatrix3fv(loc, 1, false, &v[0][0]));
+}
+void IUniform::Set(int loc, glm::mat4 v)
+{
+    GL(UniformMatrix4fv(loc, 1, false, &v[0][0]));
+}
+
 void Uniforms::SetUniforms(int programID)
 {
-    Set(programID, m_M);
-    Set(programID, m_VM);
-    Set(programID, m_PVM);
-    SetUniformsImpl(programID);
+    for(const Unique<IUniform>& uniform : m_uniforms) {
+        uniform->Set(programID);
+    }
+}
+void Uniforms::AddUniform(IUniform* uniform)
+{
+    m_uniforms.push_back(Unique<IUniform>(uniform));
 }
 
-void Uniforms::Update()
+Uniforms::Uniforms(const glm::mat4& M, const glm::mat4& V, const glm::mat4& P)
 {
-    Layer* layer = Layers::GetCurrent();
-    if(layer == nullptr) { return; }
-    Camera* camera = layer->GetCurrentCamera();
-    if(camera == nullptr) { return; }
-    SetMVP(m_owner->GetWorldTransform(), glm::inverse(camera->GetWorldTransform()), camera->GetProjection());
-    UpdateImpl();
+    m_M = new Uniform<glm::mat4>("M",M);
+    m_VM = new Uniform<glm::mat4>("VM",V*m_M->value);
+    m_PVM = new Uniform<glm::mat4>("PVM",P*m_VM->value);
+    AddUniform(m_M);
+    AddUniform(m_VM);
+    AddUniform(m_PVM);
 }
 
-void Uniforms::Set(int programID, Uniform<int>& u)
+void Uniforms::UpdateMVP(const glm::mat4& M, const glm::mat4& V, const glm::mat4& P)
 {
-    GL(Uniform1i(u.GetLocation(programID), u.value));
-}
-void Uniforms::Set(int programID, Uniform<float>& u)
-{
-    GL(Uniform1f(u.GetLocation(programID), u.value));
-}
-void Uniforms::Set(int programID, Uniform<glm::vec2>& u)
-{
-    GL(Uniform2f(u.GetLocation(programID), u.value.x, u.value.y));
-}
-void Uniforms::Set(int programID, Uniform<glm::vec3>& u)
-{
-    GL(Uniform3f(u.GetLocation(programID), u.value.x, u.value.y, u.value.z));
-}
-void Uniforms::Set(int programID, Uniform<glm::vec4>& u)
-{
-    GL(Uniform4f(u.GetLocation(programID), u.value.x, u.value.y, u.value.z, u.value.w));
-}
-void Uniforms::Set(int programID, Uniform<glm::mat2>& u)
-{
-    GL(UniformMatrix2fv(u.GetLocation(programID), 1, false, &u.value[0][0]));
-}
-void Uniforms::Set(int programID, Uniform<glm::mat3>& u)
-{
-    GL(UniformMatrix3fv(u.GetLocation(programID), 1, false, &u.value[0][0]));
-}
-void Uniforms::Set(int programID, Uniform<glm::mat4>& u)
-{
-    GL(UniformMatrix4fv(u.GetLocation(programID), 1, false, &u.value[0][0]));
+    m_M->value = M;
+    m_VM->value = V*M;
+    m_PVM->value = P*m_VM->value;
 }
 
 }

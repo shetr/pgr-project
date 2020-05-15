@@ -30,8 +30,8 @@ void Texture::UnBind(TextureType type)
 
 void Texture::Init()
 {
-    GL(TexParameteri(m_id, GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-    GL(TexParameteri(m_id, GL_TEXTURE_MAG_FILTER, GL_NEAREST));
+    GL(TexParameteri(static_cast<uint>(GetType()), GL_TEXTURE_MIN_FILTER, GL_LINEAR));
+    GL(TexParameteri(static_cast<uint>(GetType()), GL_TEXTURE_MAG_FILTER, GL_NEAREST));
 
     SetImage();
 }
@@ -103,16 +103,14 @@ void Texture3D::SetImage()
         m_data));
 }
 
-void TextureUnits::Activate(int programID) const
+void TextureUnits::Activate() const
 {
-    for(uint i = 0; i < (uint)m_unitStorages.size(); i++) {
-        const TextureUnitStorage& unitStorage = m_unitStorages[i];
-        const Shared<Texture>& tex = unitStorage.GetTexture();
-        TextureUnit unit = static_cast<TextureUnit>(static_cast<uint>(TextureUnit::_0) + i);
+    for(uint i = 0; i < (uint)m_units.size(); i++) {
+        const Shared<Texture>& tex = m_units[i];
+        uint unitNum = static_cast<uint>(TextureUnit::_0) + i;
+        TextureUnit unit = static_cast<TextureUnit>(unitNum);
         tex->Bind();
         tex->Activate(unit);
-        Uniform<int> u(unitStorage.GetName(), i);
-        GL(Uniform1i(u.GetLocation(programID), u.value));
     }
 }
 

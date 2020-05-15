@@ -30,13 +30,10 @@ public:
 class RectangleUniforms : public Uniforms
 {
 private:
-    Uniform<glm::vec3> m_color;
+    Uniform<glm::vec3>* m_color;
 public:
-    RectangleUniforms() : Uniforms(glm::mat4(1), glm::mat4(1), glm::mat4(1)), m_color("color", glm::vec3(1,1,0)) {}
-    void SetColor(const glm::vec3& color) { m_color.value = color; }
-protected:
-    void SetUniformsImpl(int programID) override;
-    void UpdateImpl() override;
+    RectangleUniforms();
+    void SetColor(const glm::vec3& color) { m_color->value = color; }
 };
 
 class RectangleShaderContext : public ShaderContext
@@ -58,7 +55,7 @@ class RectangleNode : public VisibleNode
 private:
     RectangleShaderContext m_shaderContext;
 public:
-    RectangleNode() { m_shaderContext.GetUniforms().SetOwner(this); }
+    RectangleNode() {}
     ShaderContext& GetShaderContext() override { return m_shaderContext; }
 };
 

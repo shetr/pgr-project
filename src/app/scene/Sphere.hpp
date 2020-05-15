@@ -14,11 +14,22 @@
 
 namespace sadekpet {
 
+class SphereUniforms : public Uniforms
+{
+private:
+    Uniform<int>* m_textureSampler;
+public:
+    SphereUniforms() { 
+        m_textureSampler = new Uniform<int>("textureSampler", 0);
+        AddUniform(m_textureSampler);
+    }
+};
+
 class SphereShaderContext : public ShaderContext {
 private:
     Shared<Primitives> m_mesh;
-    Uniforms m_uniforms;
-    TextureUnits m_textureUnits = TextureUnits({});
+    SphereUniforms m_uniforms;
+    TextureUnits m_textureUnits;
 public:
     SphereShaderContext();
     TypeIndex GetType() const override;
@@ -31,7 +42,7 @@ class SphereNode : public VisibleNode {
 private:
     SphereShaderContext m_shaderContext;
 public:
-    SphereNode() { m_shaderContext.GetUniforms().SetOwner(this); }
+    SphereNode() { }
     ShaderContext& GetShaderContext() override { return m_shaderContext; }
 };
 

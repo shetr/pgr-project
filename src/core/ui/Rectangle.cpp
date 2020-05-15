@@ -22,12 +22,11 @@ Rectangle::Rectangle() :
     m_vertexBuffer->UnBind();
 }
 
-void RectangleUniforms::SetUniformsImpl(int programID)
+RectangleUniforms::RectangleUniforms() 
+    : Uniforms(glm::mat4(1), glm::mat4(1), glm::mat4(1))
 {
-    Set(programID, m_color);
-}
-void RectangleUniforms::UpdateImpl()
-{
+    m_color = new Uniform<glm::vec3>("color", glm::vec3(1,1,0));
+    AddUniform(m_color);
 }
 
 TypeIndex RectangleShaderContext::GetType() const

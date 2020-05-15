@@ -2,9 +2,12 @@
 
 #include <app/generate/MeshGen.hpp>
 
+#include <core/manage/TextureManager.hpp>
+
 namespace sadekpet {
 
 SphereShaderContext::SphereShaderContext()
+    : m_textureUnits(Vector<Shared<Texture>>({TextureManager::GetTexture("sun")}))
 {
     m_mesh = Shared<Primitives>(MeshGen::BasicSphere(20));
 }
