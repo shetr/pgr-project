@@ -10,16 +10,16 @@
 #define PGR_PLANET_HPP
 
 #include "SpaceBody.hpp"
-#include "Sphere.hpp"
+#include "ShaderContexts.hpp"
 
 namespace sadekpet {
 
 class Planet : public SpaceBody
 {
 private:
-    SphereShaderContext m_shaderContext;
+    Object3DShaderContext m_shaderContext;
 public:
-    Planet(float mass) : SpaceBody(mass) {  }
+    Planet(float mass) : SpaceBody(mass), m_shaderContext("sphere", "earth.jpg") { }
     ShaderContext& GetShaderContext() override { return m_shaderContext; }
 };
 

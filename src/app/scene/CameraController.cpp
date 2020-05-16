@@ -56,6 +56,7 @@ MovableCamera::MovableCamera(Camera* camera, Layer* layer)
     : CameraController(camera, layer)
 {
     m_mouseMoveHandler = std::make_unique<MouseMoveHandler>(this, &MovableCamera::OnMouseEvent, Input::Get());
+    m_keyEventHandler = std::make_unique<KeyEventHandler>(this, &MovableCamera::OnKeyPressed, Input::Get());
     Transform& camTrans = camera->GetTransform();
     camTrans.pos = glm::vec3(0,0,0);
     camTrans.rotAxis = glm::vec3(1,0,0);
@@ -124,6 +125,20 @@ void MovableCamera::OnMouseEvent(const MouseMoveEvent& event)
         if(m_nextDir.x != 0 || m_nextDir.y != 0) {
             Input::SetMousePosToCenter();
         }
+}
+
+void MovableCamera::OnKeyPressed(const KeyEvent& event)
+{
+    if(event.pressed){
+        if (event.key == 'p') {
+            const glm::vec3& pos = m_transform.pos; 
+            std::cout << "pos: " << pos.x << ", " << pos.y << ", " << pos.z << std::endl;
+            float sideRot = m_transform.rotAngle;
+            std::cout << "side rot:" << sideRot << std::endl;
+            float upRot = GetCamera()->GetTransform().rotAngle;
+            std::cout << "up rot:" << upRot << std::endl;
+        }
+    }
 }
 
 void MovableCamera::LerpStep()

@@ -74,21 +74,27 @@ protected:
     void DisconnectChild(Node* child);
 };
 
+class ShaderContextUpdater
+{
+public:
+    virtual void Update() = 0;
+};
+
 class VisibleNode : public Node
 {
 private:
     bool m_isVisible;
+    Vector<Shared<ShaderContextUpdater>> m_shaderContextUpdaters;
 public:
     VisibleNode() : m_isVisible(true){}
     virtual ~VisibleNode();
     virtual ShaderContext& GetShaderContext() = 0;
-    void UpdateUniforms();
+    void UpdateShaderContext();
+    void AddShaderContextUpdater(const Shared<ShaderContextUpdater>& updater);
     bool IsVisible() const { return m_isVisible; }
     bool& IsVisible() { return m_isVisible; }
     void Show() { m_isVisible = true; }
     void Hide() { m_isVisible = false; }
-protected:
-    virtual void UpdateUniformsImpl() {}
 };
 
 }

@@ -65,6 +65,7 @@ class MovingCamera : public CameraController
 class MovableCamera : public CameraController
 {
     using MouseMoveHandler = ScopedEventHandler<MouseMoveEvent, MovableCamera>;
+    using KeyEventHandler = ScopedEventHandler<KeyEvent, MovableCamera>;
 private:
     float m_moveSpeed = 2.0f;
     float m_turnSpeed = 0.1f;
@@ -74,12 +75,14 @@ private:
     float m_lerpSteps = 5;
     float m_lerpStep = 1;
     Unique<MouseMoveHandler> m_mouseMoveHandler;
+    Unique<KeyEventHandler> m_keyEventHandler;
 public:
     MovableCamera(Camera* camera, Layer* layer);
     float& MoveSpeed() { return m_moveSpeed; }
     float& TurnSpeed() { return m_turnSpeed; }
     void Update(float deltaTime) override;
     void OnMouseEvent(const MouseMoveEvent& event);
+    void OnKeyPressed(const KeyEvent& event);
 protected:
     void OnActivate() override;
     void OnDeactivate() override;

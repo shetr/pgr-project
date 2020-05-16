@@ -10,16 +10,16 @@
 #define PGR_SUN_HPP
 
 #include "SpaceBody.hpp"
-#include "Sphere.hpp"
+#include "ShaderContexts.hpp"
 
 namespace sadekpet {
 
 class Sun : public SpaceBody
 {
 private:
-    SphereShaderContext m_shaderContext;
+    Object3DShaderContext m_shaderContext;
 public:
-    Sun(float mass) : SpaceBody(mass) {  }
+    Sun(float mass) : SpaceBody(mass), m_shaderContext("sphere", "sun.png") {  }
     ShaderContext& GetShaderContext() override { return m_shaderContext; }
 };
 

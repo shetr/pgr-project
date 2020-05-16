@@ -14,6 +14,7 @@
 #include "render/Renderer.hpp"
 #include "manage/ShaderManager.hpp"
 #include "manage/TextureManager.hpp"
+#include "manage/PrimitivesManager.hpp"
 #include "scene/Layers.hpp"
 
 
@@ -60,6 +61,7 @@ private:
     Unique<Window> m_window;
     Unique<ShaderManager> m_shaderManager;
     Unique<TextureManager> m_textureManager;
+    Unique<PrimitivesManager> m_primitivesManager;
     Unique<App> m_app;
     float m_updateTime;
 public:

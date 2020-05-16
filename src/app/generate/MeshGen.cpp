@@ -28,7 +28,7 @@ Mesh3D* MeshGen::BasicSphere(uint meridianCount, uint parallelCount)
         float uvY = (mCosTheta + 1) / 2;
         for(uint p = 0; p < phiCount; p++) {
             uint v = p + phiCount*t;
-            float pRatio = ((float)p) / phiCount;
+            float pRatio = ((float)p) / (phiCount-1);
             float phi =  2 * M_PI * pRatio;
             float sinPhi = glm::sin(phi);
             float cosPhi = glm::cos(phi);

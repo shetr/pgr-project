@@ -28,7 +28,7 @@ TextureManager::~TextureManager()
 
 bool TextureManager::AddTexture2D(const String& name)
 {
-    String fileName = s_texturesPath+name+".png";
+    String fileName = s_texturesPath+name;
 
     ILuint img_id;
     ilGenImages(1, &img_id); // generate one image ID (name)

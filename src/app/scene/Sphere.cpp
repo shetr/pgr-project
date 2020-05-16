@@ -7,7 +7,7 @@
 namespace sadekpet {
 
 SphereShaderContext::SphereShaderContext()
-    : m_textureUnits(Vector<Shared<Texture>>({TextureManager::GetTexture("sun")}))
+    : m_textureUnits(Vector<Shared<Texture>>({TextureManager::GetTexture("sun.png")}))
 {
     m_mesh = Shared<Primitives>(MeshGen::BasicSphere(20));
 }

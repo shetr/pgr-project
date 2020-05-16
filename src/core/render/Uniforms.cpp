@@ -65,9 +65,11 @@ Uniforms::Uniforms(const glm::mat4& M, const glm::mat4& V, const glm::mat4& P)
     m_M = new Uniform<glm::mat4>("M",M);
     m_VM = new Uniform<glm::mat4>("VM",V*m_M->value);
     m_PVM = new Uniform<glm::mat4>("PVM",P*m_VM->value);
+    m_N = new Uniform<glm::mat3>("N", GetN(M));
     AddUniform(m_M);
     AddUniform(m_VM);
     AddUniform(m_PVM);
+    AddUniform(m_N);
 }
 
 void Uniforms::UpdateMVP(const glm::mat4& M, const glm::mat4& V, const glm::mat4& P)
@@ -75,6 +77,13 @@ void Uniforms::UpdateMVP(const glm::mat4& M, const glm::mat4& V, const glm::mat4
     m_M->value = M;
     m_VM->value = V*M;
     m_PVM->value = P*m_VM->value;
+    m_N->value = GetN(M);
+}
+
+glm::mat3 Uniforms::GetN(const glm::mat4& M)
+{
+    glm::mat3 N = glm::mat3(M);
+    return glm::transpose(glm::inverse(N));
 }
 
 }

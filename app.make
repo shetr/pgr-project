@@ -80,10 +80,12 @@ OBJECTS += $(OBJDIR)/Orbit.o
 OBJECTS += $(OBJDIR)/Planet.o
 OBJECTS += $(OBJDIR)/PlanetarySystem.o
 OBJECTS += $(OBJDIR)/Primitives.o
+OBJECTS += $(OBJDIR)/PrimitivesManager.o
 OBJECTS += $(OBJDIR)/Program.o
 OBJECTS += $(OBJDIR)/Rectangle.o
 OBJECTS += $(OBJDIR)/Renderer.o
 OBJECTS += $(OBJDIR)/Shader.o
+OBJECTS += $(OBJDIR)/ShaderContexts.o
 OBJECTS += $(OBJDIR)/ShaderManager.o
 OBJECTS += $(OBJDIR)/SpaceBody.o
 OBJECTS += $(OBJDIR)/Sphere.o
@@ -179,6 +181,9 @@ $(OBJDIR)/Planet.o: src/app/scene/Planet.cpp
 $(OBJDIR)/PlanetarySystem.o: src/app/scene/PlanetarySystem.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/ShaderContexts.o: src/app/scene/ShaderContexts.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/SpaceBody.o: src/app/scene/SpaceBody.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
@@ -198,6 +203,9 @@ $(OBJDIR)/Timer.o: src/core/Timer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Window.o: src/core/Window.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/PrimitivesManager.o: src/core/manage/PrimitivesManager.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/ShaderManager.o: src/core/manage/ShaderManager.cpp

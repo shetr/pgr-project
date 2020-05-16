@@ -80,7 +80,7 @@ VisibleNode::~VisibleNode()
     GetLayer()->Visible().erase(GetID());
 }
 
-void VisibleNode::UpdateUniforms()
+void VisibleNode::UpdateShaderContext()
 {
     Layer* layer = Layers::GetCurrent();
     if(layer != nullptr) {
@@ -89,7 +89,15 @@ void VisibleNode::UpdateUniforms()
             GetShaderContext().GetUniforms().UpdateMVP(GetWorldTransform(), glm::inverse(camera->GetWorldTransform()), camera->GetProjection());
         }
     }
-    UpdateUniformsImpl();
+    for(Shared<ShaderContextUpdater>& updater : m_shaderContextUpdaters) {
+        updater->Update();
+    }
+}
+
+
+void VisibleNode::AddShaderContextUpdater(const Shared<ShaderContextUpdater>& updater)
+{
+    m_shaderContextUpdaters.push_back(updater);
 }
 
 }

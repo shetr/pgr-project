@@ -50,6 +50,7 @@ void Engine::Init()
     Input::Init();
     m_shaderManager = Unique<ShaderManager>(ShaderManager::Init());
     m_textureManager = Unique<TextureManager>(TextureManager::Init());
+    m_primitivesManager = Unique<PrimitivesManager>(PrimitivesManager::Init());
 
     bool pgrRes;
     #ifdef PGR_DEBUG
@@ -93,7 +94,7 @@ void Engine::Draw()
         Layers::SetCurrent(&layer);
         for(Pair<uint, VisibleNode*> p : layer.Visible()) {
             if(p.second->IsVisible()) {
-                p.second->UpdateUniforms();
+                p.second->UpdateShaderContext();
                 m_renderer.Draw(p.second->GetShaderContext());
             }
         }

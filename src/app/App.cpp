@@ -6,6 +6,7 @@
 #include <core/Window.hpp>
 #include <core/manage/ShaderManager.hpp>
 #include <core/manage/TextureManager.hpp>
+#include <core/manage/PrimitivesManager.hpp>
 #include <core/ui/Rectangle.hpp>
 #include <core/scene/Layers.hpp>
 #include <core/scene/Camera.hpp>
@@ -14,6 +15,8 @@
 
 #include <app/scene/PlanetarySystem.hpp>
 #include <app/scene/Planet.hpp>
+#include <app/generate/MeshGen.hpp>
+#include <app/scene/ShaderContexts.hpp>
 
 namespace sadekpet {
 
@@ -28,8 +31,10 @@ void App::Init()
     m_keyEventHandler = std::make_unique<KeyEventHandler>(this, &App::OnKeyPressed, Input::Get());
     m_specialKeyEventHandler = std::make_unique<SpecialKeyEventHandler>(this, &App::OnSpecialKeyPressed, Input::Get());
     ShaderManager::AddRenderProgram(TypeIndex(typeid(RectangleShaderContext)), "rectangle");
-    ShaderManager::AddRenderProgram(TypeIndex(typeid(SphereShaderContext)), "sphere");
-    TextureManager::AddTexture2D("sun");
+    ShaderManager::AddRenderProgram(TypeIndex(typeid(Object3DShaderContext)), "object3D");
+    TextureManager::AddTexture2D("sun.png");
+    TextureManager::AddTexture2D("earth.jpg");
+    PrimitivesManager::AddPrimitives("sphere", MeshGen::BasicSphere(20));
     Layer& layer = Layers::Get(Layers::Add("3D"));
 
     m_rectangle = new RectangleNode();

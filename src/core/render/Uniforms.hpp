@@ -54,6 +54,7 @@ private:
     Uniform<glm::mat4>* m_M;
     Uniform<glm::mat4>* m_VM;
     Uniform<glm::mat4>* m_PVM;
+    Uniform<glm::mat3>* m_N;
 public:
     Uniforms() : Uniforms(glm::mat4(1), glm::mat4(1), glm::mat4(1)) {}
     Uniforms(const glm::mat4& M, const glm::mat4& V, const glm::mat4& P);
@@ -61,6 +62,8 @@ public:
     void SetUniforms(int programID);
 protected:
     void AddUniform(IUniform* uniform);
+private:
+    glm::mat3 GetN(const glm::mat4& M);
 };
 
 }
