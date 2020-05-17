@@ -11,7 +11,7 @@
 
 #include <core/scene/Node.hpp>
 #include "SpaceBody.hpp"
-#include "Sphere.hpp"
+#include <app/testing/Sphere.hpp>
 
 namespace sadekpet {
 

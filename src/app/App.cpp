@@ -7,16 +7,17 @@
 #include <core/manage/ShaderManager.hpp>
 #include <core/manage/TextureManager.hpp>
 #include <core/manage/PrimitivesManager.hpp>
-#include <core/ui/Rectangle.hpp>
 #include <core/scene/Layers.hpp>
 #include <core/scene/Camera.hpp>
 #include <app/scene/CameraController.hpp>
-#include <app/scene/Sphere.hpp>
 
 #include <app/scene/PlanetarySystem.hpp>
 #include <app/scene/Planet.hpp>
 #include <app/generate/MeshGen.hpp>
 #include <app/scene/ShaderContexts.hpp>
+#include <app/testing/Rectangle.hpp>
+#include <app/testing/Sphere.hpp>
+#include <app/testing/Testing.hpp>
 
 namespace sadekpet {
 
@@ -33,18 +34,12 @@ void App::Init()
     ShaderManager::AddRenderProgram(TypeIndex(typeid(RectangleShaderContext)), "rectangle");
     ShaderManager::AddRenderProgram(TypeIndex(typeid(Object3DShaderContext)), "object3D");
     TextureManager::AddTexture2D("sun.png");
+    TextureManager::AddTexture2D("perlinSun.png");
     TextureManager::AddTexture2D("earth.jpg");
-    PrimitivesManager::AddPrimitives("sphere", MeshGen::BasicSphere(20));
+    PrimitivesManager::AddPrimitives("sphere", MeshGen::BasicSphere(30));
     Layer& layer = Layers::Get(Layers::Add("3D"));
 
-    m_rectangle = new RectangleNode();
-    SphereNode* sphere = new SphereNode();
-    m_rectangle->GetTransform().pos.x = 2;
-    layer.Add(m_rectangle);
-    /*RectangleNode* rect2 = new RectangleNode();
-    rect2->GetTransform().pos.x = -2;
-    layer.Add(rect2);
-    layer.Add(sphere);*/
+
 
     Sun* sun = new Sun(1);
     m_planetarySystem = new PlanetarySystem(sun);
@@ -66,8 +61,6 @@ void App::Init()
 }
 void App::Update(float deltaTime)
 {
-    float speed = 1.0f;
-    m_rectangle->GetTransform().rotAngle += deltaTime * speed;
 }
 
 void App::OnMouseEnter(const MouseEnterEvent& event)

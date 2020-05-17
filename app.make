@@ -90,6 +90,7 @@ OBJECTS += $(OBJDIR)/ShaderManager.o
 OBJECTS += $(OBJDIR)/SpaceBody.o
 OBJECTS += $(OBJDIR)/Sphere.o
 OBJECTS += $(OBJDIR)/Sun.o
+OBJECTS += $(OBJDIR)/Testing.o
 OBJECTS += $(OBJDIR)/Texture.o
 OBJECTS += $(OBJDIR)/TextureManager.o
 OBJECTS += $(OBJDIR)/Timer.o
@@ -187,10 +188,16 @@ $(OBJDIR)/ShaderContexts.o: src/app/scene/ShaderContexts.cpp
 $(OBJDIR)/SpaceBody.o: src/app/scene/SpaceBody.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/Sphere.o: src/app/scene/Sphere.cpp
+$(OBJDIR)/Sun.o: src/app/scene/Sun.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/Sun.o: src/app/scene/Sun.cpp
+$(OBJDIR)/Rectangle.o: src/app/testing/Rectangle.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Sphere.o: src/app/testing/Sphere.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Testing.o: src/app/testing/Testing.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Engine.o: src/core/Engine.cpp
@@ -257,9 +264,6 @@ $(OBJDIR)/Layers.o: src/core/scene/Layers.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Node.o: src/core/scene/Node.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/Rectangle.o: src/core/ui/Rectangle.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/main.o: src/main.cpp

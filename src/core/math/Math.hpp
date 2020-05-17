@@ -15,8 +15,13 @@ class Math
 {
 public:
 
+    static int FloorToOrigin(float v) {
+        int r = static_cast<int>(v);
+        return r < 0 ? r + 1 : r;
+    }
+
     template<typename V>
-    inline static float Lerp(V v1, V v2, float t) {
+    inline static V Lerp(V v1, V v2, float t) {
         return v1 * (1 - t) + v2 * t;
     }
 };

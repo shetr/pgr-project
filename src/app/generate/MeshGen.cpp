@@ -37,12 +37,8 @@ Mesh3D* MeshGen::BasicSphere(uint meridianCount, uint parallelCount)
             vertices[v].y = mCosTheta;
             vertices[v].z = sinTheta * sinPhi;
 
+            uvs[v].x = pRatio;
             uvs[v].y = uvY;
-            if(p==0 || p==phiCount-1) {
-                uvs[v].x = ((float)(2*p + 1)) / (2*phiCount);
-            } else {
-                uvs[v].x = pRatio;
-            }
         }
     }
     for(uint v = 0; v < phiCount; v++) {

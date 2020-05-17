@@ -24,7 +24,6 @@ private:
     Unique<MouseEnterHandler> m_mouseEnterHandler;
     Unique<KeyEventHandler> m_keyEventHandler;
     Unique<SpecialKeyEventHandler> m_specialKeyEventHandler;
-    RectangleNode* m_rectangle;
     PlanetarySystem* m_planetarySystem;
 public:
     App();

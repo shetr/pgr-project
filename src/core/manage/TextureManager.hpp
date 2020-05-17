@@ -17,6 +17,7 @@ public:
     ~TextureManager();
     static bool AddTexture2D(const String& name);
     static Shared<Texture> GetTexture(const String& name);
+    static void SaveTexture2DRGB(const String& name, int width, int height, uint8_t* data);
 
 private:
     TextureManager();

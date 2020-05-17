@@ -19,7 +19,7 @@ class Sun : public SpaceBody
 private:
     Object3DShaderContext m_shaderContext;
 public:
-    Sun(float mass) : SpaceBody(mass), m_shaderContext("sphere", "sun.png") {  }
+    Sun(float mass) : SpaceBody(mass), m_shaderContext("sphere", "perlinSun.png") {  }
     ShaderContext& GetShaderContext() override { return m_shaderContext; }
 };
 

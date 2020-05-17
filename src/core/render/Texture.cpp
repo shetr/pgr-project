@@ -31,7 +31,7 @@ void Texture::UnBind(TextureType type)
 void Texture::Init()
 {
     GL(TexParameteri(static_cast<uint>(GetType()), GL_TEXTURE_MIN_FILTER, GL_LINEAR));
-    GL(TexParameteri(static_cast<uint>(GetType()), GL_TEXTURE_MAG_FILTER, GL_NEAREST));
+    GL(TexParameteri(static_cast<uint>(GetType()), GL_TEXTURE_MAG_FILTER, GL_LINEAR));
 
     SetImage();
 }

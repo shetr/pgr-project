@@ -20,6 +20,10 @@
 #include <string>
 #include <optional>
 
+#include <glm/glm.hpp> 
+#include <glm/gtc/type_ptr.hpp> 
+#include <glm/gtc/matrix_transform.hpp> 
+
 namespace sadekpet {
 
 using uint = unsigned int;

@@ -77,6 +77,29 @@ Shared<Texture> TextureManager::GetTexture(const String& name)
     return it->second;
 }
 
+void TextureManager::SaveTexture2DRGB(const String& name, int width, int height, uint8_t* data)
+{
+    String location = s_texturesPath + name;
+    ILuint img_id;
+    ilEnable(IL_ORIGIN_SET);
+    ilSetInteger(IL_ORIGIN_MODE, IL_ORIGIN_LOWER_LEFT);
+    ilEnable(IL_FILE_OVERWRITE);
+    ilGenImages(1, &img_id);
+    ilBindImage(img_id);
+/*
+    int size = width * height*3;
+    ilSetInteger( IL_IMAGE_WIDTH, width);
+    ilSetInteger( IL_IMAGE_HEIGHT, height );
+    ilSetInteger( IL_IMAGE_BITS_PER_PIXEL, 3*8 );
+    ilSetInteger( IL_IMAGE_BPP, 3);
+    ilSetInteger( IL_IMAGE_SIZE_OF_DATA, size);
+    ilSetPixels(0,0,0, width, height, 1, IL_RGB, IL_UNSIGNED_BYTE, data);*/
+
+    ilTexImage(width, height, 1, 3, IL_RGB, IL_UNSIGNED_BYTE, data);
+    ilSaveImage(location.c_str());
+    ilDeleteImages(1, &img_id);
+}
+
 TextureManager::TextureManager()
 {
 }
