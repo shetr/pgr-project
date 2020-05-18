@@ -39,7 +39,7 @@ bool TextureManager::AddTexture2D(const String& name)
     ilSetInteger(IL_ORIGIN_MODE, IL_ORIGIN_LOWER_LEFT);
 
     // this will load image data to the currently bound image
-    if(ilLoadImage(fileName.c_str()) == IL_FALSE) {
+    if(ilLoadImage((const wchar_t*)fileName.c_str()) == IL_FALSE) {
         ilDeleteImages(1, &img_id);
         std::cout << " cannot load image " << fileName << std::endl;
         return false;
@@ -96,7 +96,7 @@ void TextureManager::SaveTexture2DRGB(const String& name, int width, int height,
     ilSetPixels(0,0,0, width, height, 1, IL_RGB, IL_UNSIGNED_BYTE, data);*/
 
     ilTexImage(width, height, 1, 3, IL_RGB, IL_UNSIGNED_BYTE, data);
-    ilSaveImage(location.c_str());
+    ilSaveImage((const wchar_t*)location.c_str());
     ilDeleteImages(1, &img_id);
 }
 

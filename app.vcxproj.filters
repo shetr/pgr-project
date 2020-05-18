@@ -10,11 +10,17 @@
     <Filter Include="app\scene">
       <UniqueIdentifier>{23908695-8FFA-3A0C-D838-ECB144E21861}</UniqueIdentifier>
     </Filter>
+    <Filter Include="app\testing">
+      <UniqueIdentifier>{D3731064-3F29-8959-C81D-833034D27F5D}</UniqueIdentifier>
+    </Filter>
     <Filter Include="core">
       <UniqueIdentifier>{4E40957C-3A77-960D-E363-7C10CF79120F}</UniqueIdentifier>
     </Filter>
     <Filter Include="core\manage">
       <UniqueIdentifier>{66D5887B-D28A-0171-5B7F-FB47C733F874}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core\math">
+      <UniqueIdentifier>{07925FA5-73FC-131C-BC3A-C5C128E4F170}</UniqueIdentifier>
     </Filter>
     <Filter Include="core\render">
       <UniqueIdentifier>{1D0F7B87-89C4-F37C-12B9-ED537E6DEA80}</UniqueIdentifier>
@@ -22,15 +28,21 @@
     <Filter Include="core\scene">
       <UniqueIdentifier>{0B40BF51-F7F7-009F-60FF-D9FA4CD69B8F}</UniqueIdentifier>
     </Filter>
-    <Filter Include="core\ui">
-      <UniqueIdentifier>{FBDCB8D3-67BC-376F-70D4-C245DC329ED0}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app\App.hpp">
       <Filter>app</Filter>
     </ClInclude>
     <ClInclude Include="src\app\generate\MeshGen.hpp">
+      <Filter>app\generate</Filter>
+    </ClInclude>
+    <ClInclude Include="src\app\generate\Noise.hpp">
+      <Filter>app\generate</Filter>
+    </ClInclude>
+    <ClInclude Include="src\app\generate\Random.hpp">
+      <Filter>app\generate</Filter>
+    </ClInclude>
+    <ClInclude Include="src\app\generate\TextureGen.hpp">
       <Filter>app\generate</Filter>
     </ClInclude>
     <ClInclude Include="src\app\scene\CameraController.hpp">
@@ -45,17 +57,26 @@
     <ClInclude Include="src\app\scene\PlanetarySystem.hpp">
       <Filter>app\scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\app\scene\ShaderContexts.hpp">
+      <Filter>app\scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\app\scene\SolarSystem.hpp">
       <Filter>app\scene</Filter>
     </ClInclude>
     <ClInclude Include="src\app\scene\SpaceBody.hpp">
       <Filter>app\scene</Filter>
     </ClInclude>
-    <ClInclude Include="src\app\scene\Sphere.hpp">
-      <Filter>app\scene</Filter>
-    </ClInclude>
     <ClInclude Include="src\app\scene\Sun.hpp">
       <Filter>app\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\app\testing\Rectangle.hpp">
+      <Filter>app\testing</Filter>
+    </ClInclude>
+    <ClInclude Include="src\app\testing\Sphere.hpp">
+      <Filter>app\testing</Filter>
+    </ClInclude>
+    <ClInclude Include="src\app\testing\Testing.hpp">
+      <Filter>app\testing</Filter>
     </ClInclude>
     <ClInclude Include="src\core\Engine.hpp">
       <Filter>core</Filter>
@@ -75,16 +96,22 @@
     <ClInclude Include="src\core\debug.hpp">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\manage\PrimitivesManager.hpp">
+      <Filter>core\manage</Filter>
+    </ClInclude>
     <ClInclude Include="src\core\manage\ShaderManager.hpp">
       <Filter>core\manage</Filter>
     </ClInclude>
     <ClInclude Include="src\core\manage\TextureManager.hpp">
       <Filter>core\manage</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\render\Buffer.hpp">
-      <Filter>core\render</Filter>
+    <ClInclude Include="src\core\math\Math.hpp">
+      <Filter>core\math</Filter>
     </ClInclude>
-    <ClInclude Include="src\core\render\Material.hpp">
+    <ClInclude Include="src\core\math\PartialLerp.hpp">
+      <Filter>core\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\render\Buffer.hpp">
       <Filter>core\render</Filter>
     </ClInclude>
     <ClInclude Include="src\core\render\OpenGL.hpp">
@@ -100,6 +127,9 @@
       <Filter>core\render</Filter>
     </ClInclude>
     <ClInclude Include="src\core\render\Shader.hpp">
+      <Filter>core\render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\render\ShaderContext.hpp">
       <Filter>core\render</Filter>
     </ClInclude>
     <ClInclude Include="src\core\render\Texture.hpp">
@@ -123,11 +153,11 @@
     <ClInclude Include="src\core\scene\Node.hpp">
       <Filter>core\scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\scene\TimeGroup.hpp">
+      <Filter>core\scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\core\types.hpp">
       <Filter>core</Filter>
-    </ClInclude>
-    <ClInclude Include="src\core\ui\Rectangle.hpp">
-      <Filter>core\ui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -135,6 +165,12 @@
       <Filter>app</Filter>
     </ClCompile>
     <ClCompile Include="src\app\generate\MeshGen.cpp">
+      <Filter>app\generate</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\generate\Noise.cpp">
+      <Filter>app\generate</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\generate\TextureGen.cpp">
       <Filter>app\generate</Filter>
     </ClCompile>
     <ClCompile Include="src\app\scene\CameraController.cpp">
@@ -149,14 +185,23 @@
     <ClCompile Include="src\app\scene\PlanetarySystem.cpp">
       <Filter>app\scene</Filter>
     </ClCompile>
-    <ClCompile Include="src\app\scene\SpaceBody.cpp">
+    <ClCompile Include="src\app\scene\ShaderContexts.cpp">
       <Filter>app\scene</Filter>
     </ClCompile>
-    <ClCompile Include="src\app\scene\Sphere.cpp">
+    <ClCompile Include="src\app\scene\SpaceBody.cpp">
       <Filter>app\scene</Filter>
     </ClCompile>
     <ClCompile Include="src\app\scene\Sun.cpp">
       <Filter>app\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\testing\Rectangle.cpp">
+      <Filter>app\testing</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\testing\Sphere.cpp">
+      <Filter>app\testing</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\testing\Testing.cpp">
+      <Filter>app\testing</Filter>
     </ClCompile>
     <ClCompile Include="src\core\Engine.cpp">
       <Filter>core</Filter>
@@ -170,8 +215,17 @@
     <ClCompile Include="src\core\Window.cpp">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\manage\PrimitivesManager.cpp">
+      <Filter>core\manage</Filter>
+    </ClCompile>
     <ClCompile Include="src\core\manage\ShaderManager.cpp">
       <Filter>core\manage</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\manage\TextureManager.cpp">
+      <Filter>core\manage</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\math\Math.cpp">
+      <Filter>core\math</Filter>
     </ClCompile>
     <ClCompile Include="src\core\render\Buffer.cpp">
       <Filter>core\render</Filter>
@@ -214,9 +268,6 @@
     </ClCompile>
     <ClCompile Include="src\core\scene\Node.cpp">
       <Filter>core\scene</Filter>
-    </ClCompile>
-    <ClCompile Include="src\core\ui\Rectangle.cpp">
-      <Filter>core\ui</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>

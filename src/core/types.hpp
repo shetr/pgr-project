@@ -70,6 +70,9 @@ template<typename ClassType, typename MemberType> size_t memberOffset(MemberType
 #ifndef M_PI_2
 #define M_PI_2 (3.14159f/2)
 #endif
+#ifndef M_SQRT2
+#define M_SQRT2 (1.41421356237)
+#endif
 
 }
 
