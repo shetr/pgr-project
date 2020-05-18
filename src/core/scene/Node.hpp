@@ -14,6 +14,7 @@
 #include <core/render/ShaderContext.hpp>
 #include <glm/glm.hpp>
 
+#include "TimeGroup.hpp"
 
 namespace sadekpet {
 
@@ -38,6 +39,7 @@ public:
 private:
     static uint s_idGen;
     static UnordMap<uint, Node*> s_nodesMap;
+    static Shared<TimeGroup> s_globalTimeGroup;
     uint m_id;
     Node* m_parent;
     UnordMap<uint, Node*> m_childsMap;
@@ -45,6 +47,7 @@ private:
 protected:
     Transform m_transform;
     glm::mat4 m_worldTransform;
+    Shared<TimeGroup> m_timeGroup;
 public:
     Node();
     virtual ~Node();
@@ -52,6 +55,7 @@ public:
     static Node* GetNode(uint id);
 
     void SetLayer(Layer* layer) { m_layer = layer; }
+    void SetTimeGroup(const Shared<TimeGroup>& timeGroup) { m_timeGroup = timeGroup; }
 
     uint GetID() const { return m_id; }
     Node* GetParent() const { return m_parent; }
@@ -59,6 +63,7 @@ public:
     const glm::mat4& GetWorldTransform() const { return m_worldTransform; }
     glm::vec3 GetWorldPos() const { return m_worldTransform[3]; }
     Layer* GetLayer() { return m_layer; }
+    float GetTimeSpeed() const { return m_timeGroup->Speed(); }
     Iterator ChildsBegin() { return m_childsMap.begin(); }
     Iterator ChildsEnd() { return m_childsMap.end(); }
 

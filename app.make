@@ -92,6 +92,7 @@ OBJECTS += $(OBJDIR)/Sphere.o
 OBJECTS += $(OBJDIR)/Sun.o
 OBJECTS += $(OBJDIR)/Testing.o
 OBJECTS += $(OBJDIR)/Texture.o
+OBJECTS += $(OBJDIR)/TextureGen.o
 OBJECTS += $(OBJDIR)/TextureManager.o
 OBJECTS += $(OBJDIR)/Timer.o
 OBJECTS += $(OBJDIR)/Uniforms.o
@@ -168,6 +169,9 @@ $(OBJDIR)/MeshGen.o: src/app/generate/MeshGen.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Noise.o: src/app/generate/Noise.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/TextureGen.o: src/app/generate/TextureGen.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/CameraController.o: src/app/scene/CameraController.cpp

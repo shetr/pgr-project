@@ -10,7 +10,7 @@ int main(int argc, char** argv) {
     App* app = new App();
     Engine::Create(
         EngineArgs({&argc, argv}), 
-        EngineConfig({WindowSize({512, 512}), "PGR project", DebugLevel::DEBUG_HIGH, EngineLoop::FIXED_GLUT, 60}),
+        EngineConfig({WindowSize({1024, 800}), "PGR project", DebugLevel::DEBUG_HIGH, EngineLoop::FIXED_GLUT, 60}),
         app);
     {
         Unique<Engine> engine = Unique<Engine>(Engine::Get());

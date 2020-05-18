@@ -19,7 +19,7 @@ class Planet : public SpaceBody
 private:
     Object3DShaderContext m_shaderContext;
 public:
-    Planet(float mass) : SpaceBody(mass), m_shaderContext("sphere", "earth.jpg") { }
+    Planet(float mass, const String& texture) : SpaceBody(mass), m_shaderContext("sphere", texture) { }
     ShaderContext& GetShaderContext() override { return m_shaderContext; }
 };
 

@@ -26,6 +26,7 @@ private:
 public:
     Orbit(SpaceBody* body, float radius = 1, float speed = 1, float start = 0);
 
+    SpaceBody* GetBody() { return m_body; }
     void Update(float deltaTime) override;
     ShaderContext& GetShaderContext() override { return m_shaderContext; }
 };

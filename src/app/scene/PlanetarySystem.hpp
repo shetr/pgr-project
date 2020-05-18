@@ -22,7 +22,7 @@ private:
     Sun* m_sun;
     Vector<Orbit*> m_orbits;
 public:
-    PlanetarySystem(Sun* sun);
+    PlanetarySystem(Sun* sun, const Shared<TimeGroup>& timeGroup);
     void AddOrbit(Orbit* orbit);
 };
 

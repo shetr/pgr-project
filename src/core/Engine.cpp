@@ -112,7 +112,7 @@ void Engine::Update()
         Layer& layer = Layers::Get(l);
         Layers::SetCurrent(&layer);
         for(Pair<uint, Node*> p : layer.Roots()) {
-            p.second->Update(m_timer.GetDelta());
+            p.second->Update(m_timer.GetDelta() * p.second->GetTimeSpeed());
         }
     }
     UpdateWorldTransfrom();

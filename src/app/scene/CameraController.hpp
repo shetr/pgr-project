@@ -23,6 +23,8 @@ private:
     bool m_active;
 public:
     CameraController(Camera* camera, Layer* layer);
+    float& SideRotation() { return m_transform.rotAngle; }
+    float& UpRotation() { return GetCamera()->GetTransform().rotAngle; }
     bool IsActive() const { return m_active; }
     void Activate();
     void Deactivate();

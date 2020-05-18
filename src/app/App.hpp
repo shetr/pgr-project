@@ -12,8 +12,10 @@
 
 namespace sadekpet { 
 
+class TimeGroup;
 class RectangleNode;
 class PlanetarySystem;
+class CameraControll;
 
 class App
 {
@@ -21,10 +23,13 @@ class App
     using KeyEventHandler = ScopedEventHandler<KeyEvent, App>;
     using SpecialKeyEventHandler = ScopedEventHandler<SpecialKeyEvent, App>;
 private:
+    bool m_stoped = false; 
     Unique<MouseEnterHandler> m_mouseEnterHandler;
     Unique<KeyEventHandler> m_keyEventHandler;
     Unique<SpecialKeyEventHandler> m_specialKeyEventHandler;
     PlanetarySystem* m_planetarySystem;
+    Shared<TimeGroup> m_planetarySystemTimeGroup;
+    Unique<CameraControll> m_cameraControll;
 public:
     App();
     ~App();

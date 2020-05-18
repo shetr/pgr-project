@@ -6,6 +6,7 @@
 #include <core/math/PartialLerp.hpp>
 #include <core/manage/TextureManager.hpp>
 #include <app/generate/Noise.hpp>
+#include <app/generate/TextureGen.hpp>
 
 namespace sadekpet {
 
@@ -68,6 +69,50 @@ void g_TestGenSphereNoise()
         }
     }
     TextureManager::SaveTexture2DRGB("perlinSun.png", width, height, data.data());
+}
+
+void g_GenTextures()
+{
+    PartialLerp<glm::vec3> colorsPlanet1({
+        {0, glm::vec3(0.54, 0.54, 0.59)},
+        {0.5, glm::vec3(0.47, 0.46, 0.47)},
+        {1, glm::vec3(0.65, 0.64, 0.63)}
+    });
+    TextureGen::Perlin3DSphere("generated/planet1.png", colorsPlanet1, 13, 8, 2, 4);
+/*
+    PartialLerp<glm::vec3> colorsPlanet2({
+        {0, glm::vec3(0.64, 0.59, 0.07)},
+        {0.5, glm::vec3(0.42, 0.31, 0.04)},
+        {1, glm::vec3(0.58, 0.27, 0.12)}
+    });
+    TextureGen::Perlin3DSphere("generated/planet2.png", colorsPlanet2, 26, 1, 3);
+*/
+    /* 
+    PartialLerp<glm::vec3> colorsPlanet3({
+        {0, glm::vec3(0, 0, 0.5)},
+        {0.5, glm::vec3(0, 0.33, 1)},
+        {0.51, glm::vec3(0, 0.43, 0)},
+        {0.6, glm::vec3(0.2, 0.5, 0)},
+        {0.8, glm::vec3(0.64, 0.49, 0.11)},
+        {1, glm::vec3(0.58, 0.36, 0.11)}
+    });
+    TextureGen::Perlin3DSphere("generated/planet3.png", colorsPlanet1, 4, 1.5, 3);*/
+/*
+    PartialLerp<glm::vec3> colorsPlanet5({
+        {0, glm::vec3(0.82, 0.82, 0.85)},
+        {0.5, glm::vec3(0.59, 0.37, 0.3)},
+        {1, glm::vec3(0.8, 0.74, 0.64)}
+    });
+    TextureGen::Perlin1DSphere("generated/planet5.png", colorsPlanet5, 12, 2, 3);
+*/
+/*
+    PartialLerp<glm::vec3> colorsPlanet6({
+        {0, glm::vec3(0.4, 0.5, 0.63)},
+        {0.5, glm::vec3(0.4, 0.5, 0.69)},
+        {1, glm::vec3(0.66, 0.75, 0.89)}
+    });
+    TextureGen::Perlin1DSphere("generated/planet6.png", colorsPlanet6, 213, 1, 3);
+*/
 }
 
 }

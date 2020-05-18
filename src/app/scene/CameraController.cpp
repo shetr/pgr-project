@@ -10,6 +10,12 @@ CameraController::CameraController(Camera* camera, Layer* layer)
     : m_camera(camera), m_layer(layer), m_active(false)
 {
     ConnectChild(m_camera); 
+    Transform& camTrans = camera->GetTransform();
+    camTrans.pos = glm::vec3(0,0,0);
+    camTrans.rotAxis = glm::vec3(1,0,0);
+    camTrans.rotAngle = 0;
+    m_transform.rotAxis = glm::vec3(0,1,0);
+    m_transform.rotAngle = 0;
 }
 
 void CameraController::Activate() 
@@ -41,8 +47,8 @@ NumericCamControll::NumericCamControll()
 
 void NumericCamControll::OnKeyPressed(const KeyEvent& event)
 {
-    if(event.pressed){
-        size_t i = '1' - event.key;
+    if(event.pressed && ('1' <= event.key && event.key < '1'+ControllerCount() || event.key == 'n')){
+        size_t i = event.key - '1';
         if(i >= 0 && i < ControllerCount()) {
             Set(i);
         } else if (event.key == 'n') {
@@ -57,12 +63,6 @@ MovableCamera::MovableCamera(Camera* camera, Layer* layer)
 {
     m_mouseMoveHandler = std::make_unique<MouseMoveHandler>(this, &MovableCamera::OnMouseEvent, Input::Get());
     m_keyEventHandler = std::make_unique<KeyEventHandler>(this, &MovableCamera::OnKeyPressed, Input::Get());
-    Transform& camTrans = camera->GetTransform();
-    camTrans.pos = glm::vec3(0,0,0);
-    camTrans.rotAxis = glm::vec3(1,0,0);
-    camTrans.rotAngle = 0;
-    m_transform.rotAxis = glm::vec3(0,1,0);
-    m_transform.rotAngle = 0;
 }
 void MovableCamera::Update(float deltaTime)
 {
@@ -117,6 +117,7 @@ void MovableCamera::OnDeactivate()
 
 void MovableCamera::OnMouseEvent(const MouseMoveEvent& event)
 {
+    if(IsActive()) {
         WindowSize winSize = Window::GetSize();
         MousePos mousePos = event.pos;
         m_nextDir = glm::vec2(mousePos.x - winSize.width/2, mousePos.y - winSize.height/2);
@@ -125,6 +126,7 @@ void MovableCamera::OnMouseEvent(const MouseMoveEvent& event)
         if(m_nextDir.x != 0 || m_nextDir.y != 0) {
             Input::SetMousePosToCenter();
         }
+    }
 }
 
 void MovableCamera::OnKeyPressed(const KeyEvent& event)
@@ -134,9 +136,9 @@ void MovableCamera::OnKeyPressed(const KeyEvent& event)
             const glm::vec3& pos = m_transform.pos; 
             std::cout << "pos: " << pos.x << ", " << pos.y << ", " << pos.z << std::endl;
             float sideRot = m_transform.rotAngle;
-            std::cout << "side rot:" << sideRot << std::endl;
+            std::cout << "side rot: " << sideRot << std::endl;
             float upRot = GetCamera()->GetTransform().rotAngle;
-            std::cout << "up rot:" << upRot << std::endl;
+            std::cout << "up rot: " << upRot << std::endl;
         }
     }
 }

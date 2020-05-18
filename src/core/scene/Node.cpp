@@ -16,8 +16,9 @@ glm::mat4 Transform::ToMat4() const
 
 uint Node::s_idGen = 0;
 UnordMap<uint, Node*> Node::s_nodesMap = {};
+Shared<TimeGroup> Node::s_globalTimeGroup = Shared<TimeGroup>(new TimeGroup());
 
-Node::Node() : m_id(s_idGen++), m_layer(nullptr), m_parent(nullptr), m_worldTransform(glm::mat4(1))
+Node::Node() : m_id(s_idGen++), m_layer(nullptr), m_parent(nullptr), m_worldTransform(glm::mat4(1)), m_timeGroup(s_globalTimeGroup)
 {
     s_nodesMap[m_id] = this;
 }
