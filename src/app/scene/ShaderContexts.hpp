@@ -43,6 +43,27 @@ public:
     void Update() override;
 };
 
+class Basic3DUniforms : public Uniforms
+{
+private:
+    Uniform<int>* m_textureSampler;
+public:
+    Basic3DUniforms();
+};
+
+class Basic3DShaderContext : public ShaderContext {
+private:
+    Shared<Primitives> m_mesh;
+    Basic3DUniforms m_uniforms;
+    TextureUnits m_textureUnits;
+public:
+    Basic3DShaderContext(const String& mesh, const String& texture);
+    TypeIndex GetType() const override;
+    const Shared<Primitives>& GetPrimitives() override;
+    Uniforms& GetUniforms() override;
+    TextureUnits& GetTextureUnits() override;
+};
+
 }
 
 #endif // PGR_SHADER_CONTEXTS_HPP

@@ -18,8 +18,12 @@ class Planet : public SpaceBody
 {
 private:
     Object3DShaderContext m_shaderContext;
+    Shared<Object3DShaderContextUpdater> m_shaderContextUpdater;
 public:
-    Planet(float mass, const String& texture) : SpaceBody(mass), m_shaderContext("sphere", texture) { }
+    Planet(float mass, const String& texture) : SpaceBody(mass), m_shaderContext("sphere", texture) {
+        m_shaderContextUpdater = Shared<Object3DShaderContextUpdater>(new Object3DShaderContextUpdater(&m_shaderContext));
+        AddShaderContextUpdater(m_shaderContextUpdater);
+    }
     ShaderContext& GetShaderContext() override { return m_shaderContext; }
 };
 

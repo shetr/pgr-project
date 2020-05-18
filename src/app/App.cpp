@@ -33,6 +33,7 @@ void App::Init()
     m_specialKeyEventHandler = std::make_unique<SpecialKeyEventHandler>(this, &App::OnSpecialKeyPressed, Input::Get());
     ShaderManager::AddRenderProgram(TypeIndex(typeid(RectangleShaderContext)), "rectangle");
     ShaderManager::AddRenderProgram(TypeIndex(typeid(Object3DShaderContext)), "object3D");
+    ShaderManager::AddRenderProgram(TypeIndex(typeid(Basic3DShaderContext)), "basic3D");
     TextureManager::AddTexture2D("sun.png");
     TextureManager::AddTexture2D("perlinSun.png");
     TextureManager::AddTexture2D("planet1.png");
@@ -55,11 +56,11 @@ void App::Init()
     Planet* planet3 = new Planet(0.8, "planet3.png");
     Planet* planet5 = new Planet(2.0, "planet5.png");
     Planet* planet6 = new Planet(1.5, "planet6.png");
-    Orbit* orbit1 = new Orbit(planet1, 10, 0.7, 0.56);
-    Orbit* orbit2 = new Orbit(planet2, 15, 0.5);
-    Orbit* orbit3 = new Orbit(planet3, 20, 0.3, 1.5);
-    Orbit* orbit5 = new Orbit(planet5, 30, 0.1, 3*M_PI/2);
-    Orbit* orbit6 = new Orbit(planet6, 35, 0.08, 3*M_PI/4);
+    Orbit* orbit1 = new Orbit(planet1, 20, 0.7, 0.56);
+    Orbit* orbit2 = new Orbit(planet2, 25, 0.5);
+    Orbit* orbit3 = new Orbit(planet3, 30, 0.3, 1.5);
+    Orbit* orbit5 = new Orbit(planet5, 40, 0.1, 3*M_PI/2);
+    Orbit* orbit6 = new Orbit(planet6, 45, 0.08, 3*M_PI/4);
     m_planetarySystem->AddOrbit(orbit1);
     m_planetarySystem->AddOrbit(orbit2);
     m_planetarySystem->AddOrbit(orbit3);
