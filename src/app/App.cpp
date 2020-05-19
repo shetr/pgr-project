@@ -51,11 +51,11 @@ void App::Init()
 
     Sun* sun = new Sun(5);
     m_planetarySystem = new PlanetarySystem(sun, m_planetarySystemTimeGroup);
-    Planet* planet1 = new Planet(0.4, "planet1.png");
-    Planet* planet2 = new Planet(0.6, "planet2.png");
-    Planet* planet3 = new Planet(0.8, "planet3.png");
-    Planet* planet5 = new Planet(2.0, "planet5.png");
-    Planet* planet6 = new Planet(1.5, "planet6.png");
+    Planet* planet1 = new Planet(0.4, "planet1.png", 3);
+    Planet* planet2 = new Planet(0.6, "planet2.png", 2);
+    Planet* planet3 = new Planet(0.8, "planet3.png", 1);
+    Planet* planet5 = new Planet(2.0, "planet5.png", 0.5);
+    Planet* planet6 = new Planet(1.5, "planet6.png", 0.3);
     Orbit* orbit1 = new Orbit(planet1, 20, 0.7, 0.56);
     Orbit* orbit2 = new Orbit(planet2, 25, 0.5);
     Orbit* orbit3 = new Orbit(planet3, 30, 0.3, 1.5);
@@ -83,15 +83,15 @@ void App::Init()
     m_cameraControll = Unique<CameraControll>(new NumericCamControll());
     Camera* camera1 = new PerspectiveCamera(M_PI_2, 0.1f, 100.0f);
     StaticCamera* statCamera = new StaticCamera(camera1, &layer);
-    statCamera->GetTransform().pos = glm::vec3(10.7304, 29.8384, 21.7261);
-    statCamera->SideRotation() = 0.459837;
-    statCamera->UpRotation() = -0.939478;
+    statCamera->GetTransform().pos = glm::vec3(20.2782, 19.681, 35.4639);
+    statCamera->SideRotation() = 0.599464;
+    statCamera->UpRotation() = -0.61803;
     
     Camera* camera2 = new PerspectiveCamera(M_PI_2, 0.1f, 100.0f);
     MovableCamera* movCamera = new MovableCamera(camera2, &layer);
-    movCamera->GetTransform().pos = glm::vec3(10.7304, 29.8384, 21.7261);
-    movCamera->SideRotation() = 0.459837;
-    movCamera->UpRotation() = -0.939478;
+    movCamera->GetTransform().pos = glm::vec3(20.2782, 19.681, 35.4639);
+    movCamera->SideRotation() = 0.599464;
+    movCamera->UpRotation() = -0.61803;
     movCamera->MoveSpeed() = 10;
     m_cameraControll->AddController(statCamera);
     m_cameraControll->AddController(movCamera);

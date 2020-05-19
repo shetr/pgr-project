@@ -19,12 +19,15 @@ class Planet : public SpaceBody
 private:
     Object3DShaderContext m_shaderContext;
     Shared<Object3DShaderContextUpdater> m_shaderContextUpdater;
+	float m_rotationSpeed;
 public:
-    Planet(float mass, const String& texture) : SpaceBody(mass), m_shaderContext("sphere", texture) {
+    Planet(float mass, const String& texture, float rotationSpeed = 1) : SpaceBody(mass), m_shaderContext("sphere", texture), m_rotationSpeed(rotationSpeed) {
         m_shaderContextUpdater = Shared<Object3DShaderContextUpdater>(new Object3DShaderContextUpdater(&m_shaderContext));
         AddShaderContextUpdater(m_shaderContextUpdater);
+		GetTransform().rotAxis = glm::vec3(0, 1, 0);
     }
     ShaderContext& GetShaderContext() override { return m_shaderContext; }
+	void Update(float deltaTime) override;
 };
 
 }
