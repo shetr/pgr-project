@@ -18,6 +18,7 @@
 #include <app/testing/Rectangle.hpp>
 #include <app/testing/Sphere.hpp>
 #include <app/testing/Testing.hpp>
+#include <app/scene/Dummy.hpp>
 
 namespace sadekpet {
 
@@ -42,10 +43,17 @@ void App::Init()
     TextureManager::AddTexture2D("planet5.png");
     TextureManager::AddTexture2D("planet6.png");
     TextureManager::AddTexture2D("earth.jpg");
+    TextureManager::AddTexture2D("ufo.jpg");
+    PrimitivesManager::LoadModel("ufo");
     PrimitivesManager::AddPrimitives("sphere", MeshGen::BasicSphere(30));
     Layer& layer = Layers::Get(Layers::Add("3D"));
 
     //g_GenTextures();
+
+    Dummy* ufo = new Dummy("ufo", "ufo.jpg");
+    ufo->GetTransform().pos.y = 10;
+    ufo->GetTransform().scale /= 100; 
+    layer.Add(ufo);
 
     m_planetarySystemTimeGroup = Shared<TimeGroup>(new TimeGroup());
 
