@@ -28,6 +28,7 @@ public:
     void Clear();
     void SwapBuffers();
 
+    void SetStencilID(uint8_t id);
     void Draw(ShaderContext& shaderContext);
 
 

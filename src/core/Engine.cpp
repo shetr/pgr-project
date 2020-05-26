@@ -93,14 +93,17 @@ void Engine::Draw()
         Layer& layer = Layers::Get(l);
         Layers::SetCurrent(&layer);
         for(Pair<uint, VisibleNode*> p : layer.Visible()) {
-            if(p.second->IsVisible()) {
-                p.second->UpdateShaderContext();
-                m_renderer.Draw(p.second->GetShaderContext());
+            VisibleNode* node = p.second;
+            if(node->IsVisible()) {
+                node->UpdateShaderContext();
+                m_renderer.SetStencilID(node->GetStencilID());
+                m_renderer.Draw(node->GetShaderContext());
             }
         }
     }
-    Layers::SetCurrent(nullptr);
     m_renderer.SwapBuffers();
+    Input::StencilUpdate(m_timer.GetDelta());
+    Layers::SetCurrent(nullptr);
 }
 
 void Engine::Update()

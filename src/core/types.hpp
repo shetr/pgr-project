@@ -14,6 +14,7 @@
 #include <typeindex>
 #include <list>
 #include <unordered_map>
+#include <map>
 #include <vector>
 #include <list>
 #include <set>
@@ -45,6 +46,9 @@ using List = std::list<T>;
 
 template<typename K, typename V>
 using UnordMap = std::unordered_map<K, V>;
+
+template<typename K, typename V>
+using Map = std::map<K, V>;
 
 template<typename K>
 using Set = std::set<K>;

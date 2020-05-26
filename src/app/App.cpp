@@ -19,6 +19,7 @@
 #include <app/testing/Sphere.hpp>
 #include <app/testing/Testing.hpp>
 #include <app/scene/Dummy.hpp>
+#include <app/scene/PickPlanetController.hpp>
 
 namespace sadekpet {
 
@@ -35,6 +36,7 @@ void App::Init()
     ShaderManager::AddRenderProgram(TypeIndex(typeid(RectangleShaderContext)), "rectangle");
     ShaderManager::AddRenderProgram(TypeIndex(typeid(Object3DShaderContext)), "object3D");
     ShaderManager::AddRenderProgram(TypeIndex(typeid(Basic3DShaderContext)), "basic3D");
+    ShaderManager::AddRenderProgram(TypeIndex(typeid(Line3DShaderContext)), "line3D");
     TextureManager::AddTexture2D("sun.png");
     TextureManager::AddTexture2D("perlinSun.png");
     TextureManager::AddTexture2D("planet1.png");
@@ -51,8 +53,10 @@ void App::Init()
     //g_GenTextures();
 
     Dummy* ufo = new Dummy("ufo", "ufo.jpg");
-    ufo->GetTransform().pos.y = 10;
-    ufo->GetTransform().scale /= 100; 
+    ufo->GetTransform().pos = glm::vec3(5,-10, 5);
+    ufo->GetTransform().scale /= 100;
+    ufo->GetTransform().rotAxis = glm::vec3(1,0,0);
+    ufo->GetTransform().rotAngle = M_PI/2;
     layer.Add(ufo);
 
     m_planetarySystemTimeGroup = Shared<TimeGroup>(new TimeGroup());
@@ -88,29 +92,53 @@ void App::Init()
     layer.Add(orbit6);
     layer.Add(m_planetarySystem);
 
+    m_pickPlanetController = Unique<PickPlanetController>(new PickPlanetController());
+    m_pickPlanetController->AddOrbit(orbit1);
+    m_pickPlanetController->AddOrbit(orbit2);
+    m_pickPlanetController->AddOrbit(orbit3);
+    m_pickPlanetController->AddOrbit(orbit5);
+    m_pickPlanetController->AddOrbit(orbit6);
+
     m_cameraControll = Unique<CameraControll>(new NumericCamControll());
     Camera* camera1 = new PerspectiveCamera(M_PI_2, 0.1f, 100.0f);
-    StaticCamera* statCamera = new StaticCamera(camera1, &layer);
-    statCamera->GetTransform().pos = glm::vec3(20.2782, 19.681, 35.4639);
-    statCamera->SideRotation() = 0.599464;
-    statCamera->UpRotation() = -0.61803;
-    
+    StaticCamera* statCamera1 = new StaticCamera(camera1, &layer);
+    statCamera1->GetTransform().pos = glm::vec3(20.2782, 19.681, 35.4639);
+    statCamera1->SideRotation() = 0.599464;
+    statCamera1->UpRotation() = -0.61803;
+
     Camera* camera2 = new PerspectiveCamera(M_PI_2, 0.1f, 100.0f);
-    MovableCamera* movCamera = new MovableCamera(camera2, &layer);
+    StaticCamera* statCamera2 = new StaticCamera(camera2, &layer);
+    statCamera2->GetTransform().pos = glm::vec3(0, 47.1616, 0);
+    statCamera2->SideRotation() = 0;
+    statCamera2->UpRotation() = -1.56932;
+    
+    Camera* camera3 = new PerspectiveCamera(M_PI_2, 0.1f, 100.0f);
+    MovableCamera* movCamera = new MovableCamera(camera3, &layer);
     movCamera->GetTransform().pos = glm::vec3(20.2782, 19.681, 35.4639);
     movCamera->SideRotation() = 0.599464;
     movCamera->UpRotation() = -0.61803;
     movCamera->MoveSpeed() = 10;
-    m_cameraControll->AddController(statCamera);
+    m_cameraControll->AddController(statCamera1);
+    m_cameraControll->AddController(statCamera2);
     m_cameraControll->AddController(movCamera);
     layer.Add(camera1);
     layer.Add(camera2);
-    layer.Add(statCamera);
+    layer.Add(camera3);
+    layer.Add(statCamera1);
+    layer.Add(statCamera2);
     layer.Add(movCamera);
-    statCamera->Activate();
+    statCamera1->Activate();
+
 }
 void App::Update(float deltaTime)
 {
+    float inc = 0;
+    if(Input::IsSpecialKeyPressed(SpecialKey::DOWN)) {
+        inc = -1;
+    } else if(Input::IsSpecialKeyPressed(SpecialKey::UP)) {
+        inc = 1;
+    }
+    m_planetarySystemTimeGroup->Speed() += deltaTime * inc;
 }
 
 void App::OnMouseEnter(const MouseEnterEvent& event)
@@ -123,19 +151,18 @@ void App::OnKeyPressed(const KeyEvent& event)
 {
     if(event.key == 'o') {
         Engine::Exit();
-    } else if(event.key == ' ' && event.pressed) {
-        if(m_stoped) {
-            m_planetarySystemTimeGroup->Speed() = 1;
-        } else {
-            m_planetarySystemTimeGroup->Speed() = 0;
-        }
-        m_stoped = !m_stoped;
+    } else if(event.key == 'n' && event.pressed) {
+        m_planetarySystemTimeGroup->Speed() = 0;
+    } else if(event.key == 'm' && event.pressed) {
+        m_planetarySystemTimeGroup->Speed() = 1;
     }
 }
 
 void App::OnSpecialKeyPressed(const SpecialKeyEvent& event)
 {
-
+    if(event.key == SpecialKey::F2) {
+        Engine::Exit();
+    }
 }
 
 }

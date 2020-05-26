@@ -77,6 +77,7 @@ OBJECTS += $(OBJDIR)/Node.o
 OBJECTS += $(OBJDIR)/Noise.o
 OBJECTS += $(OBJDIR)/OpenGL.o
 OBJECTS += $(OBJDIR)/Orbit.o
+OBJECTS += $(OBJDIR)/PickPlanetController.o
 OBJECTS += $(OBJDIR)/Planet.o
 OBJECTS += $(OBJDIR)/PlanetarySystem.o
 OBJECTS += $(OBJDIR)/Primitives.o
@@ -178,6 +179,9 @@ $(OBJDIR)/CameraController.o: src/app/scene/CameraController.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Orbit.o: src/app/scene/Orbit.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/PickPlanetController.o: src/app/scene/PickPlanetController.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Planet.o: src/app/scene/Planet.cpp

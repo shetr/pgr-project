@@ -11,18 +11,19 @@
 
 #include <core/scene/Node.hpp>
 #include "SpaceBody.hpp"
-#include <app/testing/Sphere.hpp>
+#include "ShaderContexts.hpp"
 
 namespace sadekpet {
 
 class Orbit : public VisibleNode
 {
 private:
-    SphereShaderContext m_shaderContext;
     SpaceBody* m_body;
     float m_radius;
     float m_speed;
     float m_phi;
+    Line3DShaderContext m_shaderContext;
+    Shared<Line3DShaderContextUpdater> m_shaderContextUpdater;
 public:
     Orbit(SpaceBody* body, float radius = 1, float speed = 1, float start = 0);
 

@@ -2,6 +2,7 @@
 
 #include <core/manage/PrimitivesManager.hpp>
 #include <core/manage/TextureManager.hpp>
+#include <core/render/OpenGL.hpp>
 
 namespace sadekpet {
 
@@ -71,6 +72,45 @@ Uniforms& Basic3DShaderContext::GetUniforms()
 TextureUnits& Basic3DShaderContext::GetTextureUnits()
 {
     return m_textureUnits;
+}
+
+
+Line3DUniforms::Line3DUniforms(glm::vec3 color)
+{
+    m_color = new Uniform<glm::vec3>("color", color);
+    AddUniform(m_color);
+}
+
+Line3DShaderContext::Line3DShaderContext(Line3D* lines, float width, glm::vec3 color)
+    : m_width(width), m_textureUnits(Vector<Shared<Texture>>({})), m_uniforms(color)
+{
+    m_lines = Shared<Primitives>(lines);
+}
+TypeIndex Line3DShaderContext::GetType() const
+{
+    return TypeIndex(typeid(Line3DShaderContext));
+}
+const Shared<Primitives>& Line3DShaderContext::GetPrimitives()
+{
+    return m_lines;
+}
+Uniforms& Line3DShaderContext::GetUniforms()
+{
+    return m_uniforms;
+}
+TextureUnits& Line3DShaderContext::GetTextureUnits()
+{
+    return m_textureUnits;
+}
+
+Line3DShaderContextUpdater::Line3DShaderContextUpdater(Line3DShaderContext* shaderContext)
+    : m_shaderContext(shaderContext)
+{
+
+}
+void Line3DShaderContextUpdater::Update()
+{
+    //GL(LineWidth(m_shaderContext->GetWidth()));
 }
 
 }

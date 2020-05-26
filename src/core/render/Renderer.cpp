@@ -25,6 +25,8 @@ void Renderer::Init()
 {
     SetClearColor(glm::vec4(0, 0, 0, 1));
     GL(Enable(GL_DEPTH_TEST));
+    GL(Enable(GL_STENCIL_TEST));
+    GL(StencilOp(GL_KEEP, GL_KEEP, GL_REPLACE));
     GL(CullFace( GL_BACK));
     GL(Enable(GL_CULL_FACE));
     WindowSize winSize = Window::GetSize();
@@ -34,7 +36,8 @@ void Renderer::Init()
 
 void Renderer::Clear()
 {
-    GL(Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT));
+    GL(ClearStencil(0));
+    GL(Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
 }
 
 void Renderer::SwapBuffers()
@@ -49,6 +52,11 @@ void Renderer::OnWindowResize(const WindowSizeEvent& event)
     for(Camera* camera: Camera::Cameras()) {
         camera->Resize();
     }
+}
+
+void Renderer::SetStencilID(uint8_t id)
+{
+    GL(StencilFunc(GL_ALWAYS, id, -1));
 }
 
 void Renderer::Draw(ShaderContext& shaderContext)

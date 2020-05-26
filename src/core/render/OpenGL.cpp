@@ -209,7 +209,7 @@ bool initialize(int glVerMajor, int glVerMinor, DebugLevel debugLevel) {
   // initialize DevIL
   ilInit();
 
-  std::cout << "pgr: initialized, using OpenGL " << glVerMajor << "." << glVerMinor
+  std::cout << "initialized, using OpenGL " << glVerMajor << "." << glVerMinor
       << " debug " << (debugEnabled ? "enabled" : "disabled") << std::endl;
   return true;
 }

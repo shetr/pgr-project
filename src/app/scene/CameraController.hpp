@@ -27,10 +27,12 @@ public:
     float& UpRotation() { return GetCamera()->GetTransform().rotAngle; }
     bool IsActive() const { return m_active; }
     void Activate();
+    void Activate(CameraController* prevController);
     void Deactivate();
     Camera* GetCamera() { return m_camera; }
 protected:
     virtual void OnActivate() {} 
+    virtual void OnActivate(CameraController* prevController) { OnActivate(); }
     virtual void OnDeactivate() {} 
 };
 
@@ -87,6 +89,7 @@ public:
     void OnKeyPressed(const KeyEvent& event);
 protected:
     void OnActivate() override;
+    void OnActivate(CameraController* prevController) override;
     void OnDeactivate() override;
 private:
     void LerpStep();

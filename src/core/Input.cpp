@@ -67,6 +67,20 @@ void Input::ShowCursor()
     glutSetCursor(GLUT_CURSOR_LEFT_ARROW);
 }
 
+uint8_t Input::GetStencilID(const MousePos& pos)
+{
+    uint8_t id;
+    WindowSize winSize = Window::GetSize();
+    GL(ReadPixels(pos.x, winSize.height - pos.y, 1, 1, GL_STENCIL_INDEX, GL_UNSIGNED_BYTE, &id));
+    return id;
+}
+
+void Input::StencilUpdate(float deltaTime)
+{
+    StencilUpdateEvent event{deltaTime};
+    s_input.m_eventSystem.Execute(event);
+}
+
 bool& Input::KeyPressed(Key key)
 {
     return s_keyPressed[key];

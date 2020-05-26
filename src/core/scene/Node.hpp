@@ -74,6 +74,7 @@ public:
     void UpdateWorldTransform();
 
     virtual void Update(float deltaTime) {}
+    virtual uint8_t GetStencilID() const { return 0; }
 
 protected:
     void DisconnectChild(Node* child);

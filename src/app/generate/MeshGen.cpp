@@ -67,6 +67,22 @@ Mesh3D* MeshGen::BasicSphere(uint meridianCount, uint parallelCount)
     return new Mesh3D(vertexCount, indicesCount, vertices.data(), uvs.data(), vertices.data(), indices.data());
 }
 
+Line3D* MeshGen::Cyrcle(float radius, uint segmentation)
+{
+    int vertexCount = segmentation+1;
+    int indicesCount = 2*segmentation;
+    Vector<glm::vec3> vertices(vertexCount);
+    Vector<int> indices(indicesCount);
+    for(int i = 0; i < vertexCount; i++) {
+        float phi =  2 * M_PI * ((float)i) / segmentation;
+        vertices[i] = radius * glm::vec3(glm::cos(phi), 0, glm::sin(phi));
+        if(i < segmentation) {
+            indices[2*i] = i;
+            indices[2*i+1] = i+1;
+        }
+    }
+    return new Line3D(vertexCount, indicesCount, vertices.data(), indices.data());
+}
 
 void MeshGen::MakeQuad(int* outIndices, int v0, int v1, int v2, int v3)
 {

@@ -7,6 +7,7 @@
 #include <fstream>
 #include <string>
 #include <iomanip>
+#include <tuple>
 
 namespace sadekpet {
 
@@ -44,11 +45,14 @@ void PrimitivesManager::LoadModel(const String& name)
         std::cout << "Cannot open model file" << std::endl;
         return;
     }
+    Vector<glm::vec3> inVertices;
+    Vector<glm::vec3> inNormals;
+    Vector<glm::vec2> inUvs;
     Vector<glm::vec3> vertices;
     Vector<glm::vec3> normals;
     Vector<glm::vec2> uvs;
+    Map<std::tuple<int, int, int>, int> indicesTrans;
     Vector<int> indices;
-
     String line;
     while(std::getline(ifs, line)){
         size_t spacePos = line.find(" ");
@@ -63,37 +67,61 @@ void PrimitivesManager::LoadModel(const String& name)
                 ss >> v.y;
                 ss >> v.z;
                 //std::cout << v.x << " " << v.y << " " << v.z << std::endl;
-                vertices.push_back(v);
+                inVertices.push_back(v);
             } else if(lineType == "vn") {
                 glm::vec3 n;
                 ss >> n.x;
                 ss >> n.y;
                 ss >> n.z;
                 //std::cout << n.x << " " << n.y << " " << n.z << std::endl;
-                normals.push_back(n);
+                inNormals.push_back(n);
             } else if(lineType == "vt") {
                 glm::vec2 uv;
                 ss >> uv.x;
                 ss >> uv.y;
                 //std::cout << uv.x << " " << uv.y << std::endl;
-                uvs.push_back(uv);
+                inUvs.push_back(uv);
             } else if(lineType == "f") {
                 String lineTriangle;
+                Vector<int> idxs;
                 while(std::getline(ss, lineTriangle, ' ')) {
                     std::stringstream triss(lineTriangle);
                     String lineTrianglePoint;
                     if(lineTriangle.size() > 1) {
+                        Vector<int> vertexIdxs;
                         while(std::getline(triss, lineTrianglePoint, '/')) {
                             if(!lineTrianglePoint.empty()) {
                                 std::stringstream vss(lineTrianglePoint);
                                 int i;
                                 vss >> i;
+                                vertexIdxs.push_back(i-1);
                                 //std::cout << i << "/";
-                                indices.push_back(i - 1);
                             }
                         }
+                        int i0 = (vertexIdxs.size() < 1 ? 0 : vertexIdxs[0]);
+                        int i1 = (vertexIdxs.size() < 2 ? 0 : vertexIdxs[1]);
+                        int i2 = (vertexIdxs.size() < 3 ? 0 : vertexIdxs[2]);
+                        std::tuple<int, int, int> vertexIdx = {i0, i1, i2};
+                        int i;
+                        auto it = indicesTrans.find(vertexIdx);
+                        if(it != indicesTrans.end()) {
+                            i = it->second;
+                        } else {
+                            i = vertices.size();
+                            vertices.push_back(inVertices[i0]);
+                            uvs.push_back(inUvs[i1]);
+                            normals.push_back(inNormals[i2]);
+                        }
+                        idxs.push_back(i);
                     }
                     //std::cout << " ";
+                }
+                if(idxs.size() >= 3) {
+                    for(int i = 2; i < idxs.size(); i++) {
+                        indices.push_back(idxs[0]);
+                        indices.push_back(idxs[i-1]);
+                        indices.push_back(idxs[i]);
+                    }
                 }
                 //std::cout << std::endl;
             }

@@ -92,13 +92,19 @@ struct MouseEnterEvent
     bool entered;
 };
 
+struct StencilUpdateEvent
+{
+    float deltaTime;
+};
+
 class Input :
     public IEventSystem<KeyEvent>,
     public IEventSystem<SpecialKeyEvent>,
     public IEventSystem<MouseButtonEvent>,
     public IEventSystem<MouseMoveEvent>,
     public IEventSystem<MouseWheelEvent>,
-    public IEventSystem<MouseEnterEvent>
+    public IEventSystem<MouseEnterEvent>,
+    public IEventSystem<StencilUpdateEvent>
 {
 private:
     static Input s_input;
@@ -121,6 +127,8 @@ public:
     static void SetMousePosToCenter();
     static void HideCursor();
     static void ShowCursor();
+    static uint8_t GetStencilID(const MousePos& pos);
+    static void StencilUpdate(float deltaTime);
 
     PGR_EVENT_ACTIONS(KeyEvent, m_eventSystem)
     PGR_EVENT_ACTIONS(SpecialKeyEvent, m_eventSystem)
@@ -128,6 +136,7 @@ public:
     PGR_EVENT_ACTIONS(MouseMoveEvent, m_eventSystem)
     PGR_EVENT_ACTIONS(MouseWheelEvent, m_eventSystem)
     PGR_EVENT_ACTIONS(MouseEnterEvent, m_eventSystem)
+    PGR_EVENT_ACTIONS(StencilUpdateEvent, m_eventSystem)
 private:
     static bool& KeyPressed(Key key);
     static bool& SpecialKeyPressed(SpecialKey key);

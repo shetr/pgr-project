@@ -64,6 +64,38 @@ public:
     TextureUnits& GetTextureUnits() override;
 };
 
+class Line3DUniforms : public Uniforms
+{
+public:
+    Uniform<glm::vec3>* m_color;
+public:
+    Line3DUniforms(glm::vec3 color);
+};
+
+class Line3DShaderContext : public ShaderContext {
+private:
+    float m_width;
+    Shared<Primitives> m_lines;
+    Line3DUniforms m_uniforms;
+    TextureUnits m_textureUnits;
+public:
+    Line3DShaderContext(Line3D* lines, float width, glm::vec3 color);
+    TypeIndex GetType() const override;
+    const Shared<Primitives>& GetPrimitives() override;
+    Uniforms& GetUniforms() override;
+    TextureUnits& GetTextureUnits() override;
+    float GetWidth() const { return m_width; }
+};
+
+class Line3DShaderContextUpdater : public ShaderContextUpdater
+{
+private:
+    Line3DShaderContext* m_shaderContext;
+public:
+    Line3DShaderContextUpdater(Line3DShaderContext* shaderContext);
+    void Update() override;
+};
+
 }
 
 #endif // PGR_SHADER_CONTEXTS_HPP

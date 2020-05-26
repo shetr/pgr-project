@@ -25,6 +25,7 @@ public:
     const glm::mat4& GetProjection() const { return m_projection; }
 
     virtual void Resize() = 0;
+    virtual glm::vec3 GetMouseLookDir(float x, float y) = 0;
 
     static Set<Camera*>& Cameras() { return s_cameras; }
 
@@ -42,6 +43,7 @@ public:
     PerspectiveCamera(float fov, float near, float far);
 
     virtual void Resize();
+    glm::vec3 GetMouseLookDir(float x, float y);
 protected:
     void SetProjection();
 };

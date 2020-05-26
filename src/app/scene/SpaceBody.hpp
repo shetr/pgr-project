@@ -20,6 +20,7 @@ public:
 private:
     static Set<SpaceBody*> s_bodies;
     float m_mass;
+    uint8_t m_stencilId;
 public:
     SpaceBody(float mass);
     ~SpaceBody();
@@ -27,6 +28,8 @@ public:
 
     static Iterator AllBegin() { return s_bodies.begin(); }
     static Iterator AllEnd() { return s_bodies.end(); }
+    void SetStencilID(uint8_t id) { m_stencilId = id; }
+    uint8_t GetStencilID() const override { return m_stencilId; }
 };
 
 }

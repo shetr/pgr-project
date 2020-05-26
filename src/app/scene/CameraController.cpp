@@ -24,6 +24,12 @@ void CameraController::Activate()
     m_layer->SetCurrentCamera(m_camera);
     OnActivate();
 }
+void CameraController::Activate(CameraController* prevController)
+{
+    m_active = true;
+    m_layer->SetCurrentCamera(m_camera);
+    OnActivate(prevController);
+}
 void CameraController::Deactivate()
 { 
     m_active = false; 
@@ -33,7 +39,8 @@ void CameraController::Deactivate()
 void CameraControll::Set(size_t i)
 {
     m_controllers[m_active]->Deactivate();
-    m_controllers[m_active = i]->Activate();
+    m_controllers[i]->Activate(m_controllers[m_active]);
+    m_active = i;
 }
 void CameraControll::Next()
 {
@@ -51,7 +58,7 @@ void NumericCamControll::OnKeyPressed(const KeyEvent& event)
         size_t i = event.key - '1';
         if(i >= 0 && i < ControllerCount()) {
             Set(i);
-        } else if (event.key == 'n') {
+        } else if (event.key == 'c') {
             Next();
         }
     }
@@ -92,6 +99,11 @@ void MovableCamera::Update(float deltaTime)
         if(Input::IsKeyPressed('e')) {
             addUp += 1;
         }
+        if(Input::IsKeyPressed(' ')) {
+            addForward *= 2;
+            addSide *= 2;
+            addUp *= 2;
+        }
         m_transform.pos += (addForward*lookDir + addSide*sideDir + addUp*upDir) * m_moveSpeed * deltaTime;
         LerpStep();
         
@@ -109,6 +121,12 @@ void MovableCamera::Update(float deltaTime)
 void MovableCamera::OnActivate()
 {
     Input::HideCursor();
+}
+void MovableCamera::OnActivate(CameraController* prevController)
+{
+    OnActivate();
+    m_transform = prevController->GetTransform();
+    GetCamera()->GetTransform() = prevController->GetCamera()->GetTransform();
 }
 void MovableCamera::OnDeactivate()
 {
