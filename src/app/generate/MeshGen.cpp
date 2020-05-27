@@ -84,6 +84,28 @@ Line3D* MeshGen::Cyrcle(float radius, uint segmentation)
     return new Line3D(vertexCount, indicesCount, vertices.data(), indices.data());
 }
 
+BasicMesh3D* MeshGen::BasicCube()
+{
+    Vector<glm::vec3> vertices = {
+        glm::vec3(-1, -1, -1),
+        glm::vec3( 1, -1, -1),
+        glm::vec3( 1, -1,  1),
+        glm::vec3(-1, -1,  1),
+        glm::vec3(-1,  1, -1),
+        glm::vec3( 1,  1, -1),
+        glm::vec3( 1,  1,  1),
+        glm::vec3(-1,  1,  1)
+    };
+    Vector<int> indices(6*6);
+    MakeQuad(&indices[0*6], 3, 2, 1, 0);
+    MakeQuad(&indices[1*6], 4, 5, 6, 7);
+    MakeQuad(&indices[2*6], 5, 4, 0, 1);
+    MakeQuad(&indices[3*6], 6, 5, 1, 2);
+    MakeQuad(&indices[4*6], 7, 6, 2, 3);
+    MakeQuad(&indices[5*6], 4, 7, 3, 0);
+    return new BasicMesh3D(vertices.size(), indices.size(), vertices.data(), indices.data());
+}
+
 void MeshGen::MakeQuad(int* outIndices, int v0, int v1, int v2, int v3)
 {
     outIndices[0] = v0;

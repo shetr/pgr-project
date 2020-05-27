@@ -7,7 +7,8 @@
 
 namespace sadekpet {
 
-PickPlanetController::PickPlanetController()
+PickPlanetController::PickPlanetController(const Vector<CameraController*>& ignoreCams)
+    : m_ignoreCams(ignoreCams)
 {
     m_stencilUpdateEventHandler = std::make_unique<StencilUpdateEventHandler>(this, &PickPlanetController::OnStencilUpdate, Input::Get());
 }
@@ -21,6 +22,11 @@ void PickPlanetController::AddOrbit(Orbit* orbit)
 
 void PickPlanetController::OnStencilUpdate(const StencilUpdateEvent& event)
 {
+    for(CameraController* cam : m_ignoreCams) {
+        if(cam->IsActive()) {
+            return;
+        }
+    }
     MousePos pos = Input::GetMousePos();
     WindowSize winSize = Window::GetSize();
     int stencilID = Input::GetStencilID(pos);

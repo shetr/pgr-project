@@ -103,6 +103,26 @@ void Texture3D::SetImage()
         m_data));
 }
 
+void TextureCubeMap::SetImage()
+{
+    GL(TexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+    GL(TexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+    GL(TexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE));
+    for(int i = 0; i < 6; i++) {
+        uint8_t* data = m_data[i];
+        GL(TexImage2D(
+        GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 
+        0, 
+        GetInternalFormat(),
+        m_width,
+        m_height,
+        0,
+        GetFormat(),
+        GetDataType(),
+        data));
+    }
+}
+
 void TextureUnits::Activate() const
 {
     for(uint i = 0; i < (uint)m_units.size(); i++) {

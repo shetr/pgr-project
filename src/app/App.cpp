@@ -20,6 +20,7 @@
 #include <app/testing/Testing.hpp>
 #include <app/scene/Dummy.hpp>
 #include <app/scene/PickPlanetController.hpp>
+#include <app/scene/Skybox.hpp>
 
 namespace sadekpet {
 
@@ -37,6 +38,7 @@ void App::Init()
     ShaderManager::AddRenderProgram(TypeIndex(typeid(Object3DShaderContext)), "object3D");
     ShaderManager::AddRenderProgram(TypeIndex(typeid(Basic3DShaderContext)), "basic3D");
     ShaderManager::AddRenderProgram(TypeIndex(typeid(Line3DShaderContext)), "line3D");
+    ShaderManager::AddRenderProgram(TypeIndex(typeid(SkyboxShaderContext)), "skybox");
     TextureManager::AddTexture2D("sun.png");
     TextureManager::AddTexture2D("perlinSun.png");
     TextureManager::AddTexture2D("planet1.png");
@@ -46,18 +48,36 @@ void App::Init()
     TextureManager::AddTexture2D("planet6.png");
     TextureManager::AddTexture2D("earth.jpg");
     TextureManager::AddTexture2D("ufo.jpg");
+    TextureManager::AddTextureCubeMap("space");
     PrimitivesManager::LoadModel("ufo");
+    PrimitivesManager::LoadModel("rocket");
     PrimitivesManager::AddPrimitives("sphere", MeshGen::BasicSphere(30));
-    Layer& layer = Layers::Get(Layers::Add("3D"));
-
+    PrimitivesManager::AddPrimitives("cube", MeshGen::BasicCube());
+    #ifdef PGR_DEBUG
+        std::cout << "assets loaded" << std::endl;
+    #endif
     //g_GenTextures();
+    //g_TestGenSpaceNoise();
+
+    Layer* skyLayer = Layers::Get(Layers::Add("skybox"));
+    Layer* layer = Layers::Get(Layers::Add("3D"));
+
+    Skybox* skybox = new Skybox("space");
+    skyLayer->Add(skybox);
 
     Dummy* ufo = new Dummy("ufo", "ufo.jpg");
     ufo->GetTransform().pos = glm::vec3(5,-10, 5);
     ufo->GetTransform().scale /= 100;
     ufo->GetTransform().rotAxis = glm::vec3(1,0,0);
     ufo->GetTransform().rotAngle = M_PI/2;
-    layer.Add(ufo);
+    layer->Add(ufo);
+
+    Dummy* rocket = new Dummy("rocket", "planet5.png");
+    rocket->GetTransform().pos = glm::vec3(10,-5, 5);
+    rocket->GetTransform().scale /= 10;
+    rocket->GetTransform().rotAxis = glm::vec3(1,0,0);
+    rocket->GetTransform().rotAngle = M_PI/2;
+    layer->Add(rocket);
 
     m_planetarySystemTimeGroup = Shared<TimeGroup>(new TimeGroup());
 
@@ -79,41 +99,40 @@ void App::Init()
     m_planetarySystem->AddOrbit(orbit5);
     m_planetarySystem->AddOrbit(orbit6);
 
-    layer.Add(sun);
-    layer.Add(planet1);
-    layer.Add(planet2);
-    layer.Add(planet3);
-    layer.Add(planet5);
-    layer.Add(planet6);
-    layer.Add(orbit1);
-    layer.Add(orbit2);
-    layer.Add(orbit3);
-    layer.Add(orbit5);
-    layer.Add(orbit6);
-    layer.Add(m_planetarySystem);
-
-    m_pickPlanetController = Unique<PickPlanetController>(new PickPlanetController());
-    m_pickPlanetController->AddOrbit(orbit1);
-    m_pickPlanetController->AddOrbit(orbit2);
-    m_pickPlanetController->AddOrbit(orbit3);
-    m_pickPlanetController->AddOrbit(orbit5);
-    m_pickPlanetController->AddOrbit(orbit6);
+    layer->Add(sun);
+    layer->Add(planet1);
+    layer->Add(planet2);
+    layer->Add(planet3);
+    layer->Add(planet5);
+    layer->Add(planet6);
+    layer->Add(orbit1);
+    layer->Add(orbit2);
+    layer->Add(orbit3);
+    layer->Add(orbit5);
+    layer->Add(orbit6);
+    layer->Add(m_planetarySystem);
 
     m_cameraControll = Unique<CameraControll>(new NumericCamControll());
     Camera* camera1 = new PerspectiveCamera(M_PI_2, 0.1f, 100.0f);
-    StaticCamera* statCamera1 = new StaticCamera(camera1, &layer);
+    StaticCamera* statCamera1 = new StaticCamera(camera1);
+    statCamera1->AddLayer(skyLayer);
+    statCamera1->AddLayer(layer);
     statCamera1->GetTransform().pos = glm::vec3(20.2782, 19.681, 35.4639);
     statCamera1->SideRotation() = 0.599464;
     statCamera1->UpRotation() = -0.61803;
 
     Camera* camera2 = new PerspectiveCamera(M_PI_2, 0.1f, 100.0f);
-    StaticCamera* statCamera2 = new StaticCamera(camera2, &layer);
+    StaticCamera* statCamera2 = new StaticCamera(camera2);
+    statCamera2->AddLayer(skyLayer);
+    statCamera2->AddLayer(layer);
     statCamera2->GetTransform().pos = glm::vec3(0, 47.1616, 0);
     statCamera2->SideRotation() = 0;
     statCamera2->UpRotation() = -1.56932;
     
     Camera* camera3 = new PerspectiveCamera(M_PI_2, 0.1f, 100.0f);
-    MovableCamera* movCamera = new MovableCamera(camera3, &layer);
+    MovableCamera* movCamera = new MovableCamera(camera3);
+    movCamera->AddLayer(skyLayer);
+    movCamera->AddLayer(layer);
     movCamera->GetTransform().pos = glm::vec3(20.2782, 19.681, 35.4639);
     movCamera->SideRotation() = 0.599464;
     movCamera->UpRotation() = -0.61803;
@@ -121,13 +140,20 @@ void App::Init()
     m_cameraControll->AddController(statCamera1);
     m_cameraControll->AddController(statCamera2);
     m_cameraControll->AddController(movCamera);
-    layer.Add(camera1);
-    layer.Add(camera2);
-    layer.Add(camera3);
-    layer.Add(statCamera1);
-    layer.Add(statCamera2);
-    layer.Add(movCamera);
+    layer->Add(camera1);
+    layer->Add(camera2);
+    layer->Add(camera3);
+    layer->Add(statCamera1);
+    layer->Add(statCamera2);
+    layer->Add(movCamera);
     statCamera1->Activate();
+
+    m_pickPlanetController = Unique<PickPlanetController>(new PickPlanetController({movCamera}));
+    m_pickPlanetController->AddOrbit(orbit1);
+    m_pickPlanetController->AddOrbit(orbit2);
+    m_pickPlanetController->AddOrbit(orbit3);
+    m_pickPlanetController->AddOrbit(orbit5);
+    m_pickPlanetController->AddOrbit(orbit6);
 
 }
 void App::Update(float deltaTime)

@@ -52,6 +52,7 @@ void Engine::Init()
     m_textureManager = Unique<TextureManager>(TextureManager::Init());
     m_primitivesManager = Unique<PrimitivesManager>(PrimitivesManager::Init());
 
+
     bool pgrRes;
     #ifdef PGR_DEBUG
         pgrRes = pgr::initialize(pgr::OGL_VER_MAJOR, pgr::OGL_VER_MINOR, static_cast<pgr::DebugLevel>(m_config.debugLevel));
@@ -90,9 +91,10 @@ void Engine::Draw()
 {
     m_renderer.Clear();
     for(size_t l = 0; l < Layers::Count(); l++) {
-        Layer& layer = Layers::Get(l);
-        Layers::SetCurrent(&layer);
-        for(Pair<uint, VisibleNode*> p : layer.Visible()) {
+        Layer* layer = Layers::Get(l);
+        Layers::SetCurrent(layer);
+        m_renderer.ClearDepth();
+        for(Pair<uint, VisibleNode*> p : layer->Visible()) {
             VisibleNode* node = p.second;
             if(node->IsVisible()) {
                 node->UpdateShaderContext();
@@ -112,9 +114,9 @@ void Engine::Update()
     //std::cout << "fps: " << (1/ m_timer.GetDelta()) << std::endl;
     m_app->Update(m_timer.GetDelta());
     for(size_t l = 0; l < Layers::Count(); l++) {
-        Layer& layer = Layers::Get(l);
-        Layers::SetCurrent(&layer);
-        for(Pair<uint, Node*> p : layer.Roots()) {
+        Layer* layer = Layers::Get(l);
+        Layers::SetCurrent(layer);
+        for(Pair<uint, Node*> p : layer->Roots()) {
             p.second->Update(m_timer.GetDelta() * p.second->GetTimeSpeed());
         }
     }
@@ -124,9 +126,9 @@ void Engine::Update()
 void Engine::UpdateWorldTransfrom()
 {
     for(size_t l = 0; l < Layers::Count(); l++) {
-        Layer& layer = Layers::Get(l);
-        Layers::SetCurrent(&layer);
-        for(Pair<uint, Node*> p : layer.Roots()) {
+        Layer* layer = Layers::Get(l);
+        Layers::SetCurrent(layer);
+        for(Pair<uint, Node*> p : layer->Roots()) {
             p.second->UpdateWorldTransform();
         }
     }

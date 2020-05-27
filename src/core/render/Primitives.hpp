@@ -46,6 +46,18 @@ public:
     virtual int GetCount() const override { return m_indicesCount; }
 };
 
+class BasicMesh2D : public Primitives
+{
+protected:
+    Unique<VertexBuffer<Vec2D>> m_vericesBuffer;
+    Unique<IndexBuffer> m_indicesBuffer;
+    int m_indicesCount;
+public:
+    BasicMesh2D(int vertexCount, int indicesCount, glm::vec2* vertices, int* indices);
+    virtual PrimitiveType GetType() const override { return PrimitiveType::TRIANGLES; }
+    virtual int GetCount() const override { return m_indicesCount; }
+};
+
 class Mesh3D : public Primitives
 {
 protected:
@@ -56,6 +68,18 @@ protected:
     int m_indicesCount;
 public:
     Mesh3D(int vertexCount, int indicesCount, glm::vec3* vertices, glm::vec2* uvs, glm::vec3* normals, int* indices);
+    virtual PrimitiveType GetType() const override { return PrimitiveType::TRIANGLES; }
+    virtual int GetCount() const override { return m_indicesCount; }
+};
+
+class BasicMesh3D : public Primitives
+{
+protected:
+    Unique<VertexBuffer<Vec3D>> m_vericesBuffer;
+    Unique<IndexBuffer> m_indicesBuffer;
+    int m_indicesCount;
+public:
+    BasicMesh3D(int vertexCount, int indicesCount, glm::vec3* vertices, int* indices);
     virtual PrimitiveType GetType() const override { return PrimitiveType::TRIANGLES; }
     virtual int GetCount() const override { return m_indicesCount; }
 };

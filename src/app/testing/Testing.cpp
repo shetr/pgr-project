@@ -30,7 +30,7 @@ void g_TestGenNoiseImage()
             data[i+2] = (uint8_t)(255 * col.b);
         }
     }
-    TextureManager::SaveTexture2DRGB("perlinTest.png", width, height, data.data());
+    TextureManager::SaveTexture2DRGB("generated/perlinTest.png", width, height, data.data());
 }
 
 void g_TestGenSphereNoise()
@@ -68,7 +68,73 @@ void g_TestGenSphereNoise()
             data[i+2] = (uint8_t)(255 * col.b);
         }
     }
-    TextureManager::SaveTexture2DRGB("perlinSun.png", width, height, data.data());
+    TextureManager::SaveTexture2DRGB("generated/perlinSun.png", width, height, data.data());
+}
+
+
+void g_TestGenSpaceNoise()
+{
+    Array<String, 6> names = {
+        "generated/space_px.jpg",
+        "generated/space_nx.jpg",
+        "generated/space_py.jpg",
+        "generated/space_ny.jpg",
+        "generated/space_pz.jpg",
+        "generated/space_nz.jpg",
+    };
+    Array<glm::vec3,6> posVecs = {
+        glm::vec3( 1,  1,  0),
+        glm::vec3( 1,  1,  1),
+        glm::vec3( 0,  0,  1),
+        glm::vec3( 0,  1,  0),
+        glm::vec3( 0,  1,  1),
+        glm::vec3( 0,  1,  0)
+    };
+    Array<glm::vec3,6> dirVecs1 = {
+        glm::vec3(-1,  0,  0),
+        glm::vec3( 0,  0, -1),
+        glm::vec3( 1,  0,  0),
+        glm::vec3( 1,  0,  0),
+        glm::vec3( 1,  0,  0),
+        glm::vec3( 0,  0,  1)
+    };
+    Array<glm::vec3,6> dirVecs2 = {
+        glm::vec3( 0, -1,  0),
+        glm::vec3( 0, -1,  0),
+        glm::vec3( 0,  0, -1),
+        glm::vec3( 0,  0,  1),
+        glm::vec3( 0, -1,  0),
+        glm::vec3( 0, -1,  0)
+    };
+    int width = 1024;
+    int height = 1024;
+    FractalPerlin3D perlin(15, 2);
+    float threashold = 0.7;
+    for(int i = 0; i < 6; i++) {
+        Vector<uint8_t> data(3*width*height);
+        glm::vec3 pos = posVecs[i];
+        glm::vec3 dir1 = dirVecs1[i];
+        glm::vec3 dir2 = dirVecs2[i];
+        for(int w = 0; w < width; w++) {
+            for(int h = 0; h < height; h++) {
+                float a1 = w / ((float)width - 1);
+                float a2 = h / ((float)height - 1);
+                glm::vec3 v = glm::normalize(pos + a1*dir1 + a2*dir2 - glm::vec3(0.5,0.5,0.5));
+                float t = 0.5f*perlin.Value(0.5f*v+0.5f, 250)+0.5f;
+                if(t < threashold) {
+                    t = 0;
+                } else {
+                    t = (t - threashold) / (1 - threashold);
+                }
+                uint8_t value = (uint8_t)(255 * t);
+                int i = 3*(w + h * width);
+                data[i+0] = value;
+                data[i+1] = value;
+                data[i+2] = value;
+            }
+        }
+        TextureManager::SaveTexture2DRGB(names[i], width, height, data.data());
+    }
 }
 
 void g_GenTextures()

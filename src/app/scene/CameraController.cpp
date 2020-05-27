@@ -6,8 +6,8 @@
 
 namespace sadekpet {
 
-CameraController::CameraController(Camera* camera, Layer* layer)
-    : m_camera(camera), m_layer(layer), m_active(false)
+CameraController::CameraController(Camera* camera)
+    : m_camera(camera), m_active(false)
 {
     ConnectChild(m_camera); 
     Transform& camTrans = camera->GetTransform();
@@ -18,16 +18,25 @@ CameraController::CameraController(Camera* camera, Layer* layer)
     m_transform.rotAngle = 0;
 }
 
+void CameraController::AddLayer(Layer* layer)
+{
+    m_layers.push_back(layer);
+}
+
 void CameraController::Activate() 
 { 
     m_active = true;
-    m_layer->SetCurrentCamera(m_camera);
+    for(Layer* layer : m_layers) {
+        layer->SetCurrentCamera(m_camera);
+    }
     OnActivate();
 }
 void CameraController::Activate(CameraController* prevController)
 {
     m_active = true;
-    m_layer->SetCurrentCamera(m_camera);
+    for(Layer* layer : m_layers) {
+        layer->SetCurrentCamera(m_camera);
+    }
     OnActivate(prevController);
 }
 void CameraController::Deactivate()
@@ -65,8 +74,8 @@ void NumericCamControll::OnKeyPressed(const KeyEvent& event)
 }
 
 
-MovableCamera::MovableCamera(Camera* camera, Layer* layer)
-    : CameraController(camera, layer)
+MovableCamera::MovableCamera(Camera* camera)
+    : CameraController(camera)
 {
     m_mouseMoveHandler = std::make_unique<MouseMoveHandler>(this, &MovableCamera::OnMouseEvent, Input::Get());
     m_keyEventHandler = std::make_unique<KeyEventHandler>(this, &MovableCamera::OnKeyPressed, Input::Get());

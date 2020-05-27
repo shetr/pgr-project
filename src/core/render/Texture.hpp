@@ -61,7 +61,8 @@ enum class TextureType
 {
     _1D = 0x0DE0,
     _2D = 0x0DE1,
-    _3D = 0x806F
+    _3D = 0x806F,
+    _CUBE_MAP = 0x8513
 };
 
 class Texture
@@ -125,6 +126,20 @@ public:
     Texture3D(int width, int height, int depth, uint8_t* data, TextureChanels chanels)
         : Texture(data, chanels), m_width(width), m_height(height), m_depht(depth) { }
     inline virtual TextureType GetType() const override { return TextureType::_3D; }
+protected:
+    void SetImage() override;
+};
+
+class TextureCubeMap : public Texture
+{
+protected:
+    int m_width;
+    int m_height;
+    Array<uint8_t*, 6> m_data;
+public:
+    TextureCubeMap(int width, int height, Array<uint8_t*, 6> data, TextureChanels chanels)
+        : Texture(nullptr, chanels), m_width(width), m_height(height), m_data(data) { }
+    inline virtual TextureType GetType() const override { return TextureType::_CUBE_MAP; }
 protected:
     void SetImage() override;
 };

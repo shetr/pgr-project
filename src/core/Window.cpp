@@ -48,6 +48,16 @@ void Window::LeaveFullScreen()
     glutLeaveFullScreen();
 }
 
+void Window::Show()
+{
+    glutShowWindow();
+}
+
+void Window::Hide()
+{
+    glutHideWindow();
+}
+
 void Window::CloseCallback()
 {
     WindowCloseEvent event{s_window};

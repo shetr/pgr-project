@@ -17,6 +17,7 @@ public:
 static Mesh3D* BasicSphere(uint segmentation);
 static Mesh3D* BasicSphere(uint meridianCount, uint parallelCount);
 static Line3D* Cyrcle(float radius, uint segmentation);
+static BasicMesh3D* BasicCube();
 
 private:
 static void MakeQuad(int* outIndices, int v0, int v1, int v2, int v3);

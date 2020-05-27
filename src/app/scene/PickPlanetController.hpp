@@ -11,6 +11,7 @@
 
 #include <core/Input.hpp>
 
+#include "CameraController.hpp"
 #include "Orbit.hpp"
 
 namespace sadekpet {
@@ -20,9 +21,10 @@ class PickPlanetController
     using StencilUpdateEventHandler = ScopedEventHandler<StencilUpdateEvent, PickPlanetController>;
 private:
     Vector<Orbit*> m_orbits;
+    Vector<CameraController*> m_ignoreCams;
     Unique<StencilUpdateEventHandler> m_stencilUpdateEventHandler;
 public:
-    PickPlanetController();
+    PickPlanetController(const Vector<CameraController*>& ignoreCams);
     void AddOrbit(Orbit* orbit);
     void OnStencilUpdate(const StencilUpdateEvent& event);
 };

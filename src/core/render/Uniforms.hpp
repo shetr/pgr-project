@@ -52,6 +52,8 @@ class Uniforms
 private:
     Vector<Unique<IUniform>> m_uniforms;
     Uniform<glm::mat4>* m_M;
+    Uniform<glm::mat4>* m_V;
+    Uniform<glm::mat4>* m_P;
     Uniform<glm::mat4>* m_VM;
     Uniform<glm::mat4>* m_PVM;
     Uniform<glm::mat3>* m_N;

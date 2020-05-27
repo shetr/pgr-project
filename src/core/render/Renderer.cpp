@@ -40,6 +40,11 @@ void Renderer::Clear()
     GL(Clear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT));
 }
 
+void Renderer::ClearDepth()
+{
+    GL(Clear(GL_DEPTH_BUFFER_BIT));
+}
+
 void Renderer::SwapBuffers()
 {
     glutSwapBuffers();

@@ -53,6 +53,9 @@ public:
     static void EnterFullScreen();
     static void LeaveFullScreen();
 
+    static void Show();
+    static void Hide();
+
     PGR_EVENT_ACTIONS(WindowCloseEvent, m_eventSystem)
     PGR_EVENT_ACTIONS(WindowSizeEvent, m_eventSystem)
 private:

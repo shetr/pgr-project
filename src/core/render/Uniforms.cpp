@@ -63,10 +63,14 @@ void Uniforms::AddUniform(IUniform* uniform)
 Uniforms::Uniforms(const glm::mat4& M, const glm::mat4& V, const glm::mat4& P)
 {
     m_M = new Uniform<glm::mat4>("M",M);
+    m_V = new Uniform<glm::mat4>("V",V);
+    m_P = new Uniform<glm::mat4>("P",P);
     m_VM = new Uniform<glm::mat4>("VM",V*m_M->value);
     m_PVM = new Uniform<glm::mat4>("PVM",P*m_VM->value);
     m_N = new Uniform<glm::mat3>("N", GetN(M));
     AddUniform(m_M);
+    AddUniform(m_V);
+    AddUniform(m_P);
     AddUniform(m_VM);
     AddUniform(m_PVM);
     AddUniform(m_N);
@@ -75,6 +79,8 @@ Uniforms::Uniforms(const glm::mat4& M, const glm::mat4& V, const glm::mat4& P)
 void Uniforms::UpdateMVP(const glm::mat4& M, const glm::mat4& V, const glm::mat4& P)
 {
     m_M->value = M;
+    m_V->value = V;
+    m_P->value = P;
     m_VM->value = V*M;
     m_PVM->value = P*m_VM->value;
     m_N->value = GetN(M);

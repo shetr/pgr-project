@@ -43,15 +43,15 @@ public:
 class Layers
 {
 private:
-    static Vector<Layer> s_layers;
+    static Vector<Layer*> s_layers;
     static Layer* s_current;
 public:
     static int Add(String name) {
         size_t number = Count();
-        s_layers.push_back(Layer(name, number));
+        s_layers.push_back(new Layer(name, number));
         return number;
     }
-    static Layer& Get(size_t number) { return s_layers[number]; }
+    static Layer* Get(size_t number) { return s_layers[number]; }
     static size_t Count() { return s_layers.size(); }
     static Layer* GetCurrent() { return s_current; } 
     static void SetCurrent(Layer* layer) { s_current = layer; }

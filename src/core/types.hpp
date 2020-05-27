@@ -16,6 +16,7 @@
 #include <unordered_map>
 #include <map>
 #include <vector>
+#include <array>
 #include <list>
 #include <set>
 #include <string>
@@ -37,6 +38,9 @@ using Shared = std::shared_ptr<T>;
 
 template<typename T>
 using Weak = std::weak_ptr<T>;
+
+template<typename T, std::size_t N>
+using Array = std::array<T, N>;
 
 template<typename T>
 using Vector = std::vector<T>;

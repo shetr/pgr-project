@@ -19,12 +19,13 @@ class CameraController : public Node
 {
 private:
     Camera* m_camera;
-    Layer* m_layer;
+    Vector<Layer*> m_layers;
     bool m_active;
 public:
-    CameraController(Camera* camera, Layer* layer);
+    CameraController(Camera* camera);
     float& SideRotation() { return m_transform.rotAngle; }
     float& UpRotation() { return GetCamera()->GetTransform().rotAngle; }
+    void AddLayer(Layer* layer);
     bool IsActive() const { return m_active; }
     void Activate();
     void Activate(CameraController* prevController);
@@ -81,7 +82,7 @@ private:
     Unique<MouseMoveHandler> m_mouseMoveHandler;
     Unique<KeyEventHandler> m_keyEventHandler;
 public:
-    MovableCamera(Camera* camera, Layer* layer);
+    MovableCamera(Camera* camera);
     float& MoveSpeed() { return m_moveSpeed; }
     float& TurnSpeed() { return m_turnSpeed; }
     void Update(float deltaTime) override;

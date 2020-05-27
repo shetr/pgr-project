@@ -31,14 +31,12 @@ bool TextureManager::AddTexture2D(const String& name)
     String fileName = s_texturesPath+name;
 
     ILuint img_id;
-    ilGenImages(1, &img_id); // generate one image ID (name)
-    ilBindImage(img_id); // bind that generated id
+    ilGenImages(1, &img_id);
+    ilBindImage(img_id);
 
-    // set origin to LOWER LEFT corner (the orientation which OpenGL uses)
     ilEnable(IL_ORIGIN_SET);
     ilSetInteger(IL_ORIGIN_MODE, IL_ORIGIN_LOWER_LEFT);
 
-    // this will load image data to the currently bound image
     #ifdef PGR_WINDOWS
         if(ilLoadImage((const wchar_t*)fileName.c_str()) == IL_FALSE) {
     #else
@@ -49,21 +47,13 @@ bool TextureManager::AddTexture2D(const String& name)
         return false;
     }
 
-    // if the image was correctly loaded, we can obtain some informatins about our image
     ILint width = ilGetInteger(IL_IMAGE_WIDTH);
     ILint height = ilGetInteger(IL_IMAGE_HEIGHT);
     ILenum format = ilGetInteger(IL_IMAGE_FORMAT);
-    // there are many possible image formats and data types
-    // we will convert all image types to RGB or RGBA format, with one byte per channel
     unsigned Bpp = ((format == IL_RGBA || format == IL_BGRA) ? 4 : 3);
     char * data = new char[width * height * Bpp];
-    // this will convert image to RGB or RGBA, one byte per channel and store data to our array
     ilCopyPixels(0, 0, 0, width, height, 1, Bpp == 4 ? IL_RGBA : IL_RGB, IL_UNSIGNED_BYTE, data);
-    // image data has been copied, we dont need the DevIL object anymore
     ilDeleteImages(1, &img_id);
-
-    // bogus ATI drivers may require this call to work with mipmaps
-    //glEnable(GL_TEXTURE_2D);
 
     Shared<Texture> tex (new Texture2D((int)width, (int)height, (uint8_t*)data, Bpp == 4 ? TextureChanels::RGBA : TextureChanels::RGB));
     tex->Bind();
@@ -72,6 +62,64 @@ bool TextureManager::AddTexture2D(const String& name)
 
     // free our data (they were copied to OpenGL)
     delete [] data;
+    return true;
+}
+
+bool TextureManager::AddTextureCubeMap(const String& name)
+{
+    String path = s_texturesPath+name;
+    Array<String, 6> fileNames = {
+        path+"_px.jpg",
+        path+"_nx.jpg",
+        path+"_py.jpg",
+        path+"_ny.jpg",
+        path+"_pz.jpg",
+        path+"_nz.jpg"
+    };
+
+    Array<uint8_t*, 6> data;
+    int width;
+    int height;
+    int Bpp;
+
+    for(int i = 0; i < data.size(); i++) {
+        String fileName = fileNames[i];
+        ILuint img_id;
+        ilGenImages(1, &img_id);
+        ilBindImage(img_id);
+
+        ilEnable(IL_ORIGIN_SET);
+        ilSetInteger(IL_ORIGIN_MODE, IL_ORIGIN_LOWER_LEFT);
+
+        #ifdef PGR_WINDOWS
+            if(ilLoadImage((const wchar_t*)fileName.c_str()) == IL_FALSE) {
+        #else
+            if(ilLoadImage(fileName.c_str()) == IL_FALSE) {
+        #endif
+            ilDeleteImages(1, &img_id);
+            std::cout << " cannot load image " << fileName << std::endl;
+            return false;
+        }
+        ILenum format = ilGetInteger(IL_IMAGE_FORMAT);
+        if(i == 0) {
+            width = ilGetInteger(IL_IMAGE_WIDTH);
+            height = ilGetInteger(IL_IMAGE_HEIGHT);
+            Bpp = ((format == IL_RGBA || format == IL_BGRA) ? 4 : 3);
+        }
+        data[i] = new uint8_t[width * height * Bpp];
+        ilCopyPixels(0, 0, 0, width, height, 1, Bpp == 4 ? IL_RGBA : IL_RGB, IL_UNSIGNED_BYTE, data[i]);
+        ilDeleteImages(1, &img_id);
+    }
+
+    Shared<Texture> tex (new TextureCubeMap(width, height, data, Bpp == 4 ? TextureChanels::RGBA : TextureChanels::RGB));
+    tex->Bind();
+    tex->Init();
+    s_instance->m_textures.insert({name, tex});
+
+    for(uint8_t* d : data) {
+        delete [] d;
+    }
+
     return true;
 }
 

@@ -88,6 +88,7 @@ OBJECTS += $(OBJDIR)/Renderer.o
 OBJECTS += $(OBJDIR)/Shader.o
 OBJECTS += $(OBJDIR)/ShaderContexts.o
 OBJECTS += $(OBJDIR)/ShaderManager.o
+OBJECTS += $(OBJDIR)/Skybox.o
 OBJECTS += $(OBJDIR)/SpaceBody.o
 OBJECTS += $(OBJDIR)/Sphere.o
 OBJECTS += $(OBJDIR)/Sun.o
@@ -191,6 +192,9 @@ $(OBJDIR)/PlanetarySystem.o: src/app/scene/PlanetarySystem.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/ShaderContexts.o: src/app/scene/ShaderContexts.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Skybox.o: src/app/scene/Skybox.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/SpaceBody.o: src/app/scene/SpaceBody.cpp
