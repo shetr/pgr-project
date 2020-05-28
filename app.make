@@ -68,6 +68,7 @@ OBJECTS += $(OBJDIR)/App.o
 OBJECTS += $(OBJDIR)/Buffer.o
 OBJECTS += $(OBJDIR)/Camera.o
 OBJECTS += $(OBJDIR)/CameraController.o
+OBJECTS += $(OBJDIR)/Console.o
 OBJECTS += $(OBJDIR)/Engine.o
 OBJECTS += $(OBJDIR)/Input.o
 OBJECTS += $(OBJDIR)/Layers.o
@@ -210,6 +211,9 @@ $(OBJDIR)/Sphere.o: src/app/testing/Sphere.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Testing.o: src/app/testing/Testing.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Console.o: src/core/Console.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Engine.o: src/core/Engine.cpp

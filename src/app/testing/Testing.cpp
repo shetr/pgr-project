@@ -124,7 +124,7 @@ void g_TestGenSpaceNoise()
                 if(t < threashold) {
                     t = 0;
                 } else {
-                    t = (t - threashold) / (1 - threashold);
+                    t = 0.75f * (t - threashold) / (1 - threashold);
                 }
                 uint8_t value = (uint8_t)(255 * t);
                 int i = 3*(w + h * width);

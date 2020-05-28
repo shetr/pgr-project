@@ -19,6 +19,7 @@
 #include <app/testing/Sphere.hpp>
 #include <app/testing/Testing.hpp>
 #include <app/scene/Dummy.hpp>
+#include <app/scene/Rocket.hpp>
 #include <app/scene/PickPlanetController.hpp>
 #include <app/scene/Skybox.hpp>
 
@@ -46,6 +47,7 @@ void App::Init()
     TextureManager::AddTexture2D("planet3.png");
     TextureManager::AddTexture2D("planet5.png");
     TextureManager::AddTexture2D("planet6.png");
+    TextureManager::AddTexture2D("red.png");
     TextureManager::AddTexture2D("earth.jpg");
     TextureManager::AddTexture2D("ufo.jpg");
     TextureManager::AddTextureCubeMap("space");
@@ -62,58 +64,8 @@ void App::Init()
     Layer* skyLayer = Layers::Get(Layers::Add("skybox"));
     Layer* layer = Layers::Get(Layers::Add("3D"));
 
-    Skybox* skybox = new Skybox("space");
-    skyLayer->Add(skybox);
-
-    Dummy* ufo = new Dummy("ufo", "ufo.jpg");
-    ufo->GetTransform().pos = glm::vec3(5,-10, 5);
-    ufo->GetTransform().scale /= 100;
-    ufo->GetTransform().rotAxis = glm::vec3(1,0,0);
-    ufo->GetTransform().rotAngle = M_PI/2;
-    layer->Add(ufo);
-
-    Dummy* rocket = new Dummy("rocket", "planet5.png");
-    rocket->GetTransform().pos = glm::vec3(10,-5, 5);
-    rocket->GetTransform().scale /= 10;
-    rocket->GetTransform().rotAxis = glm::vec3(1,0,0);
-    rocket->GetTransform().rotAngle = M_PI/2;
-    layer->Add(rocket);
-
-    m_planetarySystemTimeGroup = Shared<TimeGroup>(new TimeGroup());
-
-    Sun* sun = new Sun(5);
-    m_planetarySystem = new PlanetarySystem(sun, m_planetarySystemTimeGroup);
-    Planet* planet1 = new Planet(0.4, "planet1.png", 3);
-    Planet* planet2 = new Planet(0.6, "planet2.png", 2);
-    Planet* planet3 = new Planet(0.8, "planet3.png", 1);
-    Planet* planet5 = new Planet(2.0, "planet5.png", 0.5);
-    Planet* planet6 = new Planet(1.5, "planet6.png", 0.3);
-    Orbit* orbit1 = new Orbit(planet1, 20, 0.7, 0.56);
-    Orbit* orbit2 = new Orbit(planet2, 25, 0.5);
-    Orbit* orbit3 = new Orbit(planet3, 30, 0.3, 1.5);
-    Orbit* orbit5 = new Orbit(planet5, 40, 0.1, 3*M_PI/2);
-    Orbit* orbit6 = new Orbit(planet6, 45, 0.08, 3*M_PI/4);
-    m_planetarySystem->AddOrbit(orbit1);
-    m_planetarySystem->AddOrbit(orbit2);
-    m_planetarySystem->AddOrbit(orbit3);
-    m_planetarySystem->AddOrbit(orbit5);
-    m_planetarySystem->AddOrbit(orbit6);
-
-    layer->Add(sun);
-    layer->Add(planet1);
-    layer->Add(planet2);
-    layer->Add(planet3);
-    layer->Add(planet5);
-    layer->Add(planet6);
-    layer->Add(orbit1);
-    layer->Add(orbit2);
-    layer->Add(orbit3);
-    layer->Add(orbit5);
-    layer->Add(orbit6);
-    layer->Add(m_planetarySystem);
-
     m_cameraControll = Unique<CameraControll>(new NumericCamControll());
-    Camera* camera1 = new PerspectiveCamera(M_PI_2, 0.1f, 100.0f);
+    Camera* camera1 = new PerspectiveCamera(M_PI_2, 0.1f, 200.0f);
     StaticCamera* statCamera1 = new StaticCamera(camera1);
     statCamera1->AddLayer(skyLayer);
     statCamera1->AddLayer(layer);
@@ -121,7 +73,7 @@ void App::Init()
     statCamera1->SideRotation() = 0.599464;
     statCamera1->UpRotation() = -0.61803;
 
-    Camera* camera2 = new PerspectiveCamera(M_PI_2, 0.1f, 100.0f);
+    Camera* camera2 = new PerspectiveCamera(M_PI_2, 0.1f, 200.0f);
     StaticCamera* statCamera2 = new StaticCamera(camera2);
     statCamera2->AddLayer(skyLayer);
     statCamera2->AddLayer(layer);
@@ -129,7 +81,7 @@ void App::Init()
     statCamera2->SideRotation() = 0;
     statCamera2->UpRotation() = -1.56932;
     
-    Camera* camera3 = new PerspectiveCamera(M_PI_2, 0.1f, 100.0f);
+    Camera* camera3 = new PerspectiveCamera(M_PI_2, 0.1f, 200.0f);
     MovableCamera* movCamera = new MovableCamera(camera3);
     movCamera->AddLayer(skyLayer);
     movCamera->AddLayer(layer);
@@ -147,6 +99,51 @@ void App::Init()
     layer->Add(statCamera2);
     layer->Add(movCamera);
     statCamera1->Activate();
+
+
+    Skybox* skybox = new Skybox("space");
+    skyLayer->Add(skybox);
+
+    Dummy* ufo = new Dummy("ufo", "ufo.jpg");
+    ufo->GetTransform().pos = glm::vec3(5,-10, 5);
+    ufo->GetTransform().scale /= 100;
+    ufo->GetTransform().rotAxis = glm::vec3(1,0,0);
+    ufo->GetTransform().rotAngle = M_PI/2;
+    layer->Add(ufo);
+
+    m_planetarySystemTimeGroup = Shared<TimeGroup>(new TimeGroup());
+
+    Sun* sun = new Sun(5, 1);
+    m_planetarySystem = new PlanetarySystem(sun, movCamera, m_planetarySystemTimeGroup, 100);
+    Planet* planet1 = new Planet(0.4, 1, "planet1.png", 3);
+    Planet* planet2 = new Planet(0.6, 1, "planet2.png", 2);
+    Planet* planet3 = new Planet(0.8, 1, "planet3.png", 1);
+    Planet* planet5 = new Planet(2.0, 1, "planet5.png", 0.5);
+    Planet* planet6 = new Planet(1.5, 1, "planet6.png", 0.3);
+    Orbit* orbit1 = new Orbit(planet1, 20, 0.7, 0.56);
+    Orbit* orbit2 = new Orbit(planet2, 25, 0.5);
+    Orbit* orbit3 = new Orbit(planet3, 30, 0.3, 1.5);
+    Orbit* orbit5 = new Orbit(planet5, 40, 0.1, 3*M_PI/2);
+    Orbit* orbit6 = new Orbit(planet6, 45, 0.08, 3*M_PI/4);
+    m_planetarySystem->AddOrbitToSun(orbit1);
+    m_planetarySystem->AddOrbitToSun(orbit2);
+    m_planetarySystem->AddOrbitToSun(orbit3);
+    m_planetarySystem->AddOrbitToSun(orbit5);
+    m_planetarySystem->AddOrbitToSun(orbit6);
+
+    layer->Add(sun);
+    layer->Add(planet1);
+    layer->Add(planet2);
+    layer->Add(planet3);
+    layer->Add(planet5);
+    layer->Add(planet6);
+    layer->Add(orbit1);
+    layer->Add(orbit2);
+    layer->Add(orbit3);
+    layer->Add(orbit5);
+    layer->Add(orbit6);
+    layer->Add(m_planetarySystem);
+
 
     m_pickPlanetController = Unique<PickPlanetController>(new PickPlanetController({movCamera}));
     m_pickPlanetController->AddOrbit(orbit1);

@@ -112,6 +112,7 @@ void Engine::Update()
 {
     m_timer.Measure();
     //std::cout << "fps: " << (1/ m_timer.GetDelta()) << std::endl;
+    UpdateWorldTransfrom();
     m_app->Update(m_timer.GetDelta());
     for(size_t l = 0; l < Layers::Count(); l++) {
         Layer* layer = Layers::Get(l);
@@ -120,7 +121,6 @@ void Engine::Update()
             p.second->Update(m_timer.GetDelta() * p.second->GetTimeSpeed());
         }
     }
-    UpdateWorldTransfrom();
 }
 
 void Engine::UpdateWorldTransfrom()

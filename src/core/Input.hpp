@@ -72,7 +72,7 @@ struct SpecialKeyEvent
 struct MouseButtonEvent
 {
     MouseButton button;
-    bool pressed; // DOWN == false
+    bool pressed; // DOWN == true
 };
 
 struct MouseMoveEvent

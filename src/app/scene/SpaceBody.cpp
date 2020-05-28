@@ -4,10 +4,10 @@ namespace sadekpet {
 
 Set<SpaceBody*> SpaceBody::s_bodies;
 
-SpaceBody::SpaceBody(float mass)
-    : m_mass(mass), m_stencilId(0)
+SpaceBody::SpaceBody(float size, float density)
+    : m_size(size), m_density(density), m_stencilId(0)
 {
-    m_transform.scale = glm::vec3(mass);
+    m_transform.scale = glm::vec3(m_size);
     s_bodies.insert(this);
 }
 

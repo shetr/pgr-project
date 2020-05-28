@@ -27,11 +27,13 @@ Node::~Node()
 {
     if(m_parent != nullptr) {
         m_parent->DisconnectChild(this);
-    } /*else {
+    }
+    if(m_layer != nullptr) {
         m_layer->Roots().erase(GetID());
-    }*/
+    }
     s_nodesMap.erase(GetID());
     for(Pair<uint, Node*> pair : m_childsMap) {
+        pair.second->m_parent = nullptr;
         delete pair.second;
     }
 }
@@ -78,7 +80,9 @@ void Node::UpdateWorldTransform()
 
 VisibleNode::~VisibleNode()
 {
-    GetLayer()->Visible().erase(GetID());
+    if(GetLayer() != nullptr) {
+        GetLayer()->Visible().erase(GetID());
+    }
 }
 
 void VisibleNode::UpdateShaderContext()

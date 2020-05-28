@@ -124,7 +124,7 @@ void Input::SpecialUpCallback(int key, int x, int y)
 }
 void Input::MouseCallback(int button, int state, int x, int y)
 {
-    MouseButtonEvent event{static_cast<MouseButton>(button), static_cast<bool>(state)};
+    MouseButtonEvent event{static_cast<MouseButton>(button), !static_cast<bool>(state)};
     MouseButtonPressed(event.button) = event.pressed;
     s_input.m_eventSystem.Execute(event);
 }

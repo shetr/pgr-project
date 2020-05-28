@@ -19,12 +19,15 @@ public:
     using Iterator = Set<SpaceBody*>::iterator;
 private:
     static Set<SpaceBody*> s_bodies;
-    float m_mass;
+    float m_size;
+    float m_density;
     uint8_t m_stencilId;
 public:
-    SpaceBody(float mass);
+    SpaceBody(float size, float density);
     ~SpaceBody();
-    float GetMass() const { return m_mass; }
+    float GetSize() const { return m_size; }
+    float GetDensity() const { return m_density; }
+    float GetMass() const { return m_size * m_density; }
 
     static Iterator AllBegin() { return s_bodies.begin(); }
     static Iterator AllEnd() { return s_bodies.end(); }
