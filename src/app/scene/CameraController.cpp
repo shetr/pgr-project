@@ -112,6 +112,10 @@ void MovableCamera::Update(float deltaTime)
             addForward *= 2;
             addSide *= 2;
             addUp *= 2;
+        }if(Input::IsKeyPressed('c')) {
+            addForward /= 4;
+            addSide /= 4;
+            addUp /= 4;
         }
         m_transform.pos += (addForward*lookDir + addSide*sideDir + addUp*upDir) * m_moveSpeed * deltaTime;
         LerpStep();

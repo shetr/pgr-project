@@ -5,8 +5,8 @@
  * 
  */
 
-#ifndef PGR_MATERIAL_HPP
-#define PGR_MATERIAL_HPP
+#ifndef PGR_SHADER_CONTEXT_HPP
+#define PGR_SHADER_CONTEXT_HPP
 
 #include "Primitives.hpp"
 #include "Uniforms.hpp"
@@ -25,4 +25,4 @@ public:
 
 }
 
-#endif // PGR_MATERIAL_HPP
+#endif // PGR_SHADER_CONTEXT_HPP

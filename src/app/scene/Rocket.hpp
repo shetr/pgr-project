@@ -25,7 +25,7 @@ public:
         m_model->GetTransform().scale /= 10;
         ConnectChild(m_model);
         layer->Add(m_model);
-        m_model->GetTransform().pos = glm::vec3(0,0,0.5);
+        m_model->GetTransform().pos = glm::vec3(-2.65666, 1.17639, 3.72275) / 10.0f;
         m_model->GetTransform().rotAxis = glm::vec3(1,0,0);
         m_model->GetTransform().rotAngle = M_PI;
         m_speed *= 10;

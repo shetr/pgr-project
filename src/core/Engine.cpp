@@ -51,6 +51,7 @@ void Engine::Init()
     m_shaderManager = Unique<ShaderManager>(ShaderManager::Init());
     m_textureManager = Unique<TextureManager>(TextureManager::Init());
     m_primitivesManager = Unique<PrimitivesManager>(PrimitivesManager::Init());
+    m_materialManager = Unique<MaterialManager>(MaterialManager::Init());
 
 
     bool pgrRes;

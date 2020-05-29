@@ -9,49 +9,59 @@
 namespace sadekpet {
 
 
-int IUniform::GetLocation(int programID)
+int IUniformSingle::GetLocation(int programID)
 {
     if(m_loc == -1) {
         m_loc = GL(GetUniformLocation(programID, m_name.c_str()));
     }
     return m_loc;
 }
-void IUniform::Set(int loc, int v)
+void IUniformSingle::Set(int loc, int v)
 {
     GL(Uniform1i(loc, v));
 }
-void IUniform::Set(int loc, float v)
+void IUniformSingle::Set(int loc, float v)
 {
     GL(Uniform1f(loc, v));
 }
-void IUniform::Set(int loc, glm::vec2 v)
+void IUniformSingle::Set(int loc, glm::vec2 v)
 {
     GL(Uniform2f(loc, v.x, v.y));
 }
-void IUniform::Set(int loc, glm::vec3 v)
+void IUniformSingle::Set(int loc, glm::vec3 v)
 {
     GL(Uniform3f(loc, v.x, v.y, v.z));
 }
-void IUniform::Set(int loc, glm::vec4 v)
+void IUniformSingle::Set(int loc, glm::vec4 v)
 {
     GL(Uniform4f(loc, v.x, v.y, v.z, v.w));
 }
-void IUniform::Set(int loc, glm::mat2 v)
+void IUniformSingle::Set(int loc, glm::mat2 v)
 {
     GL(UniformMatrix2fv(loc, 1, false, &v[0][0]));
 }
-void IUniform::Set(int loc, glm::mat3 v)
+void IUniformSingle::Set(int loc, glm::mat3 v)
 {
     GL(UniformMatrix3fv(loc, 1, false, &v[0][0]));
 }
-void IUniform::Set(int loc, glm::mat4 v)
+void IUniformSingle::Set(int loc, glm::mat4 v)
 {
     GL(UniformMatrix4fv(loc, 1, false, &v[0][0]));
 }
 
+UniformStruct::UniformStruct(const String structName)
+    : m_StructName(structName)
+{}
+void UniformStruct::Set(int programID)
+{
+    for(Unique<IUniformSingle>& uniform : m_uniforms) {
+        uniform->Set(programID);
+    }
+}
+
 void Uniforms::SetUniforms(int programID)
 {
-    for(const Unique<IUniform>& uniform : m_uniforms) {
+    for(Unique<IUniform>& uniform : m_uniforms) {
         uniform->Set(programID);
     }
 }

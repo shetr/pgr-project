@@ -17,11 +17,17 @@ class Node;
 
 class IUniform
 {
+public:
+    virtual void Set(int programID) = 0;
+};
+
+class IUniformSingle : public IUniform
+{
 private:
     int m_loc;
     String m_name;
 public:
-    IUniform(String name) : m_loc(-1), m_name(name) {}
+    IUniformSingle(String name) : m_loc(-1), m_name(name) {}
     virtual void Set(int programID) = 0;
     const String& GetName() const { return m_name; }
 protected:
@@ -37,13 +43,30 @@ protected:
 };
 
 template<typename T>
-class Uniform : public IUniform
+class Uniform : public IUniformSingle
 {
 public:
     T value;
-    Uniform(String name, const T& v) : IUniform(name), value(v) {}
+    Uniform(String name, const T& v) : IUniformSingle(name), value(v) {}
     void Set(int programID) override {
-        IUniform::Set(GetLocation(programID), value);
+        IUniformSingle::Set(GetLocation(programID), value);
+    }
+};
+
+class UniformStruct : public IUniform
+{
+private:
+    Vector<Unique<IUniformSingle>> m_uniforms;
+    String m_StructName;
+public:
+    UniformStruct(const String structName);
+    void Set(int programID) override;
+protected:
+    template<typename T>
+    inline Uniform<T>* AddUniform(const String& name, const T value) {
+        Uniform<T>* u = new Uniform<T>(m_StructName+"."+name, value);
+        m_uniforms.push_back(Unique<IUniformSingle>(u));
+        return u;
     }
 };
 

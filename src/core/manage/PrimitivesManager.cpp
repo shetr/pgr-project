@@ -8,6 +8,9 @@
 #include <string>
 #include <iomanip>
 #include <tuple>
+#include <algorithm>
+
+#include <core/Console.hpp>
 
 namespace sadekpet {
 

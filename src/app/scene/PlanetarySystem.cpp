@@ -37,8 +37,8 @@ void PlanetarySystem::Update(float deltaTime)
     Vector<uint> toErase;
     for(Pair<uint, Rocket*> pair : m_rockets) {
         Rocket* rocket = pair.second;
-        Transform& rocketTrans = rocket->GetTransform();
         glm::vec3 acceleration = glm::vec3(0);
+        bool colided = false;
         for(SpaceBody* body : m_bodies) {
             glm::vec3 dir = body->GetWorldPos() - rocket->GetWorldPos();
             float dist = glm::length(dir);
@@ -47,16 +47,20 @@ void PlanetarySystem::Update(float deltaTime)
                 dir = glm::normalize(dir);
                 float accSize = m_gravity * body->GetMass() / dist;
                 acceleration += accSize * dir;
+                if(dist <= body->GetSize()) {
+                    colided = true;
+                }
             }
         }
         glm::vec3& speed = rocket->GetSpeed();
         glm::vec3 prevSpeed = speed;
         speed += acceleration * deltaTime;
         glm::quat q = glm::rotation(glm::vec3(0,0,-1), glm::normalize(speed));
+        Transform& rocketTrans = rocket->GetTransform();
         rocketTrans.rotAngle = glm::angle(q);
         rocketTrans.rotAxis = glm::axis(q);
         rocketTrans.pos += speed * deltaTime;
-        if(glm::length(rocketTrans.pos) > m_sceneBorder) {
+        if(glm::length(rocketTrans.pos) > m_sceneBorder || colided) {
             toErase.push_back(rocket->GetID());
             delete rocket;
         }

@@ -72,6 +72,7 @@ OBJECTS += $(OBJDIR)/Console.o
 OBJECTS += $(OBJDIR)/Engine.o
 OBJECTS += $(OBJDIR)/Input.o
 OBJECTS += $(OBJDIR)/Layers.o
+OBJECTS += $(OBJDIR)/MaterialManager.o
 OBJECTS += $(OBJDIR)/Math.o
 OBJECTS += $(OBJDIR)/MeshGen.o
 OBJECTS += $(OBJDIR)/Node.o
@@ -226,6 +227,9 @@ $(OBJDIR)/Timer.o: src/core/Timer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Window.o: src/core/Window.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/MaterialManager.o: src/core/manage/MaterialManager.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/PrimitivesManager.o: src/core/manage/PrimitivesManager.cpp

@@ -7,6 +7,7 @@
 #include <core/manage/ShaderManager.hpp>
 #include <core/manage/TextureManager.hpp>
 #include <core/manage/PrimitivesManager.hpp>
+#include <core/manage/MaterialManager.hpp>
 #include <core/scene/Layers.hpp>
 #include <core/scene/Camera.hpp>
 #include <app/scene/CameraController.hpp>
@@ -55,6 +56,7 @@ void App::Init()
     PrimitivesManager::LoadModel("rocket");
     PrimitivesManager::AddPrimitives("sphere", MeshGen::BasicSphere(30));
     PrimitivesManager::AddPrimitives("cube", MeshGen::BasicCube());
+    MaterialManager::LoadMaterial("ufo");
     #ifdef PGR_DEBUG
         std::cout << "assets loaded" << std::endl;
     #endif
