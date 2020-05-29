@@ -32,10 +32,25 @@ void PickPlanetController::OnStencilUpdate(const StencilUpdateEvent& event)
     int stencilID = Input::GetStencilID(pos);
     glm::vec3 mouseDir = Layers::GetCurrent()->GetCurrentCamera()->GetMouseLookDir(winSize.width - pos.x, pos.y);
     if(stencilID != 0 && stencilID <= m_orbits.size()) {
-        std::cout << pos.x << " " << pos.y << " " << stencilID << " " << mouseDir.x << " " << mouseDir.y << " " << mouseDir.z << std::endl;
         glm::vec3 planetPos = m_orbits[stencilID-1]->GetBody()->GetWorldPos();
-        std::cout << planetPos.x << " " << planetPos.y << " " << planetPos.z << std::endl;
     }
+    for(int i = 0; i < (int)m_orbits.size(); i++) {
+        Orbit* orbit = m_orbits[i];
+        if(orbit->IsVisible()) {
+            if(i != stencilID - 1) {
+                orbit->Hide();
+            }
+        } else {
+            if(i == stencilID - 1) {
+                orbit->Show();
+            }
+        }
+    }
+}
+
+void PickPlanetController::Update(float deltaTime)
+{
+
 }
 
 }

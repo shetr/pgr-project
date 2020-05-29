@@ -20,7 +20,9 @@ private:
     Object3DShaderContext m_shaderContext;
     Shared<Object3DShaderContextUpdater> m_shaderContextUpdater;
 public:
-    Dummy(const String& model, const String& texture) : m_shaderContext(model, texture) {
+    Dummy(const String& model, const String& texture)
+        : Dummy(model, texture, Material()) {}
+    Dummy(const String& model, const String& texture, const Material material) : m_shaderContext(model, texture, material) {
         m_shaderContextUpdater = Shared<Object3DShaderContextUpdater>(new Object3DShaderContextUpdater(&m_shaderContext));
         AddShaderContextUpdater(m_shaderContextUpdater);
     }

@@ -27,6 +27,7 @@ public:
     PickPlanetController(const Vector<CameraController*>& ignoreCams);
     void AddOrbit(Orbit* orbit);
     void OnStencilUpdate(const StencilUpdateEvent& event);
+    void Update(float deltaTime);
 };
 
 }

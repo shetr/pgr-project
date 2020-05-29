@@ -11,6 +11,8 @@
 #include <core/types.hpp>
 #include <glm/glm.hpp>
 
+#include "Light.hpp"
+
 namespace sadekpet {
 
 class Node;
@@ -33,6 +35,7 @@ public:
 protected:
     int GetLocation(int programID);
     void Set(int loc, int v);
+    void Set(int loc, LightType v);
     void Set(int loc, float v);
     void Set(int loc, glm::vec2 v);
     void Set(int loc, glm::vec3 v);

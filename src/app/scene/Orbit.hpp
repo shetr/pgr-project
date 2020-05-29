@@ -24,11 +24,14 @@ private:
     float m_phi;
     Line3DShaderContext m_shaderContext;
     Shared<Line3DShaderContextUpdater> m_shaderContextUpdater;
+    bool m_move = true;
 public:
     Orbit(SpaceBody* body, float radius = 1, float speed = 1, float start = 0);
 
     SpaceBody* GetBody() { return m_body; }
     void Update(float deltaTime) override;
+    void Move(float phi);
+    bool& IsMoving() { return m_move; }
     ShaderContext& GetShaderContext() override { return m_shaderContext; }
 };
 

@@ -70,6 +70,7 @@ OBJECTS += $(OBJDIR)/Camera.o
 OBJECTS += $(OBJDIR)/CameraController.o
 OBJECTS += $(OBJDIR)/Console.o
 OBJECTS += $(OBJDIR)/Engine.o
+OBJECTS += $(OBJDIR)/GlobalSceneState.o
 OBJECTS += $(OBJDIR)/Input.o
 OBJECTS += $(OBJDIR)/Layers.o
 OBJECTS += $(OBJDIR)/MaterialManager.o
@@ -179,6 +180,9 @@ $(OBJDIR)/TextureGen.o: src/app/generate/TextureGen.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/CameraController.o: src/app/scene/CameraController.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/GlobalSceneState.o: src/app/scene/GlobalSceneState.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Orbit.o: src/app/scene/Orbit.cpp

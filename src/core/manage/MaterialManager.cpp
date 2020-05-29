@@ -62,28 +62,24 @@ void MaterialManager::LoadMaterial(const String& name)
                 ss >> v.x;
                 ss >> v.y;
                 ss >> v.z;
-                std::cout << v.x << " " << v.y << " " << v.z << std::endl;
                 mat.ambient = v;
             } else if(lineType == "\tKd") {
                 glm::vec3 v;
                 ss >> v.x;
                 ss >> v.y;
                 ss >> v.z;
-                std::cout << v.x << " " << v.y << " " << v.z << std::endl;
-                mat.difuse = v;
+                mat.diffuse = v;
             } else if(lineType == "\tKs") {
                 glm::vec3 v;
                 ss >> v.x;
                 ss >> v.y;
                 ss >> v.z;
-                std::cout << v.x << " " << v.y << " " << v.z << std::endl;
                 mat.specular = v;
             } else if(lineType == "\tKe") {
                 glm::vec3 v;
                 ss >> v.x;
                 ss >> v.y;
                 ss >> v.z;
-                std::cout << v.x << " " << v.y << " " << v.z << std::endl;
                 mat.emission = v;
             }
         }

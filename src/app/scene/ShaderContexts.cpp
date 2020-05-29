@@ -4,16 +4,26 @@
 #include <core/manage/TextureManager.hpp>
 #include <core/render/OpenGL.hpp>
 
+#include "GlobalSceneState.hpp"
+
 namespace sadekpet {
 
-Object3DUniforms::Object3DUniforms() 
+Object3DUniforms::Object3DUniforms(const Material& material)
 { 
     m_textureSampler = new Uniform<int>("textureSampler", 0);
+    m_material = new MaterialUniform("material", material);
+    dirLight = new LightUniform("dirLight");
+    pointLight = new LightUniform("pointLight");
+    spotLight = new LightUniform("spotLight");
     AddUniform(m_textureSampler);
+    AddUniform(m_material);
+    AddUniform(dirLight);
+    AddUniform(pointLight);
+    AddUniform(spotLight);
 }
 
-Object3DShaderContext::Object3DShaderContext(const String& mesh, const String& texture)
-    : m_textureUnits(Vector<Shared<Texture>>({TextureManager::GetTexture(texture)}))
+Object3DShaderContext::Object3DShaderContext(const String& mesh, const String& texture, const Material& material)
+    : m_textureUnits(Vector<Shared<Texture>>({TextureManager::GetTexture(texture)})), m_uniforms(material)
 {
     m_mesh = PrimitivesManager::GetPrimitives(mesh);
 }
@@ -41,7 +51,10 @@ Object3DShaderContextUpdater::Object3DShaderContextUpdater(Object3DShaderContext
 
 void Object3DShaderContextUpdater::Update()
 {
-
+    Object3DUniforms& uniforms = m_shaderContext->GetObject3DUniforms();
+    uniforms.dirLight->UpdateLight(GlobalSceneState::dirLight);
+    uniforms.pointLight->UpdateLight(GlobalSceneState::pointLight);
+    uniforms.spotLight->UpdateLight(GlobalSceneState::spotLight);
 }
 
 

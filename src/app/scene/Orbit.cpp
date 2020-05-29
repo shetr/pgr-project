@@ -17,8 +17,16 @@ Orbit::Orbit(SpaceBody* body, float radius, float speed, float start)
 
 void Orbit::Update(float deltaTime)
 {
+    if(m_move) {
+        Move(deltaTime * m_speed);
+    }
+}
+
+
+void Orbit::Move(float phi)
+{
     glm::vec3& pos = m_body->GetTransform().pos;
-    m_phi += deltaTime * m_speed;
+    m_phi += phi;
     if(m_phi > 2*M_PI) m_phi -= 2*M_PI;
     pos.x = m_radius * glm::cos(m_phi);
     pos.z = m_radius * glm::sin(m_phi);

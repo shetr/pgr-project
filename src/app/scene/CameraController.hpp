@@ -46,6 +46,7 @@ public:
     CameraControll() {}
     void AddController(CameraController* controller) { m_controllers.push_back(controller); }
     size_t ControllerCount() { return m_controllers.size(); }
+    CameraController* GetActive() { return m_controllers[m_active]; }
     void Set(size_t i);
     void Next();
 };

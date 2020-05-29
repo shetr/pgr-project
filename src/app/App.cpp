@@ -23,6 +23,7 @@
 #include <app/scene/Rocket.hpp>
 #include <app/scene/PickPlanetController.hpp>
 #include <app/scene/Skybox.hpp>
+#include <app/scene/GlobalSceneState.hpp>
 
 namespace sadekpet {
 
@@ -62,6 +63,18 @@ void App::Init()
     #endif
     //g_GenTextures();
     //g_TestGenSpaceNoise();
+
+    GlobalSceneState::pointLight.lightType = LightType::POINT;
+    GlobalSceneState::pointLight.position = glm::vec4(0,0,0,1);
+    GlobalSceneState::pointLight.specular = glm::vec3(0.05,0.05,0.05);
+    GlobalSceneState::pointLight.attenuationConst = 1;
+    GlobalSceneState::pointLight.attenuationLin = 0;
+
+    GlobalSceneState::dirLight.specular = glm::vec3(0.4,0.4,0.4);
+
+    GlobalSceneState::spotLight.specular = glm::vec3(0.2,0.2,0.2);
+    GlobalSceneState::spotLight.spotCutoff = M_PI / 8;
+    GlobalSceneState::spotLight.spotExponent = 30;
 
     Layer* skyLayer = Layers::Get(Layers::Add("skybox"));
     Layer* layer = Layers::Get(Layers::Add("3D"));
@@ -106,7 +119,7 @@ void App::Init()
     Skybox* skybox = new Skybox("space");
     skyLayer->Add(skybox);
 
-    Dummy* ufo = new Dummy("ufo", "ufo.jpg");
+    Dummy* ufo = new Dummy("ufo", "ufo.jpg", MaterialManager::GetMaterial("ufo"));
     ufo->GetTransform().pos = glm::vec3(5,-10, 5);
     ufo->GetTransform().scale /= 100;
     ufo->GetTransform().rotAxis = glm::vec3(1,0,0);
@@ -164,6 +177,10 @@ void App::Update(float deltaTime)
         inc = 1;
     }
     m_planetarySystemTimeGroup->Speed() += deltaTime * inc;
+
+    CameraController* cam = m_cameraControll->GetActive();
+    GlobalSceneState::spotLight.position = glm::vec4(cam->GetWorldPos(), 1);
+    m_pickPlanetController->Update(deltaTime);
 }
 
 void App::OnMouseEnter(const MouseEnterEvent& event)

@@ -1,8 +1,12 @@
 #include "CameraController.hpp"
 
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp> 
 #include <glm/gtx/transform.hpp>
 #include <core/Window.hpp>
 #include <iostream>
+
+#include "GlobalSceneState.hpp"
 
 namespace sadekpet {
 
@@ -129,6 +133,21 @@ void MovableCamera::Update(float deltaTime)
         if(upRot < M_PI_2 && upRot > -M_PI_2) {
             camTrans.rotAngle = upRot;
         }
+
+        if(Input::IsMouseButtonPressed(MouseButton::RIGHT)) {
+            GlobalSceneState::spotLight.lightType = LightType::SPOT;
+            GlobalSceneState::spotLight.spotDir = 
+                glm::rotate(m_transform.rotAngle, m_transform.rotAxis) * glm::rotate(camTrans.rotAngle, camTrans.rotAxis) * glm::vec4(0,0,-1, 0);
+        } else {
+            GlobalSceneState::spotLight.lightType = LightType::NONE;
+        }
+        if(Input::IsMouseButtonPressed(MouseButton::MIDDLE)) {
+            GlobalSceneState::dirLight.spotDir = 
+                glm::rotate(m_transform.rotAngle, m_transform.rotAxis) * glm::rotate(camTrans.rotAngle, camTrans.rotAxis) * glm::vec4(0,0,-1, 0);
+            GlobalSceneState::dirLight.lightType = LightType::DIR;
+        } else {
+            GlobalSceneState::dirLight.lightType = LightType::NONE;
+        }
     }
 }
 void MovableCamera::OnActivate()
@@ -144,6 +163,8 @@ void MovableCamera::OnActivate(CameraController* prevController)
 void MovableCamera::OnDeactivate()
 {
     Input::ShowCursor();
+    GlobalSceneState::spotLight.lightType = LightType::NONE;
+    GlobalSceneState::dirLight.lightType = LightType::NONE;
 }
 
 void MovableCamera::OnMouseEvent(const MouseMoveEvent& event)

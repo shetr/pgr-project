@@ -21,7 +21,9 @@ private:
     float m_mass = 1;
 public:
     Rocket(Layer* layer) {
-        m_model = new Dummy("rocket", "red.png");
+        Material mat;
+        mat.shinines = 10;
+        m_model = new Dummy("rocket", "red.png", mat);
         m_model->GetTransform().scale /= 10;
         ConnectChild(m_model);
         layer->Add(m_model);

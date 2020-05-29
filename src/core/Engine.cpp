@@ -90,6 +90,7 @@ void Engine::Exit()
 
 void Engine::Draw()
 {
+    UpdateWorldTransfrom();
     m_renderer.Clear();
     for(size_t l = 0; l < Layers::Count(); l++) {
         Layer* layer = Layers::Get(l);
