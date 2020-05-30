@@ -48,7 +48,16 @@
     <ClInclude Include="src\app\scene\CameraController.hpp">
       <Filter>app\scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\app\scene\Dummy.hpp">
+      <Filter>app\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\app\scene\GlobalSceneState.hpp">
+      <Filter>app\scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\app\scene\Orbit.hpp">
+      <Filter>app\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\app\scene\PickPlanetController.hpp">
       <Filter>app\scene</Filter>
     </ClInclude>
     <ClInclude Include="src\app\scene\Planet.hpp">
@@ -57,10 +66,13 @@
     <ClInclude Include="src\app\scene\PlanetarySystem.hpp">
       <Filter>app\scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\app\scene\Rocket.hpp">
+      <Filter>app\scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\app\scene\ShaderContexts.hpp">
       <Filter>app\scene</Filter>
     </ClInclude>
-    <ClInclude Include="src\app\scene\SolarSystem.hpp">
+    <ClInclude Include="src\app\scene\Skybox.hpp">
       <Filter>app\scene</Filter>
     </ClInclude>
     <ClInclude Include="src\app\scene\SpaceBody.hpp">
@@ -77,6 +89,9 @@
     </ClInclude>
     <ClInclude Include="src\app\testing\Testing.hpp">
       <Filter>app\testing</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\Console.hpp">
+      <Filter>core</Filter>
     </ClInclude>
     <ClInclude Include="src\core\Engine.hpp">
       <Filter>core</Filter>
@@ -96,6 +111,9 @@
     <ClInclude Include="src\core\debug.hpp">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\manage\MaterialManager.hpp">
+      <Filter>core\manage</Filter>
+    </ClInclude>
     <ClInclude Include="src\core\manage\PrimitivesManager.hpp">
       <Filter>core\manage</Filter>
     </ClInclude>
@@ -112,6 +130,12 @@
       <Filter>core\math</Filter>
     </ClInclude>
     <ClInclude Include="src\core\render\Buffer.hpp">
+      <Filter>core\render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\render\Light.hpp">
+      <Filter>core\render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\render\Material.hpp">
       <Filter>core\render</Filter>
     </ClInclude>
     <ClInclude Include="src\core\render\OpenGL.hpp">
@@ -173,10 +197,19 @@
     <ClCompile Include="src\app\generate\TextureGen.cpp">
       <Filter>app\generate</Filter>
     </ClCompile>
+    <ClCompile Include="src\app\generate\sphere30.cpp">
+      <Filter>app\generate</Filter>
+    </ClCompile>
     <ClCompile Include="src\app\scene\CameraController.cpp">
       <Filter>app\scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\app\scene\GlobalSceneState.cpp">
+      <Filter>app\scene</Filter>
+    </ClCompile>
     <ClCompile Include="src\app\scene\Orbit.cpp">
+      <Filter>app\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\scene\PickPlanetController.cpp">
       <Filter>app\scene</Filter>
     </ClCompile>
     <ClCompile Include="src\app\scene\Planet.cpp">
@@ -186,6 +219,9 @@
       <Filter>app\scene</Filter>
     </ClCompile>
     <ClCompile Include="src\app\scene\ShaderContexts.cpp">
+      <Filter>app\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\scene\Skybox.cpp">
       <Filter>app\scene</Filter>
     </ClCompile>
     <ClCompile Include="src\app\scene\SpaceBody.cpp">
@@ -203,6 +239,9 @@
     <ClCompile Include="src\app\testing\Testing.cpp">
       <Filter>app\testing</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\Console.cpp">
+      <Filter>core</Filter>
+    </ClCompile>
     <ClCompile Include="src\core\Engine.cpp">
       <Filter>core</Filter>
     </ClCompile>
@@ -214,6 +253,9 @@
     </ClCompile>
     <ClCompile Include="src\core\Window.cpp">
       <Filter>core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\manage\MaterialManager.cpp">
+      <Filter>core\manage</Filter>
     </ClCompile>
     <ClCompile Include="src\core\manage\PrimitivesManager.cpp">
       <Filter>core\manage</Filter>

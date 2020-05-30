@@ -43,6 +43,7 @@ void App::Init()
     ShaderManager::AddRenderProgram(TypeIndex(typeid(Line3DShaderContext)), "line3D");
     ShaderManager::AddRenderProgram(TypeIndex(typeid(SkyboxShaderContext)), "skybox");
     ShaderManager::AddRenderProgram(TypeIndex(typeid(SunShaderContext)), "sun");
+	std::cout << "shaders" << std::endl;
     TextureManager::AddTexture2D("perlinSun0.png");
     TextureManager::AddTexture2D("planet1.png");
     TextureManager::AddTexture2D("planet2.png");
@@ -53,8 +54,10 @@ void App::Init()
     TextureManager::AddTexture2D("ufo.jpg");
     TextureManager::AddTextureCubeMap("space");
     TextureManager::AddTexture3D("perlinSun", {"perlinSun0.png", "perlinSun1.png", "perlinSun2.png", "perlinSun3.png"});
+	std::cout << "textures" << std::endl;
     PrimitivesManager::LoadModel("ufo");
     PrimitivesManager::LoadModel("rocket");
+	std::cout << "load models" << std::endl;
     PrimitivesManager::AddPrimitives("sphere", MeshGen::HardCodedSphere30());
     PrimitivesManager::AddPrimitives("spherePrecise", MeshGen::BasicSphere(200));
     PrimitivesManager::AddPrimitives("cube", MeshGen::BasicCube());

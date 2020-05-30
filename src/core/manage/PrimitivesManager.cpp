@@ -9,6 +9,7 @@
 #include <iomanip>
 #include <tuple>
 #include <algorithm>
+#include <sstream>
 
 #include <core/Console.hpp>
 
