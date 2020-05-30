@@ -42,27 +42,26 @@ void App::Init()
     ShaderManager::AddRenderProgram(TypeIndex(typeid(Basic3DShaderContext)), "basic3D");
     ShaderManager::AddRenderProgram(TypeIndex(typeid(Line3DShaderContext)), "line3D");
     ShaderManager::AddRenderProgram(TypeIndex(typeid(SkyboxShaderContext)), "skybox");
-    TextureManager::AddTexture2D("sun.png");
-    TextureManager::AddTexture2D("perlinSun.png");
+    ShaderManager::AddRenderProgram(TypeIndex(typeid(SunShaderContext)), "sun");
+    TextureManager::AddTexture2D("perlinSun0.png");
     TextureManager::AddTexture2D("planet1.png");
     TextureManager::AddTexture2D("planet2.png");
     TextureManager::AddTexture2D("planet3.png");
     TextureManager::AddTexture2D("planet5.png");
     TextureManager::AddTexture2D("planet6.png");
     TextureManager::AddTexture2D("red.png");
-    TextureManager::AddTexture2D("earth.jpg");
     TextureManager::AddTexture2D("ufo.jpg");
     TextureManager::AddTextureCubeMap("space");
+    TextureManager::AddTexture3D("perlinSun", {"perlinSun0.png", "perlinSun1.png", "perlinSun2.png", "perlinSun3.png"});
     PrimitivesManager::LoadModel("ufo");
     PrimitivesManager::LoadModel("rocket");
-    PrimitivesManager::AddPrimitives("sphere", MeshGen::BasicSphere(30));
+    PrimitivesManager::AddPrimitives("sphere", MeshGen::HardCodedSphere30());
+    PrimitivesManager::AddPrimitives("spherePrecise", MeshGen::BasicSphere(200));
     PrimitivesManager::AddPrimitives("cube", MeshGen::BasicCube());
     MaterialManager::LoadMaterial("ufo");
     #ifdef PGR_DEBUG
         std::cout << "assets loaded" << std::endl;
     #endif
-    //g_GenTextures();
-    //g_TestGenSpaceNoise();
 
     GlobalSceneState::pointLight.lightType = LightType::POINT;
     GlobalSceneState::pointLight.position = glm::vec4(0,0,0,1);
@@ -79,7 +78,7 @@ void App::Init()
     Layer* skyLayer = Layers::Get(Layers::Add("skybox"));
     Layer* layer = Layers::Get(Layers::Add("3D"));
 
-    m_cameraControll = Unique<CameraControll>(new NumericCamControll());
+    m_cameraControll = Shared<CameraControll>(new NumericCamControll());
     Camera* camera1 = new PerspectiveCamera(M_PI_2, 0.1f, 200.0f);
     StaticCamera* statCamera1 = new StaticCamera(camera1);
     statCamera1->AddLayer(skyLayer);
@@ -160,7 +159,7 @@ void App::Init()
     layer->Add(m_planetarySystem);
 
 
-    m_pickPlanetController = Unique<PickPlanetController>(new PickPlanetController({movCamera}));
+    m_pickPlanetController = Unique<PickPlanetController>(new PickPlanetController({movCamera}, m_cameraControll));
     m_pickPlanetController->AddOrbit(orbit1);
     m_pickPlanetController->AddOrbit(orbit2);
     m_pickPlanetController->AddOrbit(orbit3);

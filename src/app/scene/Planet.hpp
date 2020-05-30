@@ -20,6 +20,7 @@ private:
     Object3DShaderContext m_shaderContext;
     Shared<Object3DShaderContextUpdater> m_shaderContextUpdater;
 	float m_rotationSpeed;
+    float m_texRot = 0;
 public:
     Planet(float size, float density, const String& texture, float rotationSpeed = 1) 
         : SpaceBody(size, density), m_shaderContext("sphere", texture), m_rotationSpeed(rotationSpeed) {

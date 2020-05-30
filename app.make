@@ -106,6 +106,7 @@ OBJECTS += $(OBJDIR)/VertexTypes.o
 OBJECTS += $(OBJDIR)/Window.o
 OBJECTS += $(OBJDIR)/gl_core_4_4.o
 OBJECTS += $(OBJDIR)/main.o
+OBJECTS += $(OBJDIR)/sphere30.o
 
 # Rules
 # #############################################
@@ -177,6 +178,9 @@ $(OBJDIR)/Noise.o: src/app/generate/Noise.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/TextureGen.o: src/app/generate/TextureGen.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/sphere30.o: src/app/generate/sphere30.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/CameraController.o: src/app/scene/CameraController.cpp

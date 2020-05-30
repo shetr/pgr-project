@@ -29,7 +29,7 @@ private:
     Unique<SpecialKeyEventHandler> m_specialKeyEventHandler;
     PlanetarySystem* m_planetarySystem;
     Shared<TimeGroup> m_planetarySystemTimeGroup;
-    Unique<CameraControll> m_cameraControll;
+    Shared<CameraControll> m_cameraControll;
     Unique<PickPlanetController> m_pickPlanetController;
 public:
     App();

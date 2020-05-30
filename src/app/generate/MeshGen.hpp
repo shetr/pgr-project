@@ -13,11 +13,20 @@
 namespace sadekpet {
 
 class MeshGen {
+private:
+static uint sphere30vertCount;
+static uint sphere30indicesCount;
+static float sphere30vertices[];
+static float sphere30uvs[];
+static int sphere30indices[];
+
 public:
+
 static Mesh3D* BasicSphere(uint segmentation);
 static Mesh3D* BasicSphere(uint meridianCount, uint parallelCount);
 static Line3D* Cyrcle(float radius, uint segmentation);
 static BasicMesh3D* BasicCube();
+static Mesh3D* HardCodedSphere30();
 
 private:
 static void MakeQuad(int* outIndices, int v0, int v1, int v2, int v3);

@@ -16,6 +16,7 @@ public:
     static TextureManager* Init();
     ~TextureManager();
     static bool AddTexture2D(const String& name);
+    static bool AddTexture3D(const String& name, const Vector<String>& names2D);
     static bool AddTextureCubeMap(const String& name);
     static Shared<Texture> GetTexture(const String& name);
     static void SaveTexture2DRGB(const String& name, int width, int height, uint8_t* data);

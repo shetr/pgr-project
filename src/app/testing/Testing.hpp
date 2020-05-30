@@ -6,6 +6,7 @@ namespace sadekpet {
 
 void g_TestGenNoiseImage();
 void g_TestGenSphereNoise();
+void g_GenSunNoise();
 void g_TestGenSpaceNoise();
 void g_GenTextures();
 

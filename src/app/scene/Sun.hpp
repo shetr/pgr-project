@@ -17,10 +17,13 @@ namespace sadekpet {
 class Sun : public SpaceBody
 {
 private:
-    Basic3DShaderContext m_shaderContext;
+    SunShaderContext m_shaderContext;
+    float m_time;
+    float m_changeSpeed;
 public:
-    Sun(float size, float density) : SpaceBody(size, density), m_shaderContext("sphere", "perlinSun.png") {  }
+    Sun(float size, float density);
     ShaderContext& GetShaderContext() override { return m_shaderContext; }
+    void Update(float deltaTime) override;
 };
 
 }

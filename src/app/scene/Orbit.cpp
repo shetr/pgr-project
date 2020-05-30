@@ -2,6 +2,9 @@
 
 #include <app/generate/MeshGen.hpp>
 
+#include <glm/gtc/quaternion.hpp>
+#include <glm/gtx/quaternion.hpp> 
+
 namespace sadekpet {
 
 Orbit::Orbit(SpaceBody* body, float radius, float speed, float start)
@@ -25,11 +28,12 @@ void Orbit::Update(float deltaTime)
 
 void Orbit::Move(float phi)
 {
-    glm::vec3& pos = m_body->GetTransform().pos;
+    Transform& bodyTrans = m_body->GetTransform();
+    glm::vec3& pos = bodyTrans.pos;
     m_phi += phi;
     if(m_phi > 2*M_PI) m_phi -= 2*M_PI;
-    pos.x = m_radius * glm::cos(m_phi);
-    pos.z = m_radius * glm::sin(m_phi);
+    glm::quat q = glm::angleAxis(m_phi, glm::vec3(0,-1,0));
+    pos = q * (m_radius * glm::vec3(1,0,0));
 }
 
 }

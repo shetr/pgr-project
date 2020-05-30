@@ -32,6 +32,8 @@ uniform Light dirLight;
 uniform Light pointLight;
 uniform Light spotLight;
 
+uniform mat3 textureMat;
+
 out vec4 fragmentColor;
 
 in vec3 f_position;
@@ -79,6 +81,11 @@ vec3 computeLight(Light light, vec3 vertPos, vec3 vertNorm)
     return spotLightEffect*attenuationFactor*(ambient+diffuse+specular);
 }
 
+float getFogFactor()
+{
+    return exp(-0.005* gl_FragCoord.z / gl_FragCoord.w);
+}
+
 void main()
 {
     vec3 normal = normalize(N*f_normal);
@@ -87,5 +94,7 @@ void main()
     vec3 l2 = computeLight(pointLight, f_position, normal);
     vec3 l3 = computeLight(spotLight, f_position, normal);
     vec3 lightsColor = clamp(material.emission+material.ambient+l1+l2+l3, 0, 1);
-    fragmentColor = vec4(lightsColor, 1) * texture(textureSampler, f_uv);
+    float f = getFogFactor();
+    vec2 uvTrans = (textureMat * vec3(f_uv,1)).xy;
+    fragmentColor = f * vec4(lightsColor, 1) * texture(textureSampler, uvTrans) + (1-f) * vec4(0,0,0,1);
 }

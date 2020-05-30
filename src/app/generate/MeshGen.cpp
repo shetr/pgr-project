@@ -1,5 +1,8 @@
 #include "MeshGen.hpp"
 
+#include <iostream>
+#include <core/Console.hpp>
+
 namespace sadekpet {
 
 
@@ -22,10 +25,12 @@ Mesh3D* MeshGen::BasicSphere(uint meridianCount, uint parallelCount)
     Vector<int> indices(indicesCount);
 
     for(uint t = 0; t < thetaCount; t++) {
-        float theta = M_PI * ((float)t) / (thetaCount-1);
+        float tRatio = ((float)t) / (thetaCount-1);
+        float theta = M_PI * tRatio;
         float sinTheta = glm::sin(theta);
         float mCosTheta = -glm::cos(theta);
-        float uvY = (mCosTheta + 1) / 2;
+        //float uvY = (mCosTheta + 1) / 2;
+        float uvY = tRatio;
         for(uint p = 0; p < phiCount; p++) {
             uint v = p + phiCount*t;
             float pRatio = ((float)p) / (phiCount-1);
@@ -36,6 +41,7 @@ Mesh3D* MeshGen::BasicSphere(uint meridianCount, uint parallelCount)
             vertices[v].x = sinTheta * cosPhi;
             vertices[v].y = mCosTheta;
             vertices[v].z = sinTheta * sinPhi;
+
 
             uvs[v].x = pRatio;
             uvs[v].y = uvY;
@@ -104,6 +110,15 @@ BasicMesh3D* MeshGen::BasicCube()
     MakeQuad(&indices[4*6], 7, 6, 2, 3);
     MakeQuad(&indices[5*6], 4, 7, 3, 0);
     return new BasicMesh3D(vertices.size(), indices.size(), vertices.data(), indices.data());
+}
+
+Mesh3D* MeshGen::HardCodedSphere30()
+{
+    return new Mesh3D(sphere30vertCount, sphere30indicesCount, 
+        (glm::vec3*)sphere30vertices, 
+        (glm::vec2*)sphere30uvs, 
+        (glm::vec3*)sphere30vertices, 
+        sphere30indices);
 }
 
 void MeshGen::MakeQuad(int* outIndices, int v0, int v1, int v2, int v3)

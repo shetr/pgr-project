@@ -88,6 +88,7 @@ public:
     LightUniform* dirLight;
     LightUniform* pointLight;
     LightUniform* spotLight;
+    Uniform<glm::mat3>* textureMat;
     Object3DUniforms(const Material& material);
 };
 
@@ -101,10 +102,18 @@ public:
         : Object3DShaderContext(mesh, texture, Material()) {}
     Object3DShaderContext(const String& mesh, const String& texture, const Material& material);
     Object3DUniforms& GetObject3DUniforms() { return m_uniforms; }
-    TypeIndex GetType() const override;
-    const Shared<Primitives>& GetPrimitives() override;
-    Uniforms& GetUniforms() override;
-    TextureUnits& GetTextureUnits() override;
+    TypeIndex GetType() const override{
+        return TypeIndex(typeid(Object3DShaderContext));
+    }
+    const Shared<Primitives>& GetPrimitives() override{
+        return m_mesh;
+    }
+    Uniforms& GetUniforms() override{
+        return m_uniforms;
+    }
+    TextureUnits& GetTextureUnits() override{
+        return m_textureUnits;
+    }
 };
 
 class Object3DShaderContextUpdater : public ShaderContextUpdater
@@ -113,6 +122,7 @@ private:
     Object3DShaderContext* m_shaderContext;
 public:
     Object3DShaderContextUpdater(Object3DShaderContext* shaderContext);
+    Object3DUniforms& GetUniforms() { return m_shaderContext->GetObject3DUniforms(); }
     void Update() override;
 };
 
@@ -131,10 +141,50 @@ private:
     TextureUnits m_textureUnits;
 public:
     Basic3DShaderContext(const String& mesh, const String& texture);
-    TypeIndex GetType() const override;
-    const Shared<Primitives>& GetPrimitives() override;
-    Uniforms& GetUniforms() override;
-    TextureUnits& GetTextureUnits() override;
+    TypeIndex GetType() const override {
+        return TypeIndex(typeid(Basic3DShaderContext));
+    }
+    const Shared<Primitives>& GetPrimitives() override{
+        return m_mesh;
+    }
+    Uniforms& GetUniforms() override{
+        return m_uniforms;
+    }
+    TextureUnits& GetTextureUnits() override{
+        return m_textureUnits;
+    }
+};
+
+
+class SunUniforms : public Uniforms
+{
+private:
+    Uniform<int>* m_textureSampler;
+public:
+    Uniform<float>* time;
+    SunUniforms();
+};
+
+class SunShaderContext : public ShaderContext {
+private:
+    Shared<Primitives> m_mesh;
+    SunUniforms m_uniforms;
+    TextureUnits m_textureUnits;
+public:
+    SunShaderContext(const String& mesh, const String& texture);
+    SunUniforms& GetSunUniforms() {return m_uniforms;}
+    TypeIndex GetType() const override {
+        return TypeIndex(typeid(SunShaderContext));
+    }
+    const Shared<Primitives>& GetPrimitives() override {
+        return m_mesh;
+    }
+    Uniforms& GetUniforms() override {
+        return m_uniforms;
+    }
+    TextureUnits& GetTextureUnits() override {
+        return m_textureUnits;
+    }
 };
 
 class Line3DUniforms : public Uniforms
@@ -153,10 +203,18 @@ private:
     TextureUnits m_textureUnits;
 public:
     Line3DShaderContext(Line3D* lines, float width, glm::vec3 color);
-    TypeIndex GetType() const override;
-    const Shared<Primitives>& GetPrimitives() override;
-    Uniforms& GetUniforms() override;
-    TextureUnits& GetTextureUnits() override;
+    TypeIndex GetType() const override{
+        return TypeIndex(typeid(Line3DShaderContext));
+    }
+    const Shared<Primitives>& GetPrimitives() override{
+        return m_lines;
+    }
+    Uniforms& GetUniforms() override{
+        return m_uniforms;
+    }
+    TextureUnits& GetTextureUnits() override{
+        return m_textureUnits;
+    }
     float GetWidth() const { return m_width; }
 };
 

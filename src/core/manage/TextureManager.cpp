@@ -65,6 +65,51 @@ bool TextureManager::AddTexture2D(const String& name)
     return true;
 }
 
+bool TextureManager::AddTexture3D(const String& name, const Vector<String>& names2D)
+{
+    Vector<uint8_t> data;
+
+    int width;
+    int height;
+    int depth = names2D.size();
+    int Bpp;
+
+    for(int i = 0; i < names2D.size(); i++) {
+        String fileName = s_texturesPath+names2D[i];
+        ILuint img_id;
+        ilGenImages(1, &img_id);
+        ilBindImage(img_id);
+
+        ilEnable(IL_ORIGIN_SET);
+        ilSetInteger(IL_ORIGIN_MODE, IL_ORIGIN_LOWER_LEFT);
+
+        #ifdef PGR_WINDOWS
+            if(ilLoadImage((const wchar_t*)fileName.c_str()) == IL_FALSE) {
+        #else
+            if(ilLoadImage(fileName.c_str()) == IL_FALSE) {
+        #endif
+            ilDeleteImages(1, &img_id);
+            std::cout << " cannot load image " << fileName << std::endl;
+            return false;
+        }
+        ILenum format = ilGetInteger(IL_IMAGE_FORMAT);
+        if(i == 0) {
+            width = ilGetInteger(IL_IMAGE_WIDTH);
+            height = ilGetInteger(IL_IMAGE_HEIGHT);
+            Bpp = ((format == IL_RGBA || format == IL_BGRA) ? 4 : 3);
+            data.resize(Bpp*width*height*depth);
+        }
+        ilCopyPixels(0, 0, 0, width, height, 1, Bpp == 4 ? IL_RGBA : IL_RGB, IL_UNSIGNED_BYTE, &data[i*Bpp*width*height]);
+        ilDeleteImages(1, &img_id);
+    }
+    
+    Shared<Texture> tex (new Texture3D(width, height, depth, data.data(), Bpp == 4 ? TextureChanels::RGBA : TextureChanels::RGB));
+    tex->Bind();
+    tex->Init();
+    s_instance->m_textures.insert({name, tex});
+    return true;
+}
+
 bool TextureManager::AddTextureCubeMap(const String& name)
 {
     String path = s_texturesPath+name;
