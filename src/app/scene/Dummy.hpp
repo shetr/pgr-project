@@ -27,6 +27,8 @@ public:
         AddShaderContextUpdater(m_shaderContextUpdater);
     }
     ShaderContext& GetShaderContext() override { return m_shaderContext; }
+    Object3DShaderContext& GetObject3DShaderContext() { return m_shaderContext; }
+    Shared<Object3DShaderContextUpdater> GetShaderContextUdater() { return m_shaderContextUpdater; }
 };
 
 }

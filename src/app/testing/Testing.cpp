@@ -74,12 +74,12 @@ void g_TestGenSphereNoise()
 
 void g_GenSunNoise()
 {
-    for(int i = 0; i < 4; i++) {
+    for(int i = 0; i < 10; i++) {
         int width = 1024;
         int height = 1024;
         Vector<uint8_t> data(3*width*height);
         //FractalPerlin3D perlin(3, 2, 4);
-        FractalPerlin3D perlin(3+i, 2, 4);
+        FractalPerlin3D perlin(50+13*i, 2, 4);
         PartialLerp<glm::vec3> partLerp({
             {0, glm::vec3(0.6, 0, 0)},
             {0.6, glm::vec3(0.7, 0.7, 0)},
@@ -180,12 +180,14 @@ void g_TestGenSpaceNoise()
 
 void g_GenTextures()
 {
+/*
     PartialLerp<glm::vec3> colorsPlanet1({
         {0, glm::vec3(0.54, 0.54, 0.59)},
         {0.5, glm::vec3(0.47, 0.46, 0.47)},
         {1, glm::vec3(0.65, 0.64, 0.63)}
     });
     TextureGen::Perlin3DSphere("generated/planet1.png", colorsPlanet1, 13, 8, 2, 4);
+*/
 /*
     PartialLerp<glm::vec3> colorsPlanet2({
         {0, glm::vec3(0.64, 0.59, 0.07)},
@@ -194,7 +196,7 @@ void g_GenTextures()
     });
     TextureGen::Perlin3DSphere("generated/planet2.png", colorsPlanet2, 26, 1, 3);
 */
-    /* 
+/* 
     PartialLerp<glm::vec3> colorsPlanet3({
         {0, glm::vec3(0, 0, 0.5)},
         {0.5, glm::vec3(0, 0.33, 1)},
@@ -203,7 +205,19 @@ void g_GenTextures()
         {0.8, glm::vec3(0.64, 0.49, 0.11)},
         {1, glm::vec3(0.58, 0.36, 0.11)}
     });
-    TextureGen::Perlin3DSphere("generated/planet3.png", colorsPlanet1, 4, 1.5, 3);*/
+    TextureGen::Perlin3DSphere("generated/planet3.png", colorsPlanet1, 4, 1.5, 3);
+*/
+/*
+    PartialLerp<glm::vec3> colorsPlanet4({
+        {0, glm::vec3(0, 0, 0.5)},
+        {0.5, glm::vec3(0, 0.15, 0.7)},
+        {0.51, glm::vec3(0, 0.3, 0)},
+        {0.54, glm::vec3(0.15, 0.4, 0)},
+        {0.6, glm::vec3(0.48, 0.35, 0.08)},
+        {1, glm::vec3(0.29, 0.18, 0.05)}
+    });
+    TextureGen::Perlin3DSphere("generated/planet4.png", colorsPlanet4, 6, 2.0, 3);
+*/
 /*
     PartialLerp<glm::vec3> colorsPlanet5({
         {0, glm::vec3(0.82, 0.82, 0.85)},
@@ -220,6 +234,41 @@ void g_GenTextures()
     });
     TextureGen::Perlin1DSphere("generated/planet6.png", colorsPlanet6, 213, 1, 3);
 */
+/*
+    PartialLerp<glm::vec3> colorsPlanet7({
+        {0, glm::vec3(0.24, 0.5, 0.73)},
+        {0.5, glm::vec3(0.4, 0.8, 0.98)},
+        {1, glm::vec3(0.55, 0.9, 0.97)}
+    });
+    TextureGen::Perlin3DSphere("generated/planet7.png", colorsPlanet7, 14, 1, 2);
+*/
+/*
+    PartialLerp<glm::vec3> colorsMoon({
+        {0, glm::vec3(0.63, 0.63, 0.64)},
+        {0.5, glm::vec3(0.42, 0.42, 0.42)},
+        {0.65, glm::vec3(0.28, 0.28, 0.28)},
+        {1, glm::vec3(0.15, 0.15, 0.15)}
+    });
+    TextureGen::Perlin3DSphere("generated/moon1.png", colorsMoon, 165, 2, 2);
+    TextureGen::Perlin3DSphere("generated/moon2.png", colorsMoon, 27, 2, 2);
+    TextureGen::Perlin3DSphere("generated/moon3.png", colorsMoon, 245, 2, 2);
+    TextureGen::Perlin3DSphere("generated/moon4.png", colorsMoon, 78, 4, 2);
+    TextureGen::Perlin3DSphere("generated/moon5.png", colorsMoon, 785, 2, 2);
+*/
+/*
+    PartialLerp<glm::vec4> colorsPlanet5_2({
+        {0, glm::vec4(0.82, 0.82, 0.85, 0)},
+        {0.5, glm::vec4(0.8, 0.74, 0.64, 0.1)},
+        {1, glm::vec4(0.59, 0.37, 0.3, 1)}
+    });
+    TextureGen::Perlin3DSphereAlpha("generated/planet5_2.png", colorsPlanet5_2, 648, 3, 2);
+*/
+    PartialLerp<glm::vec4> colorsPlanet6_2({
+        {0, glm::vec4(0.66, 0.75, 0.89, 0)},
+        {0.5, glm::vec4(0.4, 0.5, 0.69, 0.1)},
+        {1, glm::vec4(0.24, 0.5, 0.73, 1)}
+    });
+    TextureGen::Perlin3DSphereAlpha("generated/planet6_2.png", colorsPlanet6_2, 153, 2, 2);
 }
 
 }

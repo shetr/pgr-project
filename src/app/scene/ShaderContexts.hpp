@@ -83,12 +83,15 @@ class Object3DUniforms : public Uniforms
 {
 private:
     Uniform<int>* m_textureSampler;
+    Uniform<int>* m_optTextureSampler;
     MaterialUniform* m_material;
 public:
     LightUniform* dirLight;
     LightUniform* pointLight;
     LightUniform* spotLight;
     Uniform<glm::mat3>* textureMat;
+    Uniform<float>* fog;
+    Uniform<bool>* useOptTexture;
     Object3DUniforms(const Material& material);
 };
 
@@ -100,6 +103,7 @@ private:
 public:
     Object3DShaderContext(const String& mesh, const String& texture)
         : Object3DShaderContext(mesh, texture, Material()) {}
+    Object3DShaderContext(const String& mesh, const String& texture, const String& optTexture);
     Object3DShaderContext(const String& mesh, const String& texture, const Material& material);
     Object3DUniforms& GetObject3DUniforms() { return m_uniforms; }
     TypeIndex GetType() const override{
@@ -162,6 +166,7 @@ private:
     Uniform<int>* m_textureSampler;
 public:
     Uniform<float>* time;
+    Uniform<float>* fog;
     SunUniforms();
 };
 

@@ -20,6 +20,10 @@ void IUniformSingle::Set(int loc, int v)
 {
     GL(Uniform1i(loc, v));
 }
+void IUniformSingle::Set(int loc, bool v)
+{
+    GL(Uniform1i(loc, static_cast<int>(v)));
+}
 void IUniformSingle::Set(int loc, LightType v)
 {
     GL(Uniform1i(loc, static_cast<int>(v)));

@@ -11,17 +11,29 @@ namespace sadekpet {
 Object3DUniforms::Object3DUniforms(const Material& material)
 { 
     m_textureSampler = new Uniform<int>("textureSampler", 0);
+    m_optTextureSampler = new Uniform<int>("optTextureSampler", 1);
     m_material = new MaterialUniform("material", material);
     dirLight = new LightUniform("dirLight");
     pointLight = new LightUniform("pointLight");
     spotLight = new LightUniform("spotLight");
     textureMat = new Uniform<glm::mat3>("textureMat", glm::mat3(1));
+    fog = new Uniform<float>("fog", 0.001);
+    useOptTexture = new Uniform<bool>("useOptTexture", false);
     AddUniform(m_textureSampler);
+    AddUniform(m_optTextureSampler);
     AddUniform(m_material);
     AddUniform(dirLight);
     AddUniform(pointLight);
     AddUniform(spotLight);
     AddUniform(textureMat);
+    AddUniform(fog);
+    AddUniform(useOptTexture);
+}
+
+Object3DShaderContext::Object3DShaderContext(const String& mesh, const String& texture, const String& optTexture)
+    : m_textureUnits(Vector<Shared<Texture>>({TextureManager::GetTexture(texture), TextureManager::GetTexture(optTexture)})), m_uniforms(Material())
+{
+    m_mesh = PrimitivesManager::GetPrimitives(mesh);
 }
 
 Object3DShaderContext::Object3DShaderContext(const String& mesh, const String& texture, const Material& material)
@@ -40,6 +52,7 @@ void Object3DShaderContextUpdater::Update()
     uniforms.dirLight->UpdateLight(GlobalSceneState::dirLight);
     uniforms.pointLight->UpdateLight(GlobalSceneState::pointLight);
     uniforms.spotLight->UpdateLight(GlobalSceneState::spotLight);
+    uniforms.fog->value = GlobalSceneState::fog;
 }
 
 
@@ -60,8 +73,10 @@ SunUniforms::SunUniforms()
 { 
     m_textureSampler = new Uniform<int>("textureSampler", 0);
     time = new Uniform<float>("time", 0);
+    fog = new Uniform<float>("fog", 0.001);
     AddUniform(m_textureSampler);
     AddUniform(time);
+    AddUniform(fog);
 }
 
 SunShaderContext::SunShaderContext(const String& mesh, const String& texture)

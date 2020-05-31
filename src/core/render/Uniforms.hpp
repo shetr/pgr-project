@@ -35,6 +35,7 @@ public:
 protected:
     int GetLocation(int programID);
     void Set(int loc, int v);
+    void Set(int loc, bool v);
     void Set(int loc, LightType v);
     void Set(int loc, float v);
     void Set(int loc, glm::vec2 v);

@@ -26,6 +26,7 @@ struct Light
 uniform mat3  N;
 
 uniform sampler2D textureSampler;
+uniform sampler2D optTextureSampler;
 
 uniform Material material;
 uniform Light dirLight;
@@ -33,6 +34,9 @@ uniform Light pointLight;
 uniform Light spotLight;
 
 uniform mat3 textureMat;
+
+uniform float fog;
+uniform bool useOptTexture;
 
 out vec4 fragmentColor;
 
@@ -83,7 +87,7 @@ vec3 computeLight(Light light, vec3 vertPos, vec3 vertNorm)
 
 float getFogFactor()
 {
-    return exp(-0.005* gl_FragCoord.z / gl_FragCoord.w);
+    return exp(-fog* gl_FragCoord.z / gl_FragCoord.w);
 }
 
 void main()
@@ -96,5 +100,12 @@ void main()
     vec3 lightsColor = clamp(material.emission+material.ambient+l1+l2+l3, 0, 1);
     float f = getFogFactor();
     vec2 uvTrans = (textureMat * vec3(f_uv,1)).xy;
-    fragmentColor = f * vec4(lightsColor, 1) * texture(textureSampler, uvTrans) + (1-f) * vec4(0,0,0,1);
+    vec4 texValue;
+    if(useOptTexture) {
+        vec4 optValue = texture(optTextureSampler, uvTrans);
+        texValue = (1-optValue.w)*texture(textureSampler, uvTrans) + optValue.w*vec4(optValue.xyz,1);
+    } else {
+        texValue = texture(textureSampler, uvTrans);
+    }
+    fragmentColor = f * vec4(lightsColor, 1) * texValue + (1-f) * vec4(0,0,0,1);
 }

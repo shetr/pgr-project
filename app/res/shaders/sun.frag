@@ -3,13 +3,15 @@
 uniform sampler3D textureSampler;
 uniform float time;
 
+uniform float fog;
+
 out vec4 fragmentColor;
 
 in vec2 f_uv;
 
 float getFogFactor()
 {
-    return exp(-0.01* gl_FragCoord.z / gl_FragCoord.w);
+    return exp(-fog* gl_FragCoord.z / gl_FragCoord.w);
 }
 
 void main()

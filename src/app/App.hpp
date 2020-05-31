@@ -31,6 +31,7 @@ private:
     Shared<TimeGroup> m_planetarySystemTimeGroup;
     Shared<CameraControll> m_cameraControll;
     Unique<PickPlanetController> m_pickPlanetController;
+    bool m_useFog = false;
 public:
     App();
     ~App();

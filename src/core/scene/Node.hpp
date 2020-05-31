@@ -30,6 +30,7 @@ struct Transform
     Transform() : pos(0.0f), scale(1.0f), rotAngle(0.0f), rotAxis(glm::vec3(0,0,1)) {}
 
     glm::mat4 ToMat4() const;
+    glm::mat4 ToMat4NoScale() const;
 };
 
 class Node
@@ -47,6 +48,7 @@ private:
 protected:
     Transform m_transform;
     glm::mat4 m_worldTransform;
+    glm::mat4 m_worldTransformScaled;
     Shared<TimeGroup> m_timeGroup;
 public:
     Node();
@@ -60,8 +62,8 @@ public:
     uint GetID() const { return m_id; }
     Node* GetParent() const { return m_parent; }
     Transform& GetTransform() { return m_transform; }
-    const glm::mat4& GetWorldTransform() const { return m_worldTransform; }
-    glm::vec3 GetWorldPos() const { return m_worldTransform[3]; }
+    const glm::mat4& GetWorldTransform() const { return m_worldTransformScaled; }
+    glm::vec3 GetWorldPos() const { return m_worldTransformScaled[3]; }
     Layer* GetLayer() { return m_layer; }
     float GetTimeSpeed() const { return m_timeGroup->Speed(); }
     Iterator ChildsBegin() { return m_childsMap.begin(); }

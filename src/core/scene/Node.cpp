@@ -14,11 +14,17 @@ glm::mat4 Transform::ToMat4() const
     return glm::translate(pos) * glm::rotate(rotAngle, rotAxis) * glm::scale(scale);
 }
 
+glm::mat4 Transform::ToMat4NoScale() const
+{
+    return glm::translate(pos) * glm::rotate(rotAngle, rotAxis);
+}
+
 uint Node::s_idGen = 0;
 UnordMap<uint, Node*> Node::s_nodesMap = {};
 Shared<TimeGroup> Node::s_globalTimeGroup = Shared<TimeGroup>(new TimeGroup());
 
-Node::Node() : m_id(s_idGen++), m_layer(nullptr), m_parent(nullptr), m_worldTransform(glm::mat4(1)), m_timeGroup(s_globalTimeGroup)
+Node::Node() 
+    : m_id(s_idGen++), m_layer(nullptr), m_parent(nullptr), m_worldTransform(glm::mat4(1)), m_worldTransformScaled(glm::mat4(1)), m_timeGroup(s_globalTimeGroup)
 {
     s_nodesMap[m_id] = this;
 }
@@ -72,7 +78,8 @@ void Node::SetRoot()
 void Node::UpdateWorldTransform()
 {
     glm::mat4 parentTransform = (m_parent == nullptr) ? glm::mat4(1.0f) : m_parent->m_worldTransform;
-    m_worldTransform = parentTransform * m_transform.ToMat4();
+    m_worldTransformScaled = parentTransform * m_transform.ToMat4();
+    m_worldTransform = parentTransform * m_transform.ToMat4NoScale();
     for(Pair<uint, Node*> p : m_childsMap) {
         p.second->UpdateWorldTransform();
     }

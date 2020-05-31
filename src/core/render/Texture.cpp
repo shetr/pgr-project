@@ -129,8 +129,8 @@ void TextureUnits::Activate() const
         const Shared<Texture>& tex = m_units[i];
         uint unitNum = static_cast<uint>(TextureUnit::_0) + i;
         TextureUnit unit = static_cast<TextureUnit>(unitNum);
-        tex->Bind();
         tex->Activate(unit);
+        tex->Bind();
     }
 }
 

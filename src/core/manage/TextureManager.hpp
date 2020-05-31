@@ -20,6 +20,8 @@ public:
     static bool AddTextureCubeMap(const String& name);
     static Shared<Texture> GetTexture(const String& name);
     static void SaveTexture2DRGB(const String& name, int width, int height, uint8_t* data);
+    static void SaveTexture2DRGBA(const String& name, int width, int height, uint8_t* data);
+    static void SaveTexture2D(const String& name, int width, int height, uint8_t* data, int type);
 
 private:
     TextureManager();

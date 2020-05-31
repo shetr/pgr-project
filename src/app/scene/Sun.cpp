@@ -1,5 +1,6 @@
 #include "Sun.hpp"
 
+#include "GlobalSceneState.hpp"
 
 namespace sadekpet {
 
@@ -13,6 +14,7 @@ void Sun::Update(float deltaTime) {
     if(m_time > 1) m_time -= 1;
     float t = m_time <= 0.5 ? 2*m_time : 2*(1 - m_time);
     m_shaderContext.GetSunUniforms().time->value = t;
+    m_shaderContext.GetSunUniforms().fog->value = GlobalSceneState::fog;
 }
 
 }

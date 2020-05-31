@@ -176,6 +176,16 @@ Shared<Texture> TextureManager::GetTexture(const String& name)
 
 void TextureManager::SaveTexture2DRGB(const String& name, int width, int height, uint8_t* data)
 {
+    SaveTexture2D(name, width, height, data, IL_RGB);
+}
+
+
+void TextureManager::SaveTexture2DRGBA(const String& name, int width, int height, uint8_t* data)
+{
+    SaveTexture2D(name, width, height, data, IL_RGBA);
+}
+void TextureManager::SaveTexture2D(const String& name, int width, int height, uint8_t* data, int type)
+{
     String location = s_texturesPath + name;
     ILuint img_id;
     ilEnable(IL_ORIGIN_SET);
@@ -183,16 +193,8 @@ void TextureManager::SaveTexture2DRGB(const String& name, int width, int height,
     ilEnable(IL_FILE_OVERWRITE);
     ilGenImages(1, &img_id);
     ilBindImage(img_id);
-/*
-    int size = width * height*3;
-    ilSetInteger( IL_IMAGE_WIDTH, width);
-    ilSetInteger( IL_IMAGE_HEIGHT, height );
-    ilSetInteger( IL_IMAGE_BITS_PER_PIXEL, 3*8 );
-    ilSetInteger( IL_IMAGE_BPP, 3);
-    ilSetInteger( IL_IMAGE_SIZE_OF_DATA, size);
-    ilSetPixels(0,0,0, width, height, 1, IL_RGB, IL_UNSIGNED_BYTE, data);*/
 
-    ilTexImage(width, height, 1, 3, IL_RGB, IL_UNSIGNED_BYTE, data);
+    ilTexImage(width, height, 1, type == IL_RGB ? 3 : 4, type, IL_UNSIGNED_BYTE, data);
     #ifdef PGR_WINDOWS
         ilSaveImage((const wchar_t*)location.c_str());
     #else

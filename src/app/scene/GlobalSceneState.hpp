@@ -18,6 +18,7 @@ public:
     static Light dirLight;
     static Light pointLight;
     static Light spotLight;
+    static float fog;
 };
 
 }
