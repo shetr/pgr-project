@@ -17,6 +17,7 @@ class RectangleNode;
 class PlanetarySystem;
 class CameraControll;
 class PickPlanetController;
+class Config;
 
 class App
 {
@@ -31,6 +32,7 @@ private:
     Shared<TimeGroup> m_planetarySystemTimeGroup;
     Shared<CameraControll> m_cameraControll;
     Unique<PickPlanetController> m_pickPlanetController;
+    Unique<Config> m_config;
     bool m_useFog = false;
 public:
     App();

@@ -158,6 +158,7 @@ void MovableCamera::OnActivate(CameraController* prevController)
 {
     OnActivate();
     m_transform = prevController->GetTransform();
+    m_transform.pos = prevController->GetWorldPos();
     GetCamera()->GetTransform() = prevController->GetCamera()->GetTransform();
 }
 void MovableCamera::OnDeactivate()

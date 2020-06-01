@@ -10,8 +10,8 @@
 #include <core/manage/MaterialManager.hpp>
 #include <core/scene/Layers.hpp>
 #include <core/scene/Camera.hpp>
-#include <app/scene/CameraController.hpp>
 
+#include <app/scene/CameraController.hpp>
 #include <app/scene/PlanetarySystem.hpp>
 #include <app/scene/Planet.hpp>
 #include <app/generate/MeshGen.hpp>
@@ -24,6 +24,8 @@
 #include <app/scene/PickPlanetController.hpp>
 #include <app/scene/Skybox.hpp>
 #include <app/scene/GlobalSceneState.hpp>
+#include <app/scene/Ufo.hpp>
+#include <app/scene/Config.hpp>
 
 namespace sadekpet {
 
@@ -126,9 +128,6 @@ void App::Init()
     movCamera->SideRotation() = 0.599464;
     movCamera->UpRotation() = -0.61803;
     movCamera->MoveSpeed() = 10;
-    m_cameraControll->AddController(statCamera1);
-    m_cameraControll->AddController(statCamera2);
-    m_cameraControll->AddController(movCamera);
     layer->Add(camera1);
     layer->Add(camera2);
     layer->Add(camera3);
@@ -137,18 +136,28 @@ void App::Init()
     layer->Add(movCamera);
     statCamera1->Activate();
 
-
     Skybox* skybox = new Skybox("space");
     skyLayer->Add(skybox);
 
-    Dummy* ufo = new Dummy("ufo", "ufo.jpg", MaterialManager::GetMaterial("ufo"));
-    ufo->GetTransform().pos = glm::vec3(5,-10, 5);
-    ufo->GetTransform().scale /= 100;
-    ufo->GetTransform().rotAxis = glm::vec3(1,0,0);
-    ufo->GetTransform().rotAngle = M_PI/2;
+    m_planetarySystemTimeGroup = Shared<TimeGroup>(new TimeGroup());
+
+    Vector<glm::vec3> ufoSplinePoints = {
+        glm::vec3(-60,-15, 60),
+        glm::vec3(  0,-10, 20),
+        glm::vec3( 60,-10, 60),
+        glm::vec3( 20, -5,  0),
+        glm::vec3( 60, -5,-60),
+        glm::vec3(  0,-10,-20),
+        glm::vec3(-60,-10,-60),
+        glm::vec3(-20,-15,  0)
+    };
+    Ufo* ufo = new Ufo(ufoSplinePoints, 20, layer, skyLayer, m_planetarySystemTimeGroup);
     layer->Add(ufo);
 
-    m_planetarySystemTimeGroup = Shared<TimeGroup>(new TimeGroup());
+    m_cameraControll->AddController(statCamera1);
+    m_cameraControll->AddController(statCamera2);
+    m_cameraControll->AddController(ufo->GetCam());
+    m_cameraControll->AddController(movCamera);
 
     Sun* sun = new Sun(5, 1);
     m_planetarySystem = new PlanetarySystem(sun, movCamera, m_planetarySystemTimeGroup, 100);
@@ -165,7 +174,7 @@ void App::Init()
     Orbit* orbit4 = new Orbit(planet4, 36, 0.2, 3);
     Orbit* orbit5 = new Orbit(planet5, 48, 0.1, 3*M_PI/2);
     Orbit* orbit6 = new Orbit(planet6, 58, 0.08, 3*M_PI/4);
-    Orbit* orbit7 = new Orbit(planet7, 70, 0.03, M_PI/2);
+    Orbit* orbit7 = new Orbit(planet7, 70, 0.03, M_PI);
     m_planetarySystem->AddOrbitToSun(orbit1);
     m_planetarySystem->AddOrbitToSun(orbit2);
     m_planetarySystem->AddOrbitToSun(orbit3);
@@ -226,6 +235,18 @@ void App::Init()
 
     layer->Add(m_planetarySystem);
 
+    UnordMap<String, Orbit*> planetNames = {
+        {"planet1", orbit1},
+        {"planet2", orbit2},
+        {"planet3", orbit3},
+        {"planet4", orbit4},
+        {"planet5", orbit5},
+        {"planet6", orbit6},
+        {"planet7", orbit7},
+    };
+    m_config = Unique<Config>(new Config(planetNames));
+    m_config->Load();
+
 
     m_pickPlanetController = Unique<PickPlanetController>(new PickPlanetController({movCamera}, m_cameraControll));
     m_pickPlanetController->AddOrbit(orbit1);
@@ -246,6 +267,7 @@ void App::Update(float deltaTime)
         inc = 1;
     }
     m_planetarySystemTimeGroup->Speed() += deltaTime * inc;
+    if(m_planetarySystemTimeGroup->Speed() < 0) m_planetarySystemTimeGroup->Speed() = 0;
 
     CameraController* cam = m_cameraControll->GetActive();
     GlobalSceneState::spotLight.position = glm::vec4(cam->GetWorldPos(), 1);
@@ -265,15 +287,15 @@ void App::OnKeyPressed(const KeyEvent& event)
         m_planetarySystemTimeGroup->Speed() = 0;
     } else if(event.key == 'm' && event.pressed) {
         m_planetarySystemTimeGroup->Speed() = 1;
-    }
-    
-    if(event.key == 'f' && event.pressed) {
+    } else if(event.key == 'f' && event.pressed) {
         m_useFog = !m_useFog;
         if(m_useFog) {
             GlobalSceneState::fog = 0.025;
         } else {
             GlobalSceneState::fog = 0.001;
         }
+    } else if(event.key == 'r' && event.pressed) {
+        m_config->Load();
     }
 }
 

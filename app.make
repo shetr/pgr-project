@@ -68,6 +68,7 @@ OBJECTS += $(OBJDIR)/App.o
 OBJECTS += $(OBJDIR)/Buffer.o
 OBJECTS += $(OBJDIR)/Camera.o
 OBJECTS += $(OBJDIR)/CameraController.o
+OBJECTS += $(OBJDIR)/Config.o
 OBJECTS += $(OBJDIR)/Console.o
 OBJECTS += $(OBJDIR)/Engine.o
 OBJECTS += $(OBJDIR)/GlobalSceneState.o
@@ -94,12 +95,14 @@ OBJECTS += $(OBJDIR)/ShaderManager.o
 OBJECTS += $(OBJDIR)/Skybox.o
 OBJECTS += $(OBJDIR)/SpaceBody.o
 OBJECTS += $(OBJDIR)/Sphere.o
+OBJECTS += $(OBJDIR)/Spline.o
 OBJECTS += $(OBJDIR)/Sun.o
 OBJECTS += $(OBJDIR)/Testing.o
 OBJECTS += $(OBJDIR)/Texture.o
 OBJECTS += $(OBJDIR)/TextureGen.o
 OBJECTS += $(OBJDIR)/TextureManager.o
 OBJECTS += $(OBJDIR)/Timer.o
+OBJECTS += $(OBJDIR)/Ufo.o
 OBJECTS += $(OBJDIR)/Uniforms.o
 OBJECTS += $(OBJDIR)/VertexArray.o
 OBJECTS += $(OBJDIR)/VertexTypes.o
@@ -186,6 +189,9 @@ $(OBJDIR)/sphere30.o: src/app/generate/sphere30.cpp
 $(OBJDIR)/CameraController.o: src/app/scene/CameraController.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Config.o: src/app/scene/Config.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/GlobalSceneState.o: src/app/scene/GlobalSceneState.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
@@ -211,6 +217,9 @@ $(OBJDIR)/SpaceBody.o: src/app/scene/SpaceBody.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Sun.o: src/app/scene/Sun.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Ufo.o: src/app/scene/Ufo.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Rectangle.o: src/app/testing/Rectangle.cpp
@@ -250,6 +259,9 @@ $(OBJDIR)/TextureManager.o: src/core/manage/TextureManager.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Math.o: src/core/math/Math.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Spline.o: src/core/math/Spline.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Buffer.o: src/core/render/Buffer.cpp

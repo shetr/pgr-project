@@ -33,6 +33,8 @@ public:
     void Move(float phi);
     bool& IsMoving() { return m_move; }
     ShaderContext& GetShaderContext() override { return m_shaderContext; }
+    float GetPhi() const { return m_phi; }
+    void SetPhi(float phi) { m_phi = phi; }
 };
 
 }
