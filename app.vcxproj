@@ -100,6 +100,7 @@
     <ClInclude Include="src\app\generate\Random.hpp" />
     <ClInclude Include="src\app\generate\TextureGen.hpp" />
     <ClInclude Include="src\app\scene\CameraController.hpp" />
+    <ClInclude Include="src\app\scene\Config.hpp" />
     <ClInclude Include="src\app\scene\Dummy.hpp" />
     <ClInclude Include="src\app\scene\GlobalSceneState.hpp" />
     <ClInclude Include="src\app\scene\Orbit.hpp" />
@@ -111,6 +112,7 @@
     <ClInclude Include="src\app\scene\Skybox.hpp" />
     <ClInclude Include="src\app\scene\SpaceBody.hpp" />
     <ClInclude Include="src\app\scene\Sun.hpp" />
+    <ClInclude Include="src\app\scene\Ufo.hpp" />
     <ClInclude Include="src\app\testing\Rectangle.hpp" />
     <ClInclude Include="src\app\testing\Sphere.hpp" />
     <ClInclude Include="src\app\testing\Testing.hpp" />
@@ -127,6 +129,7 @@
     <ClInclude Include="src\core\manage\TextureManager.hpp" />
     <ClInclude Include="src\core\math\Math.hpp" />
     <ClInclude Include="src\core\math\PartialLerp.hpp" />
+    <ClInclude Include="src\core\math\Spline.hpp" />
     <ClInclude Include="src\core\render\Buffer.hpp" />
     <ClInclude Include="src\core\render\Light.hpp" />
     <ClInclude Include="src\core\render\Material.hpp" />
@@ -153,6 +156,7 @@
     <ClCompile Include="src\app\generate\TextureGen.cpp" />
     <ClCompile Include="src\app\generate\sphere30.cpp" />
     <ClCompile Include="src\app\scene\CameraController.cpp" />
+    <ClCompile Include="src\app\scene\Config.cpp" />
     <ClCompile Include="src\app\scene\GlobalSceneState.cpp" />
     <ClCompile Include="src\app\scene\Orbit.cpp" />
     <ClCompile Include="src\app\scene\PickPlanetController.cpp" />
@@ -162,6 +166,7 @@
     <ClCompile Include="src\app\scene\Skybox.cpp" />
     <ClCompile Include="src\app\scene\SpaceBody.cpp" />
     <ClCompile Include="src\app\scene\Sun.cpp" />
+    <ClCompile Include="src\app\scene\Ufo.cpp" />
     <ClCompile Include="src\app\testing\Rectangle.cpp" />
     <ClCompile Include="src\app\testing\Sphere.cpp" />
     <ClCompile Include="src\app\testing\Testing.cpp" />
@@ -175,6 +180,7 @@
     <ClCompile Include="src\core\manage\ShaderManager.cpp" />
     <ClCompile Include="src\core\manage\TextureManager.cpp" />
     <ClCompile Include="src\core\math\Math.cpp" />
+    <ClCompile Include="src\core\math\Spline.cpp" />
     <ClCompile Include="src\core\render\Buffer.cpp" />
     <ClCompile Include="src\core\render\OpenGL.cpp" />
     <ClCompile Include="src\core\render\Primitives.cpp" />

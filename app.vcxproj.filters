@@ -48,6 +48,9 @@
     <ClInclude Include="src\app\scene\CameraController.hpp">
       <Filter>app\scene</Filter>
     </ClInclude>
+    <ClInclude Include="src\app\scene\Config.hpp">
+      <Filter>app\scene</Filter>
+    </ClInclude>
     <ClInclude Include="src\app\scene\Dummy.hpp">
       <Filter>app\scene</Filter>
     </ClInclude>
@@ -79,6 +82,9 @@
       <Filter>app\scene</Filter>
     </ClInclude>
     <ClInclude Include="src\app\scene\Sun.hpp">
+      <Filter>app\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\app\scene\Ufo.hpp">
       <Filter>app\scene</Filter>
     </ClInclude>
     <ClInclude Include="src\app\testing\Rectangle.hpp">
@@ -127,6 +133,9 @@
       <Filter>core\math</Filter>
     </ClInclude>
     <ClInclude Include="src\core\math\PartialLerp.hpp">
+      <Filter>core\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\math\Spline.hpp">
       <Filter>core\math</Filter>
     </ClInclude>
     <ClInclude Include="src\core\render\Buffer.hpp">
@@ -203,6 +212,9 @@
     <ClCompile Include="src\app\scene\CameraController.cpp">
       <Filter>app\scene</Filter>
     </ClCompile>
+    <ClCompile Include="src\app\scene\Config.cpp">
+      <Filter>app\scene</Filter>
+    </ClCompile>
     <ClCompile Include="src\app\scene\GlobalSceneState.cpp">
       <Filter>app\scene</Filter>
     </ClCompile>
@@ -228,6 +240,9 @@
       <Filter>app\scene</Filter>
     </ClCompile>
     <ClCompile Include="src\app\scene\Sun.cpp">
+      <Filter>app\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\app\scene\Ufo.cpp">
       <Filter>app\scene</Filter>
     </ClCompile>
     <ClCompile Include="src\app\testing\Rectangle.cpp">
@@ -267,6 +282,9 @@
       <Filter>core\manage</Filter>
     </ClCompile>
     <ClCompile Include="src\core\math\Math.cpp">
+      <Filter>core\math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\math\Spline.cpp">
       <Filter>core\math</Filter>
     </ClCompile>
     <ClCompile Include="src\core\render\Buffer.cpp">
