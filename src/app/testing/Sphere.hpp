@@ -14,6 +14,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Uniforms pro sphere shader.
+ */
 class SphereUniforms : public Uniforms
 {
 private:
@@ -25,6 +28,9 @@ public:
     }
 };
 
+/**
+ * @brief ShaderContext pro sphere shader.
+ */
 class SphereShaderContext : public ShaderContext {
 private:
     Shared<Primitives> m_mesh;
@@ -38,6 +44,9 @@ public:
     TextureUnits& GetTextureUnits() override;
 };
 
+/**
+ * @brief Jednoduchý node zobrazující kouli.
+ */
 class SphereNode : public VisibleNode {
 private:
     SphereShaderContext m_shaderContext;

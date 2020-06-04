@@ -14,23 +14,35 @@ namespace sadekpet {
 
 class Window;
 
+/**
+ * @brief Velikost okna v pixelech.
+ */
 struct WindowSize
 {
     int width; 
     int height;
 };
 
+/**
+ * @brief Událost při zavření okna.
+ */
 struct WindowCloseEvent
 {
     Window* window;
 };
 
+/**
+ * @brief Událost při změně velikosti okna.
+ */
 struct WindowSizeEvent
 {
     Window* window;
     WindowSize size;
 };
 
+/**
+ * @brief Stará se o vytvoření, inicializaci a vyvolávání událostí okana.
+ */
 class Window :
     public IEventSystem<WindowCloseEvent>,
     public IEventSystem<WindowSizeEvent>

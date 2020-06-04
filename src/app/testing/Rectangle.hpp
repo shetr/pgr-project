@@ -1,7 +1,7 @@
 /**
  * @file RectangleShaderData.hpp
  * @author sadekpet
- * @brief 
+ * @brief Použito jen k testování.
  * 
  */
 
@@ -14,6 +14,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Jednoduchý mesh obdelníku.
+ */
 class Rectangle : public Primitives
 {
 private:
@@ -27,6 +30,9 @@ public:
     int GetCount() const override { return 6; }
 };
 
+/**
+ * @brief Uniforms pro rectangle shader.
+ */
 class RectangleUniforms : public Uniforms
 {
 private:
@@ -36,6 +42,9 @@ public:
     void SetColor(const glm::vec3& color) { m_color->value = color; }
 };
 
+/**
+ * @brief ShaderContext pro rectangle shader.
+ */
 class RectangleShaderContext : public ShaderContext
 {
 private:
@@ -50,6 +59,9 @@ public:
     TextureUnits& GetTextureUnits() override;
 };
 
+/**
+ * @brief Jednoduchý node obsahující obdelník.
+ */
 class RectangleNode : public VisibleNode
 {
 private:

@@ -14,6 +14,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief (spíše) Hvězda v planetárním systému. Mění svojí texturu s časem.
+ */
 class Sun : public SpaceBody
 {
 private:

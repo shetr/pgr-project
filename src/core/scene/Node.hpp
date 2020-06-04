@@ -3,8 +3,6 @@
  * @author sadekpet
  * @brief 
  * @date 2020-02-26
- * 
- * 
  */
 
 #ifndef PGR_NODE_HPP
@@ -20,6 +18,9 @@ namespace sadekpet {
 
 class Layer;
 
+/**
+ * @brief Reprezentuje lokální transformaci objektu, tedy jeho pozici, rotaci a velikost.
+ */
 struct Transform
 {
     glm::vec3 pos;
@@ -33,6 +34,9 @@ struct Transform
     glm::mat4 ToMat4NoScale() const;
 };
 
+/**
+ * @brief Slouží jako uzel ve stromovém grafu scény. Každý má svojí lokální transformaci vůči svému rodiči.
+ */
 class Node
 {
 public:
@@ -82,12 +86,18 @@ protected:
     void DisconnectChild(Node* child);
 };
 
+/**
+ * @brief Pro automatický update dat shaderu.
+ */
 class ShaderContextUpdater
 {
 public:
     virtual void Update() = 0;
 };
 
+/**
+ * @brief Uzel grafu scény který může být vykreslen - obsahuje ShaderContext.
+ */
 class VisibleNode : public Node
 {
 private:

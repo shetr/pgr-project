@@ -13,6 +13,9 @@
 namespace sadekpet 
 {
 
+/**
+ * @brief Typy opengl bufferů.
+ */
 enum class GraphicsBufferTarget : uint32_t
 {
     ARRAY = 0x8892,
@@ -32,6 +35,9 @@ enum class GraphicsBufferTarget : uint32_t
     UNIFORM = 0x8A11
 };
 
+/**
+ * @brief Způsob použití opengl bufferu.
+ */
 enum class GraphicsBufferUsage : uint32_t
 {
     STREAM_DRAW = 0x88E0,
@@ -45,6 +51,9 @@ enum class GraphicsBufferUsage : uint32_t
     DYNAMIC_COPY = 0x88EA
 };
 
+/**
+ * @brief Opengl buffer.
+ */
 class GraphicsBuffer
 {
 protected:
@@ -69,6 +78,9 @@ protected:
     GraphicsBuffer(int size, const void* data, GraphicsBufferTarget target, GraphicsBufferUsage usage);
 };
 
+/**
+ * @brief Možný datový typ ve vertex bufferu.
+ */
 enum class VertexType : uint32_t
 {
     INT8 = 0x1400,
@@ -83,6 +95,9 @@ enum class VertexType : uint32_t
     FIXED = 0x140C
 };
 
+/**
+ * @brief Počet složek vektoru ve vertexu.
+ */
 enum class VertexElementCount : int32_t
 {
     _1 = 1,
@@ -91,6 +106,9 @@ enum class VertexElementCount : int32_t
     _4 = 4
 };
 
+/**
+ * @brief Uchovává nastavení typu vertexu ve vertex bufferu.
+ */
 class VertexElement
 {
 private:
@@ -116,6 +134,9 @@ public:
     static int TypeSize(VertexType type);
 };
 
+/**
+ * @brief Uchovává popis struktury vertex bufferu.
+ */
 class VertexLayout
 {
 private:
@@ -141,6 +162,11 @@ public:
     uint GetStride() const { return m_stride; }
 };
 
+/**
+ * @brief Abstrakce opengl vertex bufferu.
+ *  
+ * @tparam Vertex typ vertexu.
+ */
 template<typename Vertex>
 class VertexBuffer : public GraphicsBuffer
 {
@@ -168,6 +194,9 @@ public:
     }
 };
 
+/**
+ * @brief Abstrakce opengl index bufferu.
+ */
 class IndexBuffer : public GraphicsBuffer
 {
 protected:

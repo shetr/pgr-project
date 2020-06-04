@@ -16,6 +16,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Umožňuje výběr planety pomocí kliknutí a změnu její pozice posunem myši.
+ */
 class PickPlanetController
 {
     using StencilUpdateEventHandler = ScopedEventHandler<StencilUpdateEvent, PickPlanetController>;

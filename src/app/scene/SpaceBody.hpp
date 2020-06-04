@@ -13,6 +13,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Objekt patřící do planetárního systému, který má svůj gravitační vliv.
+ */
 class SpaceBody : public VisibleNode
 {
 public:

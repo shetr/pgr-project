@@ -1,3 +1,9 @@
+/**
+ * @file PrimitivesManager.hpp
+ * @author sadekpet
+ * @brief 
+ * 
+ */
 
 #ifndef PGR_PRIMITIVES_MANAGER_HPP
 #define PGR_PRIMITIVES_MANAGER_HPP
@@ -6,6 +12,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Stará se o ukládání a načítaní primitiv (3D modelů, množin úseček a podobně).
+ */
 class PrimitivesManager
 {
 private:

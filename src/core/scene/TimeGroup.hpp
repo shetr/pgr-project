@@ -11,6 +11,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Slouží ke sdílení stejné rychlosti času mezi více objekty.
+ */
 class TimeGroup
 {
 private:

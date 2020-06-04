@@ -56,6 +56,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Typ opengl erroru.
+ */
 enum class OpenGLError : uint32_t
 {
     NONE = 0,
@@ -69,6 +72,9 @@ enum class OpenGLError : uint32_t
     STACK_UNDERFLOW = 0x0504
 };
 
+/**
+ * @brief Funkce týkající se čistě opengl, primárně errory.
+ */
 class OpenGL
 {
 private:

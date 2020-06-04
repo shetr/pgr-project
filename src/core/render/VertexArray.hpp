@@ -7,6 +7,9 @@
 namespace sadekpet
 {
 
+/**
+ * @brief Abstrakce opengl vertex array.
+ */
 class VertexArray
 {
 protected:

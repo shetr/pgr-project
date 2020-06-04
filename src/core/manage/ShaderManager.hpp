@@ -13,6 +13,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Stará se o načítaní shaderů.
+ */
 class ShaderManager
 {
 private:

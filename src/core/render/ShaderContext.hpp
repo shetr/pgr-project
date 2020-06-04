@@ -14,6 +14,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Popisuje data potřebná při vykonání příslušného shaderu.
+ */
 class ShaderContext
 {
 public:

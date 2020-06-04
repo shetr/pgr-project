@@ -13,6 +13,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Node reprezentující kameru s její projekční maticí + view maticí v potobě world transform nodu.
+ */
 class Camera : public Node
 {
 protected:
@@ -33,6 +36,9 @@ protected:
     float GetAspectRatio();
 };
 
+/**
+ * @brief Perspektivní kamera.
+ */
 class PerspectiveCamera : public Camera 
 {
 protected:

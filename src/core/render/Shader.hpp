@@ -13,6 +13,9 @@
 namespace sadekpet
 {
 
+/**
+ * @brief Typ shaderu.
+ */
 enum class ShaderType : uint
 {
     FRAGMENT = 0x8B30,
@@ -30,6 +33,9 @@ class TessEvaluationShader;
 class TessControlShader;
 class ComputeShader;
 
+/**
+ * @brief Opengl shader.
+ */
 class Shader
 {
 private:
@@ -56,37 +62,58 @@ protected:
     void Init();
 };
 
+/**
+ * @brief Shader sloužící k vykreslování.
+ */
 class RenderShader : public Shader {
 protected:
     RenderShader() : Shader() {}
 };
 
+/**
+ * @brief opengl vertex shader
+ */
 class VertexShader : public RenderShader {
 public:
     VertexShader() : RenderShader() {}
     inline ShaderType GetType() override { return ShaderType::VERTEX; }
 };
+/**
+ * @brief opengl fragment shader
+ */
 class FragmentShader : public RenderShader {
 public:
     FragmentShader() : RenderShader() {}
     inline ShaderType GetType() override { return ShaderType::FRAGMENT; }
 };
+/**
+ * @brief opengl geometry shader
+ */
 class GeometryShader : public RenderShader {
 public:
     GeometryShader() : RenderShader() {}
     inline ShaderType GetType() override { return ShaderType::GEOMETRY; }
 };
+/**
+ * @brief opengl tesselation evaluation shader
+ */
 class TessEvaluationShader : public RenderShader {
 public:
     TessEvaluationShader() : RenderShader() {}
     inline ShaderType GetType() override { return ShaderType::TESS_EVALUATION; }
 };
+/**
+ * @brief opengl tesselation control shader
+ */
 class TessControlShader : public RenderShader {
 public:
     TessControlShader() : RenderShader() {}
     inline ShaderType GetType() override { return ShaderType::TESS_CONTROL; }
 };
 
+/**
+ * @brief Shader sloužící k výpočtu.
+ */
 class ComputeShader : public Shader {
 public:
     ComputeShader() : Shader() {}

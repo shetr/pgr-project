@@ -2,7 +2,6 @@
  * @file Engine.hpp
  * @author sadekpet 
  * @brief 
- * 
  */
 
 #ifndef PGR_ENGINE_HPP
@@ -21,6 +20,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Úroveň debugovacího výstupu.
+ */
 enum DebugLevel {
   DEBUG_OFF = 0,
   DEBUG_LOW,
@@ -28,12 +30,18 @@ enum DebugLevel {
   DEBUG_HIGH 
 };
 
+/**
+ * @brief Způsob běhu hlavního cyklu.
+ */
 enum class EngineLoop {
     NON_STOP,
     FIXED_GLUT,
     FIXED_CUSTOM
 };
 
+/**
+ * @brief Počáteční nastevení enginu.
+ */
 struct EngineConfig
 {
     WindowSize windowSize;
@@ -43,6 +51,9 @@ struct EngineConfig
     float fps;
 };
 
+/**
+ * @brief Argumenty programu (pro glut).
+ */
 struct EngineArgs
 {
     int* pargc;
@@ -51,6 +62,9 @@ struct EngineArgs
 
 class App;
 
+/**
+ * @brief Jádro celého systému. Inicializuje knihovny, aplikaci, updatuje a vykresluje graf scény.
+ */
 class Engine
 {
 private:

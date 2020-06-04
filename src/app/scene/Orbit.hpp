@@ -15,6 +15,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Umožňuje rotaci kolem počátku v lokálním souřadnicovém systému. Dá se vizualizovat kruhem (v základu vypnuto).
+ */
 class Orbit : public VisibleNode
 {
 private:

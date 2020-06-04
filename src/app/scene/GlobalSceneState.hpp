@@ -12,6 +12,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Globální stav scény pro shadery. Obsahuje stav světel a fogu.
+ */
 class GlobalSceneState
 {
 public:

@@ -14,6 +14,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Slouží k jednoduchém vložení modelu do scény, který sám o sobě nic nedělá.
+ */
 class Dummy : public VisibleNode
 {
 private:

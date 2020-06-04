@@ -12,6 +12,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Reference do listu.
+ */
 class IListRef 
 {
 public:
@@ -20,6 +23,10 @@ public:
     virtual List<void*>::iterator GetIterator() = 0;
 };
 
+/**
+ * @brief Rozhraní pro reakci na výskyt nějaké události.
+ * @tparam Event typ události.
+ */
 template<typename Event>
 class IEventHandler : public IListRef
 {
@@ -28,6 +35,11 @@ public:
     virtual bool IsAttached() = 0;
 };
 
+/**
+ * @brief Implementace IEventHandler pomocí ukazatele na metodu poslouchající třídy na příslušný typ události.
+ * @tparam Event typ události.
+ * @tparam Listener třída poslouchající na událost.
+ */
 template<typename Event, typename Listener>
 class EventHandler : IEventHandler<Event>
 {
@@ -61,6 +73,9 @@ public:
     }
 };
 
+/**
+ * @brief Interface pro systém obstarávající nějakou událost.
+ */
 template<typename Event>
 class IEventSystem
 {
@@ -78,6 +93,9 @@ public:
         eventSystem.Detach(handler); \
     }
 
+/**
+ * @brief EventHandler co se automaticky Attachne a Detachne, podle jeho existence.
+ */
 template<typename Event, typename Listener>
 class ScopedEventHandler : public EventHandler<Event, Listener>
 {
@@ -98,6 +116,9 @@ public:
     }
 };
 
+/**
+ * @brief Provádí automatické volání funkcí při vzniknutí nějaké události.
+ */
 class EventSystem
 {
 private:

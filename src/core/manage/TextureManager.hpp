@@ -1,3 +1,9 @@
+/**
+ * @file MaterialManager.hpp
+ * @author sadekpet (sadekpet@fel.cvut.cz)
+ * @brief 
+ * @date 2020-05-29
+ */
 
 #ifndef PGR_TEXTURE_MANAGER_HPP
 #define PGR_TEXTURE_MANAGER_HPP
@@ -6,6 +12,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Stará se o ukládání a načítaní textur.
+ */
 class TextureManager
 {
 private:

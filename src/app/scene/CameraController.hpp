@@ -15,6 +15,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Nadřazená třída pro ovládání kamery - např statická, pohyblivá.
+ */
 class CameraController : public Node
 {
 private:
@@ -37,6 +40,9 @@ protected:
     virtual void OnDeactivate() {} 
 };
 
+/**
+ * @brief Stará se o přepínání mezi kamerami.
+ */
 class CameraControll
 {
 private:
@@ -51,6 +57,9 @@ public:
     void Next();
 };
 
+/**
+ * @brief Přepínání mezi kamerami pomocí čísel na klávesnici.
+ */
 class NumericCamControll : public CameraControll
 {
     using KeyEventHandler = ScopedEventHandler<KeyEvent, NumericCamControll>;
@@ -61,13 +70,14 @@ public:
     void OnKeyPressed(const KeyEvent& event);
 };
 
+/**
+ * @brief Statická kamera.
+ */
 using StaticCamera = CameraController;
 
-class MovingCamera : public CameraController
-{
-
-};
-
+/**
+ * @brief Pohyblivá kamera.
+ */
 class MovableCamera : public CameraController
 {
     using MouseMoveHandler = ScopedEventHandler<MouseMoveEvent, MovableCamera>;

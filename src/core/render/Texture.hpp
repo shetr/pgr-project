@@ -13,6 +13,9 @@
 namespace sadekpet
 {
 
+/**
+ * @brief Jednotka pro uložení textury v shaderu.
+ */
 enum class TextureUnit : uint
 {
     _0 = 0x84C0,
@@ -49,6 +52,9 @@ enum class TextureUnit : uint
     _31 = 0x84DF
 };
 
+/**
+ * @brief Kanály textury.
+ */
 enum class TextureChanels
 {
     R = 0x1903,
@@ -57,6 +63,9 @@ enum class TextureChanels
     RGBA = 0x1908
 };
 
+/**
+ * @brief Typ textury.
+ */
 enum class TextureType
 {
     _1D = 0x0DE0,
@@ -65,6 +74,9 @@ enum class TextureType
     _CUBE_MAP = 0x8513
 };
 
+/**
+ * @brief Abstrakce opengl textury.
+ */
 class Texture
 {
 protected:
@@ -91,6 +103,9 @@ protected:
     virtual void SetImage() = 0;
 };
 
+/**
+ * @brief Jednorozměrná textura.
+ */
 class Texture1D : public Texture
 {
 protected:
@@ -103,6 +118,9 @@ protected:
     void SetImage() override;
 };
 
+/**
+ * @brief Dvourozměrná textura.
+ */
 class Texture2D : public Texture
 {
 protected:
@@ -116,6 +134,9 @@ protected:
     void SetImage() override;
 };
 
+/**
+ * @brief Třínorozměrná textura.
+ */
 class Texture3D : public Texture
 {
 protected:
@@ -130,6 +151,9 @@ protected:
     void SetImage() override;
 };
 
+/**
+ * @brief Cubemap textura.
+ */
 class TextureCubeMap : public Texture
 {
 protected:
@@ -144,6 +168,9 @@ protected:
     void SetImage() override;
 };
 
+/**
+ * @brief Popisuje použité textury a jejich umístění v TextureUnit shaderu.
+ */
 class TextureUnits
 {
 private:

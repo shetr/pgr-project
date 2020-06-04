@@ -2,7 +2,6 @@
  * @file types.hpp
  * @author sadekpet 
  * @brief Shorter names of some types.
- * 
  */
 
 #ifndef PGR_TYPES_HPP

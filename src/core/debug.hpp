@@ -1,3 +1,9 @@
+/**
+ * @file debug.hpp
+ * @author sadekpet 
+ * @brief 
+ */
+
 #ifndef PGR_DEBUG_HPP
 #define PGR_DEBUG_HPP
 

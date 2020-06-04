@@ -12,6 +12,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Typ primitiva.
+ */
 enum class PrimitiveType : uint
 {
     POINTS = 0x0000,
@@ -23,6 +26,9 @@ enum class PrimitiveType : uint
     TRIANGLE_FAN = 0x0006
 };
 
+/**
+ * @brief Rodičovská třída pro všechny typy listů primitiv - trojúhleníky, úsečky, body.
+ */
 class Primitives
 {
 protected:
@@ -33,6 +39,9 @@ public:
     virtual int GetCount() const = 0;
 };
 
+/**
+ * @brief Množina dvourozměrných trojúhelníků. Obsahuje pozice a souřadnice textury.
+ */
 class Mesh2D : public Primitives
 {
 protected:
@@ -46,6 +55,9 @@ public:
     virtual int GetCount() const override { return m_indicesCount; }
 };
 
+/**
+ * @brief Množina dvourozměrných trojúhelníků. Obsahuje pozice.
+ */
 class BasicMesh2D : public Primitives
 {
 protected:
@@ -58,6 +70,9 @@ public:
     virtual int GetCount() const override { return m_indicesCount; }
 };
 
+/**
+ * @brief Množina trojrozměrných trojúhelníků. Obsahuje pozice, souřadnice textury, normály.
+ */
 class Mesh3D : public Primitives
 {
 protected:
@@ -72,6 +87,9 @@ public:
     virtual int GetCount() const override { return m_indicesCount; }
 };
 
+/**
+ * @brief Množina trojrozměrných trojúhelníků. Obsahuje pozice.
+ */
 class BasicMesh3D : public Primitives
 {
 protected:
@@ -84,6 +102,9 @@ public:
     virtual int GetCount() const override { return m_indicesCount; }
 };
 
+/**
+ * @brief Množina trojrozměrných úseček. Obsahuje pozice.
+ */
 class Line3D : public Primitives
 {
 protected:

@@ -14,6 +14,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Obsahuje funkce na vygenerování textury s pomocí fraktálního perlin šumu se zadaným gradientem barev.
+ */
 class TextureGen
 {
 public:

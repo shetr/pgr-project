@@ -13,6 +13,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Uniforms pro skybox shader.
+ */
 class SkyboxUniforms : public Uniforms
 {
 private:
@@ -21,6 +24,9 @@ public:
     SkyboxUniforms();
 };
 
+/**
+ * @brief ShaderContext pro skybox shader.
+ */
 class SkyboxShaderContext : public ShaderContext {
 private:
     Shared<Primitives> m_mesh;
@@ -34,6 +40,9 @@ public:
     TextureUnits& GetTextureUnits() override;
 };
 
+/**
+ * @brief Node obsahující ShaderContext na vykreslení skyboxu.
+ */
 class Skybox : public VisibleNode
 {
 private:

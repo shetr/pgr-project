@@ -11,6 +11,9 @@ class GraphicsProgramLinker;
 class ComputeProgramLinker;
 class RenderProgramLinker;
 
+/**
+ * @brief Opengl program sestávající z shaderů.
+ */
 class GraphicsProgram
 {
     friend class GraphicsProgramLinker;
@@ -29,6 +32,9 @@ private:
     GraphicsProgram(uint id) : m_id(id) {}
 };
 
+/**
+ * @brief Abstrakce postupu linkování shaderů do jednoho programu.
+ */
 class GraphicsProgramLinker
 {
 protected:
@@ -38,6 +44,9 @@ public:
     Opt<GraphicsProgram*> Link();
 };
 
+/**
+ * @brief Linkuje opengl program sloužící k vykreslování.
+ */
 class RenderProgramLinker : public GraphicsProgramLinker
 {
 public:
@@ -45,6 +54,9 @@ public:
     void AddShader(const RenderShader& shader);
 };
 
+/**
+ * @brief Linkuje opengl program sloužící k výpočtu.
+ */
 class ComputeProgramLinker : public GraphicsProgramLinker
 {
 public:

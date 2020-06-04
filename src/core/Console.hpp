@@ -1,7 +1,7 @@
 /**
  * @file Console.hpp
  * @author sadekpet (sadekpet@fel.cvut.cz)
- * @brief 
+ * @brief Funkce na zjednodušení vypisu do konzole.
  * @date 2020-05-28
  */
 
@@ -10,12 +10,6 @@
 
 #include <core/render/OpenGL.hpp>
 #include <iostream>
-
-namespace sadekpet {
-
-
-
-}
 
 std::ostream& operator<<(std::ostream& os, const glm::vec2& v);
 

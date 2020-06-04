@@ -13,6 +13,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Jednoduchý node obsahůjící model rakety nastavený tak aby se s ním snáze pracovalo.
+ */
 class Rocket : public Node
 {
 private:

@@ -19,6 +19,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Uchovává v sobě slunce, planety a měsíce. Tuto shromážděnou informaci používá k výpočtu gravitační síly pro pohyb raket.
+ */
 class PlanetarySystem : public Node
 {
     using MouseButtonEventHandler = ScopedEventHandler<MouseButtonEvent, PlanetarySystem>;

@@ -11,6 +11,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Jednoduché často používané matematické funkce.
+ */
 class Math
 {
 public:

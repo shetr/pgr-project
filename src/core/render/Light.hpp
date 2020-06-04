@@ -13,6 +13,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Typ světla.
+ */
 enum class LightType : int
 {
     NONE = 0,
@@ -21,6 +24,9 @@ enum class LightType : int
     SPOT = 3
 };
 
+/**
+ * @brief Struktura pro ukládání stavu světla.
+ */
 struct Light
 {
     LightType lightType = LightType::NONE;

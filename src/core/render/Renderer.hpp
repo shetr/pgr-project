@@ -13,6 +13,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Stará se o základní opengl příkazy na vykreslování.
+ */
 class Renderer
 {
     using WindowSizeHandler = ScopedEventHandler<WindowSizeEvent, Renderer>;

@@ -12,6 +12,10 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Uniformní B spline.
+ * Aproximuje uzavřenou křivku pro zadané body.
+ */
 class UniformBSpline
 {
 private:

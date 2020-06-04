@@ -16,6 +16,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Model ufo s kamerou létající po zadané spline křívce.
+ */
 class Ufo : public Node
 {
 private:

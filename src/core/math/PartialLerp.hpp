@@ -10,6 +10,11 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Bod v lineární interpolaci.
+ * 
+ * @tparam ValueType Typ vektoru
+ */
 template<typename ValueType>
 struct PartialLerpPoint
 {
@@ -17,6 +22,11 @@ struct PartialLerpPoint
     ValueType value;
 };
 
+/**
+ * @brief Vytváří lineární interpolaci po částech z množiny bodů. 
+ * Dá se použít například jako gradient barev.
+ * @tparam ValueType Typ vektoru
+ */
 template<typename ValueType>
 class PartialLerp
 {

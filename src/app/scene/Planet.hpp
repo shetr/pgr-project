@@ -14,6 +14,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Objekt rotující kolem jiného objektu, myšleno v kombinaci s třídou Orbit.
+ */
 class OrbitingObject : public SpaceBody
 {
 private:

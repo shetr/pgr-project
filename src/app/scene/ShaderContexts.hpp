@@ -10,6 +10,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief UniformStruct pro update materiálu do shaderu.
+ */
 class MaterialUniform : public UniformStruct
 {
 private:
@@ -38,6 +41,9 @@ public:
 
 };
 
+/**
+ * @brief UniformStruct pro update stavu světla do shaderu.
+ */
 class LightUniform : public UniformStruct
 {
 private:
@@ -79,6 +85,9 @@ public:
     }
 };
 
+/**
+ * @brief Uniforms pro object3D shader.
+ */
 class Object3DUniforms : public Uniforms
 {
 private:
@@ -95,6 +104,9 @@ public:
     Object3DUniforms(const Material& material);
 };
 
+/**
+ * @brief ShaderContext pro object3D shader.
+ */
 class Object3DShaderContext : public ShaderContext {
 private:
     Shared<Primitives> m_mesh;
@@ -120,6 +132,9 @@ public:
     }
 };
 
+/**
+ * @brief ShaderContextUpdater pro object3D shader.
+ */
 class Object3DShaderContextUpdater : public ShaderContextUpdater
 {
 private:
@@ -130,6 +145,9 @@ public:
     void Update() override;
 };
 
+/**
+ * @brief Uniforms pro basic3D shader.
+ */
 class Basic3DUniforms : public Uniforms
 {
 private:
@@ -138,6 +156,9 @@ public:
     Basic3DUniforms();
 };
 
+/**
+ * @brief ShaderContext pro basic3D shader.
+ */
 class Basic3DShaderContext : public ShaderContext {
 private:
     Shared<Primitives> m_mesh;
@@ -160,6 +181,9 @@ public:
 };
 
 
+/**
+ * @brief Uniforms pro sun shader.
+ */
 class SunUniforms : public Uniforms
 {
 private:
@@ -170,6 +194,9 @@ public:
     SunUniforms();
 };
 
+/**
+ * @brief ShaderContext pro sun shader.
+ */
 class SunShaderContext : public ShaderContext {
 private:
     Shared<Primitives> m_mesh;
@@ -192,6 +219,9 @@ public:
     }
 };
 
+/**
+ * @brief Uniforms pro line3D shader.
+ */
 class Line3DUniforms : public Uniforms
 {
 public:
@@ -200,6 +230,9 @@ public:
     Line3DUniforms(glm::vec3 color);
 };
 
+/**
+ * @brief ShaderContext pro line3D shader.
+ */
 class Line3DShaderContext : public ShaderContext {
 private:
     float m_width;
@@ -223,6 +256,9 @@ public:
     float GetWidth() const { return m_width; }
 };
 
+/**
+ * @brief ShaderContextUpdater pro line3D shader.
+ */
 class Line3DShaderContextUpdater : public ShaderContextUpdater
 {
 private:

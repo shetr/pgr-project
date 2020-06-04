@@ -14,6 +14,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Nadřázená třída pro generátor šumu.
+ */
 class Noise
 {
 private:
@@ -27,6 +30,9 @@ protected:
     float Smooth(float t);
 };
 
+/**
+ * @brief Jednorozměrný Perlin generátor šumu.
+ */
 class Perlin1D : public Noise
 {
 private:
@@ -37,6 +43,9 @@ public:
     float Value(float pos, float freq);
 };
 
+/**
+ * @brief Dvourozměrný Perlin generátor šumu.
+ */
 class Perlin2D: public Noise
 {
 private:
@@ -47,6 +56,9 @@ public:
     float Value(glm::vec2 pos, float freq);
 };
 
+/**
+ * @brief Třírozměrný Perlin generátor šumu.
+ */
 class Perlin3D: public Noise
 {
 private:
@@ -57,6 +69,12 @@ public:
     float Value(glm::vec3 pos, float freq);
 };
 
+/**
+ * @brief Fraktální generátor šumu - kombinace několika šumů s různou frekvencí a dašími parametry.
+ * 
+ * @tparam PositionType Typ vektrou
+ * @tparam NoiseType Typ použitého šumu.
+ */
 template<typename PositionType, typename NoiseType>
 class FractalNoise
 {

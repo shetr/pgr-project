@@ -13,6 +13,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Slouží k zaznamenávání uběhlého času. Obsahuje rychlost pro jednoduchou změnu chování.
+ */
 class Timer
 {
 private:

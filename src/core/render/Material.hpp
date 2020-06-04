@@ -12,6 +12,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Struktura pro ukládání vlastností materiálu.
+ */
 struct Material
 {
     glm::vec3 ambient = glm::vec3(0.1,0.1,0.1);

@@ -14,6 +14,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Slouží určení pořadí vykteslování objektů. Jedna vrstva má svůj vlasní strom nodů.
+ */
 class Layer
 {
 private:
@@ -40,6 +43,9 @@ public:
     UnordMap<uint, VisibleNode*>& Visible() { return m_visible; }
 };
 
+/**
+ * @brief Slouží určení pořadí vykteslování objektů, podle pořadí vrstev. Např vrstvy: skybox, 3D scéna, 2D UI.
+ */
 class Layers
 {
 private:

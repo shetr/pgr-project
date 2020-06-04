@@ -2,7 +2,6 @@
  * @file App.hpp
  * @author sadekpet
  * @brief 
- * 
  */
 
 #ifndef PGR_APP_HPP
@@ -19,6 +18,10 @@ class CameraControll;
 class PickPlanetController;
 class Config;
 
+/**
+ * @brief Hlavní třída starající se o běh aplikace, její metody jsou volány třídou Engine. 
+ * Obsahuje hlavně inicializaci aplikace a grafu scény.
+ */
 class App
 {
     using MouseEnterHandler = ScopedEventHandler<MouseEnterEvent, App>;

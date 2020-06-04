@@ -12,6 +12,10 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Obsahuje metody na procedurální generování jednoduchých modelů.
+ * 
+ */
 class MeshGen {
 private:
 static uint sphere30vertCount;

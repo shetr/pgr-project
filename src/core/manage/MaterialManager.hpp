@@ -13,6 +13,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Stará se o ukládání a načítaní materiálů.
+ */
 class MaterialManager
 {
 private:

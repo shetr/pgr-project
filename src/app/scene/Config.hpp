@@ -12,6 +12,9 @@
 
 namespace sadekpet {
 
+/**
+ * @brief Načítá konfiguraci planet na oběžné dráze ze souboru config.txt
+ */
 class Config
 {
 private:

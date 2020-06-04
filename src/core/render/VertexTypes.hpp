@@ -14,6 +14,9 @@ namespace sadekpet {
 
 class VertexLayout;
 
+/**
+ * @brief Dvourozměrný vektor se specifikací uložení do vertex bufferu.
+ */
 struct Vec2D
 {
     glm::vec2 v;
@@ -23,6 +26,9 @@ public:
     static const VertexLayout& GetLayout();
 };
 
+/**
+ * @brief Trojrozměrný vektor se specifikací uložení do vertex bufferu.
+ */
 struct Vec3D
 {
     glm::vec3 v;

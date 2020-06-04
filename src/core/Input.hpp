@@ -15,6 +15,9 @@ namespace sadekpet {
 
 using Key = unsigned char;
 
+/**
+ * @brief Speciální klávesy (nemají přiřazené znaky).
+ */
 enum class SpecialKey : int
 {
     F1 = 0x0001,
@@ -42,6 +45,9 @@ enum class SpecialKey : int
 
 #define PGR_SPECIAL_COUNT 21
 
+/**
+ * @brief Typ tlačíka na myši.
+ */
 enum class MouseButton : int
 {
     LEFT = 0x0000,
@@ -51,52 +57,79 @@ enum class MouseButton : int
 
 #define PGR_MOUSE_BUTTON_COUNT 3
 
+/**
+ * @brief Pozice kurzoru myši v okně v pixelech.
+ */
 struct MousePos
 {
     int x;
     int y;
 };
 
+/**
+ * @brief Událost při stisknutí/uvolnění klávesy.
+ */
 struct KeyEvent
 {
     Key key;
     bool pressed;
 };
 
+/**
+ * @brief Událost při stisknutí/uvolnění speciální klávesy.
+ */
 struct SpecialKeyEvent
 {
     SpecialKey key;
     bool pressed;
 };
 
+/**
+ * @brief Událost při stisknutí/uvolnění tlačíka myši.
+ */
 struct MouseButtonEvent
 {
     MouseButton button;
     bool pressed; // DOWN == true
 };
 
+/**
+ * @brief Událost při změně souřadnice kurzoru myši.
+ */
 struct MouseMoveEvent
 {
     MousePos pos;
     bool someButtonPressed;
 };
 
+/**
+ * @brief Událost při pohybu kolečka myši.
+ */
 struct MouseWheelEvent
 {
     int wheel;
     int dir;
 };
 
+/**
+ * @brief Událost při vstupu/výstupu kurzoru z okna.
+ */
 struct MouseEnterEvent
 {
     bool entered;
 };
 
+/**
+ * @brief Událost při aktualizaci stencil bufferu.
+ */
 struct StencilUpdateEvent
 {
     float deltaTime;
 };
 
+/**
+ * @brief Stará se o vstup klávesnice a myši a vyvolává příslušné události.
+ */
 class Input :
     public IEventSystem<KeyEvent>,
     public IEventSystem<SpecialKeyEvent>,
