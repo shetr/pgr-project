@@ -74,6 +74,7 @@ public:
     uint32_t GetID() const { return m_id; }
 protected:
     void Init();
+    void Update(int size, const void* data);
     GraphicsBuffer(int size, const void* data, GraphicsBufferTarget target);
     GraphicsBuffer(int size, const void* data, GraphicsBufferTarget target, GraphicsBufferUsage usage);
 };
@@ -116,6 +117,7 @@ private:
     VertexElementCount m_count;
     bool m_normalized;
     uint m_offset = 0;
+    uint m_divisor = 0;
 public:
     VertexElement(VertexType type, VertexElementCount count)
         : m_type(type), m_count(count), m_normalized(false)
@@ -130,6 +132,8 @@ public:
     inline int ByteSize() const { return Count() * TypeSize(m_type); }
     inline void SetOffset(uint offset) { m_offset = offset; }
     inline uint GetOffset() const { return m_offset; }
+    inline void SetDivisor(uint divisor) { m_divisor = divisor; }
+    inline uint GetDivisor() const { return m_divisor; }
 
     static int TypeSize(VertexType type);
 };
@@ -157,7 +161,7 @@ public:
         m_stride += element.ByteSize();
     }
     inline int ElementsCount() const { return m_elements.size(); }
-    inline const Vector<VertexElement>& Elements() const { return m_elements; }
+    inline Vector<VertexElement>& Elements() { return m_elements; }
     int ByteSize() const;
     uint GetStride() const { return m_stride; }
 };
@@ -171,22 +175,39 @@ template<typename Vertex>
 class VertexBuffer : public GraphicsBuffer
 {
 protected:
-    VertexBuffer(int size, const Vertex* vertices)
-    : GraphicsBuffer(size, vertices, GraphicsBufferTarget::ARRAY) {}
-    VertexBuffer(int size, const Vertex* vertices, GraphicsBufferUsage usage)
-    : GraphicsBuffer(size, vertices, GraphicsBufferTarget::ARRAY, usage) {}
+    VertexBuffer(int count, const Vertex* vertices)
+    : GraphicsBuffer(count*sizeof(Vertex), vertices, GraphicsBufferTarget::ARRAY) {}
+    VertexBuffer(int count, const Vertex* vertices, GraphicsBufferUsage usage)
+    : GraphicsBuffer(count*sizeof(Vertex), vertices, GraphicsBufferTarget::ARRAY, usage) {}
 public:
-    static VertexBuffer* Create(int size, const Vertex* vertices) {
-        VertexBuffer* buffer = new VertexBuffer(size, vertices);
+    static VertexBuffer* Create(int count, const Vertex* vertices) {
+        VertexBuffer* buffer = new VertexBuffer(count, vertices);
         buffer->Bind();
         buffer->Init();
         return buffer;
     }
-    static VertexBuffer* Create(int size, const Vertex* vertices, GraphicsBufferUsage usage) {
-        VertexBuffer* buffer = new VertexBuffer(size, vertices, usage);
+    static VertexBuffer* Create(int count, const Vertex* vertices, GraphicsBufferUsage usage) {
+        VertexBuffer* buffer = new VertexBuffer(count, vertices, usage);
         buffer->Bind();
         buffer->Init();
         return buffer;
+    }
+    static VertexBuffer* CreateDynamic(int count) {
+        VertexBuffer* buffer = new VertexBuffer(count, nullptr, GraphicsBufferUsage::STREAM_DRAW);
+        buffer->Bind();
+        buffer->Init();
+        return buffer;
+    }
+    static VertexBuffer* CreateDynamic(int count, int initCount, const Vertex* initVertices) {
+        VertexBuffer* buffer = new VertexBuffer(count, nullptr, GraphicsBufferUsage::STREAM_DRAW);
+        buffer->UpdateData(initCount, initVertices);
+        return buffer;
+    }
+
+    void UpdateData(int count, const Vertex* vertices) {
+        Bind();
+        Init();
+        Update(count*sizeof(Vertex), vertices);
     }
 
     inline const VertexLayout& GetLayout() const { 
@@ -200,13 +221,17 @@ public:
 class IndexBuffer : public GraphicsBuffer
 {
 protected:
-    IndexBuffer(int size, const int* indices)
-    : GraphicsBuffer(size, indices, GraphicsBufferTarget::ELEMENT_ARRAY) {}
-    IndexBuffer(int size, const int* indices, GraphicsBufferUsage usage)
-    : GraphicsBuffer(size, indices, GraphicsBufferTarget::ELEMENT_ARRAY, usage) {}
+    IndexBuffer(int count, const int* indices)
+    : GraphicsBuffer(count*sizeof(int), indices, GraphicsBufferTarget::ELEMENT_ARRAY) {}
+    IndexBuffer(int count, const int* indices, GraphicsBufferUsage usage)
+    : GraphicsBuffer(count*sizeof(int), indices, GraphicsBufferTarget::ELEMENT_ARRAY, usage) {}
 public:
-    static IndexBuffer* Create(int size, const int* indices);
-    static IndexBuffer* Create(int size, const int* indices, GraphicsBufferUsage usage);
+    static IndexBuffer* Create(int count, const int* indices);
+    static IndexBuffer* Create(int count, const int* indices, GraphicsBufferUsage usage);
+    static IndexBuffer* CreateDynamic(int count);
+    static IndexBuffer* CreateDynamic(int count, int initCount, const int* initIndices);
+
+    void UpdateData(int count, const int* vertices);
 };
 
 }

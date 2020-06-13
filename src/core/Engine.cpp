@@ -95,7 +95,9 @@ void Engine::Draw()
     for(size_t l = 0; l < Layers::Count(); l++) {
         Layer* layer = Layers::Get(l);
         Layers::SetCurrent(layer);
-        m_renderer.ClearDepth();
+        if(layer->DoClearDepth()) {
+            m_renderer.ClearDepth();
+        }
         for(Pair<uint, VisibleNode*> p : layer->Visible()) {
             VisibleNode* node = p.second;
             if(node->IsVisible()) {

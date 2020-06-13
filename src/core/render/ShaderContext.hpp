@@ -24,6 +24,18 @@ public:
     virtual const Shared<Primitives>& GetPrimitives() = 0;
     virtual Uniforms& GetUniforms() = 0;
     virtual TextureUnits& GetTextureUnits() = 0;
+    virtual void DrawFunction();
+};
+
+class InstancedShaderContext : public ShaderContext
+{
+public:
+    virtual uint GetStartIndex() const { return 0; }
+    virtual uint GetVertexCount() const = 0;
+    virtual uint GetInstanceCount() const = 0;
+    virtual void DrawFunction() override;
+protected:
+    virtual void BeforeDraw() = 0;
 };
 
 }

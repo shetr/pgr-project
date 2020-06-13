@@ -15,7 +15,7 @@ VertexArray::~VertexArray()
     GL(DeleteVertexArrays(1, &m_id));
 }
 
-void VertexArray::SetIndexBuffer(const Unique<IndexBuffer>& indexBuffer)
+void VertexArray::SetIndexBuffer(const Shared<IndexBuffer>& indexBuffer)
 {
     Bind();
     indexBuffer->Bind();
@@ -29,6 +29,17 @@ void VertexArray::Bind() const
 void VertexArray::UnBind()
 {
     GL(BindVertexArray(0));
+}
+
+void VertexArray::SetDivisors()
+{
+    int i = 0;
+    for(VertexLayout layout : m_layouts) {
+        for(const VertexElement& element: layout.Elements()) {
+            GL(VertexAttribDivisor(i, element.GetDivisor()));
+            i++;
+        }
+    }
 }
 
 void VertexArray::EnableVertexAttribArray(uint i)

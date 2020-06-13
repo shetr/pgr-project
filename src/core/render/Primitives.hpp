@@ -45,9 +45,9 @@ public:
 class Mesh2D : public Primitives
 {
 protected:
-    Unique<VertexBuffer<Vec2D>> m_vericesBuffer;
-    Unique<VertexBuffer<Vec2D>> m_uvsBuffer;
-    Unique<IndexBuffer> m_indicesBuffer;
+    Shared<VertexBuffer<Vec2D>> m_vericesBuffer;
+    Shared<VertexBuffer<Vec2D>> m_uvsBuffer;
+    Shared<IndexBuffer> m_indicesBuffer;
     int m_indicesCount;
 public:
     Mesh2D(int vertexCount, int indicesCount, glm::vec2* vertices, glm::vec2* uvs, int* indices);
@@ -61,8 +61,8 @@ public:
 class BasicMesh2D : public Primitives
 {
 protected:
-    Unique<VertexBuffer<Vec2D>> m_vericesBuffer;
-    Unique<IndexBuffer> m_indicesBuffer;
+    Shared<VertexBuffer<Vec2D>> m_vericesBuffer;
+    Shared<IndexBuffer> m_indicesBuffer;
     int m_indicesCount;
 public:
     BasicMesh2D(int vertexCount, int indicesCount, glm::vec2* vertices, int* indices);
@@ -76,10 +76,10 @@ public:
 class Mesh3D : public Primitives
 {
 protected:
-    Unique<VertexBuffer<Vec3D>> m_vericesBuffer;
-    Unique<VertexBuffer<Vec2D>> m_uvsBuffer;
-    Unique<VertexBuffer<Vec3D>> m_normalsBuffer;
-    Unique<IndexBuffer> m_indicesBuffer;
+    Shared<VertexBuffer<Vec3D>> m_vericesBuffer;
+    Shared<VertexBuffer<Vec2D>> m_uvsBuffer;
+    Shared<VertexBuffer<Vec3D>> m_normalsBuffer;
+    Shared<IndexBuffer> m_indicesBuffer;
     int m_indicesCount;
 public:
     Mesh3D(int vertexCount, int indicesCount, glm::vec3* vertices, glm::vec2* uvs, glm::vec3* normals, int* indices);
@@ -93,8 +93,8 @@ public:
 class BasicMesh3D : public Primitives
 {
 protected:
-    Unique<VertexBuffer<Vec3D>> m_vericesBuffer;
-    Unique<IndexBuffer> m_indicesBuffer;
+    Shared<VertexBuffer<Vec3D>> m_vericesBuffer;
+    Shared<IndexBuffer> m_indicesBuffer;
     int m_indicesCount;
 public:
     BasicMesh3D(int vertexCount, int indicesCount, glm::vec3* vertices, int* indices);
@@ -108,8 +108,8 @@ public:
 class Line3D : public Primitives
 {
 protected:
-    Unique<VertexBuffer<Vec3D>> m_vericesBuffer;
-    Unique<IndexBuffer> m_indicesBuffer;
+    Shared<VertexBuffer<Vec3D>> m_vericesBuffer;
+    Shared<IndexBuffer> m_indicesBuffer;
     int m_indicesCount;
 public:
     Line3D(int vertexCount, int indicesCount, glm::vec3* vertices, int* indices);

@@ -11,8 +11,8 @@ Rectangle::Rectangle() :
     },
     m_indices{0, 1, 2, 0, 2, 3}
 {
-    m_vertexBuffer = Unique<VertexBuffer<Vec2D>>(VertexBuffer<Vec2D>::Create(4*sizeof(Vec2D), m_vertices));
-    m_indexBuffer = Unique<IndexBuffer>(IndexBuffer::Create(6*sizeof(int), m_indices));
+    m_vertexBuffer = Shared<VertexBuffer<Vec2D>>(VertexBuffer<Vec2D>::Create(4*sizeof(Vec2D), m_vertices));
+    m_indexBuffer = Shared<IndexBuffer>(IndexBuffer::Create(6*sizeof(int), m_indices));
     VertexArray* vertexArray = new VertexArray();
     vertexArray->SetIndexBuffer(m_indexBuffer);
     vertexArray->AddVertexBuffer(m_vertexBuffer);

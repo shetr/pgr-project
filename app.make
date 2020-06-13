@@ -81,6 +81,7 @@ OBJECTS += $(OBJDIR)/Node.o
 OBJECTS += $(OBJDIR)/Noise.o
 OBJECTS += $(OBJDIR)/OpenGL.o
 OBJECTS += $(OBJDIR)/Orbit.o
+OBJECTS += $(OBJDIR)/ParticleSystem.o
 OBJECTS += $(OBJDIR)/PickPlanetController.o
 OBJECTS += $(OBJDIR)/Planet.o
 OBJECTS += $(OBJDIR)/PlanetarySystem.o
@@ -90,6 +91,7 @@ OBJECTS += $(OBJDIR)/Program.o
 OBJECTS += $(OBJDIR)/Rectangle.o
 OBJECTS += $(OBJDIR)/Renderer.o
 OBJECTS += $(OBJDIR)/Shader.o
+OBJECTS += $(OBJDIR)/ShaderContext.o
 OBJECTS += $(OBJDIR)/ShaderContexts.o
 OBJECTS += $(OBJDIR)/ShaderManager.o
 OBJECTS += $(OBJDIR)/Skybox.o
@@ -282,6 +284,9 @@ $(OBJDIR)/Renderer.o: src/core/render/Renderer.cpp
 $(OBJDIR)/Shader.o: src/core/render/Shader.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/ShaderContext.o: src/core/render/ShaderContext.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Texture.o: src/core/render/Texture.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
@@ -304,6 +309,9 @@ $(OBJDIR)/Layers.o: src/core/scene/Layers.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Node.o: src/core/scene/Node.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/ParticleSystem.o: src/core/scene/ParticleSystem.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/main.o: src/main.cpp

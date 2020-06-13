@@ -22,8 +22,8 @@ class Rectangle : public Primitives
 private:
     Vec2D m_vertices[4];
     int m_indices[6];
-    Unique<VertexBuffer<Vec2D>> m_vertexBuffer;
-    Unique<IndexBuffer> m_indexBuffer;
+    Shared<VertexBuffer<Vec2D>> m_vertexBuffer;
+    Shared<IndexBuffer> m_indexBuffer;
 public:
     Rectangle();
     PrimitiveType GetType() const override { return PrimitiveType::TRIANGLES; }

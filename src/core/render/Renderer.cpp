@@ -72,7 +72,7 @@ void Renderer::Draw(ShaderContext& shaderContext)
     shaderContext.GetTextureUnits().Activate();
     Uniforms& uniforms = shaderContext.GetUniforms();
     uniforms.SetUniforms(programID);
-    GL(DrawElements(static_cast<uint>(primitives->GetType()), primitives->GetCount(), GL_UNSIGNED_INT, 0));
+    shaderContext.DrawFunction();
     VertexArray::UnBind();
     GraphicsProgram::UnBind();
 }

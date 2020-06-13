@@ -10,6 +10,7 @@
 #include <core/manage/MaterialManager.hpp>
 #include <core/scene/Layers.hpp>
 #include <core/scene/Camera.hpp>
+#include <core/scene/ParticleSystem.hpp>
 
 #include <app/scene/CameraController.hpp>
 #include <app/scene/PlanetarySystem.hpp>
@@ -45,6 +46,7 @@ void App::Init()
     ShaderManager::AddRenderProgram(TypeIndex(typeid(Line3DShaderContext)), "line3D");
     ShaderManager::AddRenderProgram(TypeIndex(typeid(SkyboxShaderContext)), "skybox");
     ShaderManager::AddRenderProgram(TypeIndex(typeid(SunShaderContext)), "sun");
+    ShaderManager::AddRenderProgram(TypeIndex(typeid(ParticleSystemShaderContext)), "particleSystem");
     #ifdef PGR_DEBUG
         std::cout << "shaders loaded" << std::endl;
     #endif
@@ -135,6 +137,11 @@ void App::Init()
     layer->Add(statCamera2);
     layer->Add(movCamera);
     statCamera1->Activate();
+
+    ParticleSystem* particleSystem = new ParticleSystem(10, "space");
+    particleSystem->Spawn({glm::vec3(0,0,10), 1, 0});
+    particleSystem->Spawn({glm::vec3(0,0,15), 2, 0});
+    layer->Add(particleSystem);
 
     Skybox* skybox = new Skybox("space");
     skyLayer->Add(skybox);

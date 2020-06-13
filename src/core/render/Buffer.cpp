@@ -37,6 +37,12 @@ void GraphicsBuffer::Init()
     GL(BufferData(static_cast<uint32_t>(GetTarget()), m_size, m_data, static_cast<uint32_t>(m_usage)));
 }
 
+
+void GraphicsBuffer::Update(int size, const void* data)
+{
+    glBufferSubData(static_cast<uint32_t>(GetTarget()), 0, size, data);
+}
+
 int VertexElement::TypeSize(VertexType type)
 {
     switch (type)
@@ -76,20 +82,40 @@ int VertexLayout::ByteSize() const
     return size;
 }
 
-IndexBuffer* IndexBuffer::Create(int size, const int* indices)
+IndexBuffer* IndexBuffer::Create(int count, const int* indices)
 {
-    IndexBuffer* buffer = new IndexBuffer(size, indices);
+    IndexBuffer* buffer = new IndexBuffer(count, indices);
     buffer->Bind();
     buffer->Init();
     return buffer;
 }
-IndexBuffer* IndexBuffer::Create(int size, const int* indices, GraphicsBufferUsage usage)
+IndexBuffer* IndexBuffer::Create(int count, const int* indices, GraphicsBufferUsage usage)
 {
-    IndexBuffer* buffer = new IndexBuffer(size, indices, usage);
+    IndexBuffer* buffer = new IndexBuffer(count, indices, usage);
     buffer->Bind();
     buffer->Init();
     return buffer;
 }
 
+IndexBuffer* IndexBuffer::CreateDynamic(int count)
+{
+    IndexBuffer* buffer = new IndexBuffer(count, nullptr, GraphicsBufferUsage::STREAM_DRAW);
+    buffer->Bind();
+    buffer->Init();
+    return buffer;
+}
+IndexBuffer* IndexBuffer::CreateDynamic(int count, int initCount, const int* initIndices)
+{
+    IndexBuffer* buffer = new IndexBuffer(count, nullptr, GraphicsBufferUsage::STREAM_DRAW);
+    buffer->UpdateData(initCount, initIndices);
+    return buffer;
+}
+
+void IndexBuffer::UpdateData(int count, const int* vertices)
+{
+    Bind();
+    Init();
+    Update(count*sizeof(int), vertices);
+}
 
 }

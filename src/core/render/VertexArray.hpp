@@ -16,6 +16,7 @@ protected:
     uint m_id;
     uint m_elementCount = 0;
     uint m_size = 0;
+    Vector<VertexLayout> m_layouts;
 public:
     VertexArray();
     ~VertexArray();
@@ -26,13 +27,14 @@ public:
     int GetSize() const { return m_size; }
     uint GetID() const { return m_id; }
 
-    void SetIndexBuffer(const Unique<IndexBuffer>& indexBuffer);
+    void SetIndexBuffer(const Shared<IndexBuffer>& indexBuffer);
     
     template<typename Vertex>
-    void AddVertexBuffer(const Unique<VertexBuffer<Vertex>>& vertexBuffer){
+    void AddVertexBuffer(const Shared<VertexBuffer<Vertex>>& vertexBuffer){
         Bind();
         vertexBuffer->Bind();
-        const VertexLayout& layout = vertexBuffer->GetLayout();
+        VertexLayout layout = vertexBuffer->GetLayout();
+        m_layouts.push_back(layout);
         for(const VertexElement& element: layout.Elements()) {
             EnableVertexAttribArray(m_elementCount);
             VertexAttribPointer(
@@ -46,6 +48,9 @@ public:
             m_elementCount++;
         }
     }
+
+    Vector<VertexLayout>& GetLayouts() { return m_layouts; }
+    void SetDivisors();
 private:
     void EnableVertexAttribArray(uint i);
     void VertexAttribPointer(uint i, int count, uint type, bool normalized, uint stride, const void* offset);
