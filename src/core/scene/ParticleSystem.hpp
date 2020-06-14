@@ -16,30 +16,44 @@ namespace sadekpet {
 
 struct ParticleVertex
 {
-    glm::vec3 pos = glm::vec3(0,0,0);
-    float size = 1;
-    float time = 0;
+    glm::vec3 pos;
+    float size;
+    float rot;
+    float time;
 private:
     static VertexLayout s_layout;
 public:
     static const VertexLayout& GetLayout();
+    ParticleVertex() 
+        : ParticleVertex(glm::vec3(0,0,0), 1, 0, 2) {}
+    ParticleVertex(glm::vec3 p, float s, float r, float t)
+        : pos(p), size(s), rot(r), time(t) {}
 };
 
 struct Particle
 {
     ParticleVertex vert;
-    float distance = 0;
+    float distance;
+public:
+    Particle() : vert(), distance(-1) {}
 };
 
 class ParticleSystemUniforms : public Uniforms
 {
+private:
+    Uniform<int>* m_textureSampler;
+    Uniform<glm::ivec2>* m_textureSizes;
+public:
+    ParticleSystemUniforms(glm::ivec2 textureSizes);
 };
 
 class ParticleSystemMesh : public Primitives
 {
 protected:
     static glm::vec2 s_vertices[4];
+    static glm::vec2 s_uvs[4];
     Shared<VertexBuffer<Vec2D>> m_vericesBuffer;
+    Shared<VertexBuffer<Vec2D>> m_uvsBuffer;
     Shared<VertexBuffer<ParticleVertex>> m_particlesBuffer;
     uint m_maxParticlesCount;
     uint m_particlesCount;
@@ -48,7 +62,7 @@ public:
     virtual PrimitiveType GetType() const override { return PrimitiveType::TRIANGLE_STRIP; }
     virtual int GetCount() const override { return 4; }
     uint GetParticlesCount() const { return m_particlesCount; }
-    void Update(const Vector<ParticleVertex>& particles);
+    void Update(uint particlesCount, ParticleVertex* particles);
     void BeforeDraw();
 };
 
@@ -60,7 +74,7 @@ private:
     ParticleSystemUniforms m_uniforms;
     TextureUnits m_textureUnits;
 public:
-    ParticleSystemShaderContext(const Shared<ParticleSystemMesh>& mesh, const String& texture);
+    ParticleSystemShaderContext(const Shared<ParticleSystemMesh>& mesh, const String& texture, glm::ivec2 textureSizes);
 
     TypeIndex GetType() const override{
         return TypeIndex(typeid(ParticleSystemShaderContext));
@@ -69,6 +83,9 @@ public:
         return m_primitives;
     }
     Uniforms& GetUniforms() override{
+        return m_uniforms;
+    }
+    ParticleSystemUniforms& GetParticleSystemUniforms() {
         return m_uniforms;
     }
     TextureUnits& GetTextureUnits() override{
@@ -85,10 +102,14 @@ class ParticleSystem : public VisibleNode
 private:
     Shared<ParticleSystemMesh> m_mesh;
     ParticleSystemShaderContext m_shaderContext;
-    Vector<ParticleVertex> m_particles;
+    Vector<Particle> m_particles;
+    Vector<ParticleVertex> m_outParticles;
+    uint m_particlesCount;
+    Queue<ParticleVertex> m_spawnedParticles;
+    float m_dieSpeed;
 public:
-    ParticleSystem(uint maxParticleCount, const String& texture);
-    void Spawn(ParticleVertex particle);
+    ParticleSystem(uint maxParticleCount, float dieSpeed, const String& texture, glm::ivec2 textureSizes);
+    void Spawn(const ParticleVertex& particle);
     void Update(float deltaTime) override;
     ShaderContext& GetShaderContext() override { return m_shaderContext; }
 };

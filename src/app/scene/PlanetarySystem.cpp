@@ -6,6 +6,8 @@
 #include <glm/gtc/quaternion.hpp>
 #include <glm/gtx/quaternion.hpp> 
 
+#include "GlobalSceneState.hpp"
+
 namespace sadekpet {
 
 PlanetarySystem::PlanetarySystem(Sun* sun, MovableCamera* movCamera, const Shared<TimeGroup>& timeGroup, float sceneBorder) 
@@ -55,6 +57,7 @@ void PlanetarySystem::Update(float deltaTime)
         glm::vec3& speed = rocket->GetSpeed();
         glm::vec3 prevSpeed = speed;
         speed += acceleration * deltaTime;
+        glm::vec3 speedNorm = glm::normalize(speed);
         glm::quat q = glm::rotation(glm::vec3(0,0,-1), glm::normalize(speed));
         Transform& rocketTrans = rocket->GetTransform();
         rocketTrans.rotAngle = glm::angle(q);
@@ -63,6 +66,13 @@ void PlanetarySystem::Update(float deltaTime)
         if(glm::length(rocketTrans.pos) > m_sceneBorder || colided) {
             toErase.push_back(rocket->GetID());
             delete rocket;
+        } else {
+            float speedSize = glm::length(speed);
+            rocket->smokeTimeout += deltaTime * rocket->smokeSpeed * speedSize;
+            if(rocket->smokeTimeout > 1) {
+                rocket->smokeTimeout = 0;
+                GlobalSceneState::smokeParticleSystem->Spawn(ParticleVertex(rocketTrans.pos - 0.5f * speedNorm, 0.5, 0, 0));
+            }
         }
     }
     for(uint id : toErase) {

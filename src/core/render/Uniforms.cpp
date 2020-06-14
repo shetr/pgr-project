@@ -20,6 +20,18 @@ void IUniformSingle::Set(int loc, int v)
 {
     GL(Uniform1i(loc, v));
 }
+void IUniformSingle::Set(int loc, glm::ivec2 v)
+{
+    GL(Uniform2i(loc, v.x, v.y));
+}
+void IUniformSingle::Set(int loc, glm::ivec3 v)
+{
+    GL(Uniform3i(loc, v.x, v.y, v.z));
+}
+void IUniformSingle::Set(int loc, glm::ivec4 v)
+{
+    GL(Uniform4i(loc, v.x, v.y, v.z, v.w));
+}
 void IUniformSingle::Set(int loc, bool v)
 {
     GL(Uniform1i(loc, static_cast<int>(v)));

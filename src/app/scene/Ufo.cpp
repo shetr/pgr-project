@@ -9,7 +9,7 @@
 namespace sadekpet {
 
 
-Ufo::Ufo(const Vector<glm::vec3>& splinePoints, float speed, Layer* layer, Layer* skyLayer, const Shared<TimeGroup>& timeGroup)
+Ufo::Ufo(const Vector<glm::vec3>& splinePoints, float speed, Layer* layer, const Shared<TimeGroup>& timeGroup)
     : m_spline(splinePoints), m_splinePos(0), m_speed(speed), m_rotSpeed(1)
 {
     m_ufoParPar = new Node();
@@ -34,8 +34,9 @@ Ufo::Ufo(const Vector<glm::vec3>& splinePoints, float speed, Layer* layer, Layer
     m_camera = new StaticCamera(camera);
     m_ufoParPar->ConnectChild(m_camera);
     m_camera->GetTransform().pos = glm::vec3(0, 0.5, 1);
-    m_camera->AddLayer(skyLayer);
-    m_camera->AddLayer(layer);
+    for(int l = 0; l < Layers::Count(); l++) {
+        m_camera->AddLayer(Layers::Get(l));
+    }
     layer->Add(camera);
     layer->Add(m_camera);
 }

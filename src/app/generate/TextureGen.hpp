@@ -29,6 +29,9 @@ public:
     static void Perlin1DSphere(const String& name, const PartialLerp<glm::vec3>& colors, uint32_t seed, float frequency = 1, 
         int octaves = 1, float lacunarity = 2, float persistence = 0.5);
 
+    static void SmokeAnimation(const String& name, glm::ivec2 sizes, const PartialLerp<glm::vec4>& colors, uint32_t seed, float frequency = 1, 
+        int octaves = 1, float lacunarity = 2, float persistence = 0.5);
+
 };
 
 }

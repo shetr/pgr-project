@@ -31,7 +31,7 @@ private:
     float m_rotSpeed;
     StaticCamera* m_camera;
 public:
-    Ufo(const Vector<glm::vec3>& splinePoints, float speed, Layer* layer, Layer* skyLayer, const Shared<TimeGroup>& timeGroup);
+    Ufo(const Vector<glm::vec3>& splinePoints, float speed, Layer* layer, const Shared<TimeGroup>& timeGroup);
     void Update(float deltaTime) override;
     StaticCamera* GetCam() { return m_camera; }
 };

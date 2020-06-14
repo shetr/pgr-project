@@ -15,6 +15,7 @@ void g_TestGenSphereNoise();
 void g_GenSunNoise();
 void g_TestGenSpaceNoise();
 void g_GenTextures();
+void g_GenSmoke();
 
 }
 

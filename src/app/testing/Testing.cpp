@@ -271,4 +271,15 @@ void g_GenTextures()
     TextureGen::Perlin3DSphereAlpha("generated/planet6_2.png", colorsPlanet6_2, 153, 2, 2);
 }
 
+
+void g_GenSmoke()
+{
+    PartialLerp<glm::vec4> colors({
+        {0, glm::vec4(0.4, 0.4, 0.4, 0)},
+        {0.2, glm::vec4(0.4, 0.4, 0.4, 1)},
+        {1, glm::vec4(0.8, 0.8, 0.8, 1)}
+    });
+    TextureGen::SmokeAnimation("generated/smoke.png", glm::ivec2(4,4), colors, 1984, 8, 2);
+}
+
 }

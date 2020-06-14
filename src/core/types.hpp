@@ -15,6 +15,7 @@
 #include <unordered_map>
 #include <map>
 #include <vector>
+#include <queue>
 #include <array>
 #include <list>
 #include <set>
@@ -46,6 +47,9 @@ using Vector = std::vector<T>;
 
 template<typename T>
 using List = std::list<T>;
+
+template<typename T>
+using Queue = std::queue<T>;
 
 template<typename K, typename V>
 using UnordMap = std::unordered_map<K, V>;

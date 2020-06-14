@@ -71,6 +71,10 @@
         "regex": "cpp",
         "shared_mutex": "cpp",
         "*.ipp": "cpp",
-        "ranges": "cpp"
+        "ranges": "cpp",
+        "queue": "cpp",
+        "compare": "cpp",
+        "concepts": "cpp",
+        "stop_token": "cpp"
     }
 }

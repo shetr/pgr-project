@@ -107,5 +107,5 @@ void main()
     } else {
         texValue = texture(textureSampler, uvTrans);
     }
-    fragmentColor = f * vec4(lightsColor, 1) * texValue + (1-f) * vec4(0,0,0,1);
+    fragmentColor = vec4(f * lightsColor * texValue.xyz + (1-f) * vec3(0,0,0), 1);
 }

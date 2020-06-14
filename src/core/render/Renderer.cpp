@@ -24,6 +24,8 @@ void Renderer::SetClearColor(glm::vec4 color)
 void Renderer::Init()
 {
     SetClearColor(glm::vec4(0, 0, 0, 1));
+    GL(Enable(GL_BLEND));
+    GL(BlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
     GL(Enable(GL_DEPTH_TEST));
     GL(Enable(GL_STENCIL_TEST));
     GL(StencilOp(GL_KEEP, GL_KEEP, GL_REPLACE));

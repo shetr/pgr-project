@@ -17,6 +17,6 @@ float getFogFactor()
 void main()
 {
     float f = getFogFactor();
-    fragmentColor = f * texture(textureSampler, vec3(f_uv, time)) + (1-f) * vec4(0,0,0,1);
+    fragmentColor = vec4(f * texture(textureSampler, vec3(f_uv, time)).xyz + (1-f) * vec3(0,0,0), 1);
     //fragmentColor = time * vec4(1);
 }

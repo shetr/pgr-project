@@ -1,11 +1,17 @@
 #include "ParticleSystem.hpp"
 
 #include <core/manage/TextureManager.hpp>
+#include <core/scene/Layers.hpp>
+#include <algorithm>
+
+#include <iostream>
+#include <core/Console.hpp>
 
 namespace sadekpet {
 
 VertexLayout ParticleVertex::s_layout ({
     VertexElement(VertexType::FLOAT32, VertexElementCount::_3),
+    VertexElement(VertexType::FLOAT32, VertexElementCount::_1),
     VertexElement(VertexType::FLOAT32, VertexElementCount::_1),
     VertexElement(VertexType::FLOAT32, VertexElementCount::_1)
 });
@@ -13,6 +19,21 @@ const VertexLayout& ParticleVertex::GetLayout() {
     return s_layout;
 }
 
+struct ParticleCompare
+{
+public:
+    bool operator()(const Particle& p1, const Particle& p2) {
+        return p1.distance > p2.distance;
+    }
+};
+
+ParticleSystemUniforms::ParticleSystemUniforms(glm::ivec2 textureSizes)
+{
+    m_textureSampler = new Uniform<int>("textureSampler", 0);
+    m_textureSizes = new Uniform<glm::ivec2>("textureSizes", textureSizes);
+    AddUniform(m_textureSampler);
+    AddUniform(m_textureSizes);
+}
 
 glm::vec2 ParticleSystemMesh::s_vertices[4] = {
     glm::vec2(-0.5f, -0.5f),
@@ -20,28 +41,37 @@ glm::vec2 ParticleSystemMesh::s_vertices[4] = {
     glm::vec2( -0.5f, 0.5f),
     glm::vec2( 0.5f, 0.5f)
 };
+glm::vec2 ParticleSystemMesh::s_uvs[4] = {
+    glm::vec2(0, 0),
+    glm::vec2(1, 0), 
+    glm::vec2(0, 1),
+    glm::vec2(1, 1)
+};
 
 ParticleSystemMesh::ParticleSystemMesh(uint maxParticlesCount)
     : m_maxParticlesCount(maxParticlesCount), m_particlesCount(0)
 {
     m_vericesBuffer = Shared<VertexBuffer<Vec2D>>(VertexBuffer<Vec2D>::Create(4, (Vec2D*)s_vertices));
+    m_uvsBuffer = Shared<VertexBuffer<Vec2D>>(VertexBuffer<Vec2D>::Create(4, (Vec2D*)s_uvs));
     m_particlesBuffer = Shared<VertexBuffer<ParticleVertex>>(VertexBuffer<ParticleVertex>::CreateDynamic(maxParticlesCount));
     VertexArray* vertexArray = new VertexArray();
     vertexArray->AddVertexBuffer(m_vericesBuffer);
+    vertexArray->AddVertexBuffer(m_uvsBuffer);
     vertexArray->AddVertexBuffer(m_particlesBuffer);
-    for(VertexElement& element: vertexArray->GetLayouts()[1].Elements()) {
+    for(VertexElement& element: vertexArray->GetLayouts()[2].Elements()) {
         element.SetDivisor(1);
     }
     m_vertexArray = Unique<VertexArray>(vertexArray);
     m_vertexArray->UnBind();
     m_vericesBuffer->UnBind();
+    m_uvsBuffer->UnBind();
     m_particlesBuffer->UnBind();
 }
 
-void ParticleSystemMesh::Update(const Vector<ParticleVertex>& particles)
+void ParticleSystemMesh::Update(uint particlesCount, ParticleVertex* particles)
 {
-    m_particlesCount = particles.size();
-    m_particlesBuffer->UpdateData(particles.size(), particles.data());
+    m_particlesCount = particlesCount;
+    m_particlesBuffer->UpdateData(particlesCount, particles);
 }
 
 void ParticleSystemMesh::BeforeDraw()
@@ -49,8 +79,8 @@ void ParticleSystemMesh::BeforeDraw()
     m_vertexArray->SetDivisors();
 }
 
-ParticleSystemShaderContext::ParticleSystemShaderContext(const Shared<ParticleSystemMesh>& mesh, const String& texture)
-    : m_textureUnits(Vector<Shared<Texture>>({TextureManager::GetTexture(texture)})), m_mesh(mesh), m_primitives(mesh)
+ParticleSystemShaderContext::ParticleSystemShaderContext(const Shared<ParticleSystemMesh>& mesh, const String& texture, glm::ivec2 textureSizes)
+    : m_textureUnits(Vector<Shared<Texture>>({TextureManager::GetTexture(texture)})), m_uniforms(textureSizes), m_mesh(mesh), m_primitives(mesh)
 {
 }
 
@@ -59,18 +89,45 @@ void ParticleSystemShaderContext::BeforeDraw()
     m_mesh->BeforeDraw();
 }
 
-ParticleSystem::ParticleSystem(uint maxParticleCount, const String& texture)
-    : m_mesh(new ParticleSystemMesh(maxParticleCount)), m_shaderContext(m_mesh, texture)
+ParticleSystem::ParticleSystem(uint maxParticleCount, float dieSpeed, const String& texture, glm::ivec2 textureSizes)
+    : m_mesh(new ParticleSystemMesh(maxParticleCount)), m_shaderContext(m_mesh, texture, textureSizes), m_dieSpeed(dieSpeed),
+      m_particles(maxParticleCount), m_outParticles(maxParticleCount), m_particlesCount(0)
 {
 }
-void ParticleSystem::Spawn(ParticleVertex particle)
+void ParticleSystem::Spawn(const ParticleVertex& particle)
 {
-    m_particles.push_back(particle);
-    m_mesh->Update(m_particles);
+    m_spawnedParticles.push(particle);
 }
 void ParticleSystem::Update(float deltaTime)
 {
-
+    float dt = m_dieSpeed*deltaTime;
+    glm::vec3 cameraPos = GetLayer()->GetCurrentCamera()->GetWorldPos();
+    for(size_t i = 0; i < m_particles.size(); i++) {
+        Particle& particle = m_particles[i];
+        ParticleVertex& vert = particle.vert;
+        if(vert.time < 1) {
+            vert.time += dt;
+        }
+        if(vert.time >= 1 && !m_spawnedParticles.empty()) {
+            vert = m_spawnedParticles.front();
+            m_spawnedParticles.pop();
+        }
+        if(vert.time < 1) {
+            particle.distance = glm::distance(cameraPos, vert.pos);
+        }
+    }
+    ParticleCompare cmp;
+    std::sort(m_particles.begin(), m_particles.end(), cmp);
+    uint particlesCount = 0;
+    for(size_t i = 0; i < m_particles.size(); i++) {
+        Particle& particle = m_particles[i];
+        ParticleVertex& vert = particle.vert;
+        if(vert.time < 1) {
+            m_outParticles[particlesCount] = vert;
+            particlesCount++;
+        }
+    }
+    m_mesh->Update(particlesCount, m_outParticles.data());
 }
 
 }

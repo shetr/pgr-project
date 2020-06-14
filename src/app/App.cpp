@@ -50,6 +50,8 @@ void App::Init()
     #ifdef PGR_DEBUG
         std::cout << "shaders loaded" << std::endl;
     #endif
+    TextureManager::AddTexture2D("smoke.png");
+    TextureManager::AddTexture2D("explosion.png");
     TextureManager::AddTexture2D("perlinSun0.png");
     TextureManager::AddTexture2D("planet1.png");
     TextureManager::AddTexture2D("planet2.png");
@@ -88,7 +90,7 @@ void App::Init()
         std::cout << "assets loaded" << std::endl;
     #endif
 
-    //g_GenTextures();
+    //g_GenSmoke();
 
     GlobalSceneState::pointLight.lightType = LightType::POINT;
     GlobalSceneState::pointLight.position = glm::vec4(0,0,0,1);
@@ -104,12 +106,15 @@ void App::Init()
 
     Layer* skyLayer = Layers::Get(Layers::Add("skybox"));
     Layer* layer = Layers::Get(Layers::Add("3D"));
+    Layer* particlesLayer = Layers::Get(Layers::Add("particles"));
+    particlesLayer->DoClearDepth() = false;
 
     m_cameraControll = Shared<CameraControll>(new NumericCamControll());
     Camera* camera1 = new PerspectiveCamera(M_PI_2, 0.1f, 1000.0f);
     StaticCamera* statCamera1 = new StaticCamera(camera1);
     statCamera1->AddLayer(skyLayer);
     statCamera1->AddLayer(layer);
+    statCamera1->AddLayer(particlesLayer);
     statCamera1->GetTransform().pos = glm::vec3(20.2782, 19.681, 35.4639);
     statCamera1->SideRotation() = 0.599464;
     statCamera1->UpRotation() = -0.61803;
@@ -118,6 +123,7 @@ void App::Init()
     StaticCamera* statCamera2 = new StaticCamera(camera2);
     statCamera2->AddLayer(skyLayer);
     statCamera2->AddLayer(layer);
+    statCamera2->AddLayer(particlesLayer);
     statCamera2->GetTransform().pos = glm::vec3(0, 72.5054, 0);
     statCamera2->SideRotation() = 0;
     statCamera2->UpRotation() = -1.56932;
@@ -126,6 +132,7 @@ void App::Init()
     MovableCamera* movCamera = new MovableCamera(camera3);
     movCamera->AddLayer(skyLayer);
     movCamera->AddLayer(layer);
+    movCamera->AddLayer(particlesLayer);
     movCamera->GetTransform().pos = glm::vec3(20.2782, 19.681, 35.4639);
     movCamera->SideRotation() = 0.599464;
     movCamera->UpRotation() = -0.61803;
@@ -138,15 +145,15 @@ void App::Init()
     layer->Add(movCamera);
     statCamera1->Activate();
 
-    ParticleSystem* particleSystem = new ParticleSystem(10, "space");
-    particleSystem->Spawn({glm::vec3(0,0,10), 1, 0});
-    particleSystem->Spawn({glm::vec3(0,0,15), 2, 0});
-    layer->Add(particleSystem);
-
     Skybox* skybox = new Skybox("space");
     skyLayer->Add(skybox);
 
     m_planetarySystemTimeGroup = Shared<TimeGroup>(new TimeGroup());
+
+    ParticleSystem* smokeParticleSystem = new ParticleSystem(10000, 1.0f, "smoke.png", glm::ivec2(4, 4));
+    particlesLayer->Add(smokeParticleSystem);
+    GlobalSceneState::smokeParticleSystem = Unique<ParticleSystem>(smokeParticleSystem);
+    smokeParticleSystem->SetTimeGroup(m_planetarySystemTimeGroup);
 
     Vector<glm::vec3> ufoSplinePoints = {
         glm::vec3(-60,-15, 60),
@@ -158,7 +165,7 @@ void App::Init()
         glm::vec3(-60,-10,-60),
         glm::vec3(-20,-15,  0)
     };
-    Ufo* ufo = new Ufo(ufoSplinePoints, 20, layer, skyLayer, m_planetarySystemTimeGroup);
+    Ufo* ufo = new Ufo(ufoSplinePoints, 20, layer, m_planetarySystemTimeGroup);
     layer->Add(ufo);
 
     m_cameraControll->AddController(statCamera1);
