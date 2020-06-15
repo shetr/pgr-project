@@ -26,8 +26,9 @@ private:
     UnordMap<uint, VisibleNode*> m_visible;
     Camera* m_curretCamera;
     bool m_clearDepth;
+    bool m_writeDepth;
 public:
-    Layer(String name, size_t number) : m_name(name), m_number(number), m_curretCamera(nullptr), m_clearDepth(true) {}
+    Layer(String name, size_t number) : m_name(name), m_number(number), m_curretCamera(nullptr), m_clearDepth(true), m_writeDepth(true) {}
     const String& GetName() { return m_name; }
     size_t GetNumber() { return m_number; }
     void Add(VisibleNode* node) { 
@@ -43,6 +44,7 @@ public:
     UnordMap<uint, Node*>& Roots() { return m_roots; }
     UnordMap<uint, VisibleNode*>& Visible() { return m_visible; }
     bool& DoClearDepth() { return m_clearDepth; }
+    bool& DoWriteDepth() { return m_writeDepth; }
 };
 
 /**

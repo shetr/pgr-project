@@ -108,6 +108,7 @@ void App::Init()
     Layer* layer = Layers::Get(Layers::Add("3D"));
     Layer* particlesLayer = Layers::Get(Layers::Add("particles"));
     particlesLayer->DoClearDepth() = false;
+    particlesLayer->DoWriteDepth() = false;
 
     m_cameraControll = Shared<CameraControll>(new NumericCamControll());
     Camera* camera1 = new PerspectiveCamera(M_PI_2, 0.1f, 1000.0f);

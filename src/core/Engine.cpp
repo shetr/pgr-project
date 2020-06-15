@@ -98,6 +98,9 @@ void Engine::Draw()
         if(layer->DoClearDepth()) {
             m_renderer.ClearDepth();
         }
+        if(!layer->DoWriteDepth()) {
+            m_renderer.DepthMask(false);
+        }
         for(Pair<uint, VisibleNode*> p : layer->Visible()) {
             VisibleNode* node = p.second;
             if(node->IsVisible()) {
@@ -105,6 +108,9 @@ void Engine::Draw()
                 m_renderer.SetStencilID(node->GetStencilID());
                 m_renderer.Draw(node->GetShaderContext());
             }
+        }
+        if(!layer->DoWriteDepth()) {
+            m_renderer.DepthMask(true);
         }
     }
     m_renderer.SwapBuffers();

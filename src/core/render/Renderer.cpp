@@ -47,6 +47,11 @@ void Renderer::ClearDepth()
     GL(Clear(GL_DEPTH_BUFFER_BIT));
 }
 
+void Renderer::DepthMask(bool enable)
+{
+    GL(DepthMask(enable));
+}
+
 void Renderer::SwapBuffers()
 {
     glutSwapBuffers();

@@ -30,6 +30,7 @@ public:
     void Init();
     void Clear();
     void ClearDepth();
+    void DepthMask(bool enable);
     void SwapBuffers();
 
     void SetStencilID(uint8_t id);
