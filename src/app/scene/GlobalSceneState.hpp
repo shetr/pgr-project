@@ -24,6 +24,7 @@ public:
     static Light spotLight;
     static float fog;
     static Unique<ParticleSystem> smokeParticleSystem;
+    static Unique<ParticleSystem> explosionParticleSystem;
 };
 
 }

@@ -151,10 +151,16 @@ void App::Init()
 
     m_planetarySystemTimeGroup = Shared<TimeGroup>(new TimeGroup());
 
-    ParticleSystem* smokeParticleSystem = new ParticleSystem(10000, 1.0f, "smoke.png", glm::ivec2(4, 4));
+    ParticleSystem* smokeParticleSystem = new ParticleSystem(10000, 1.0f, "smoke.png", glm::ivec2(4, 4), glm::vec2(0,0));
     particlesLayer->Add(smokeParticleSystem);
     GlobalSceneState::smokeParticleSystem = Unique<ParticleSystem>(smokeParticleSystem);
     smokeParticleSystem->SetTimeGroup(m_planetarySystemTimeGroup);
+
+
+    ParticleSystem* explosionParticleSystem = new ParticleSystem(10000, 1.2f, "explosion.png", glm::ivec2(8, 8), glm::vec2(0.0,0.25));
+    particlesLayer->Add(explosionParticleSystem);
+    GlobalSceneState::explosionParticleSystem = Unique<ParticleSystem>(explosionParticleSystem);
+    explosionParticleSystem->SetTimeGroup(m_planetarySystemTimeGroup);
 
     Vector<glm::vec3> ufoSplinePoints = {
         glm::vec3(-60,-15, 60),

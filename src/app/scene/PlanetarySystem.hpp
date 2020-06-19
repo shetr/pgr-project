@@ -48,6 +48,11 @@ public:
     void OnMouseButtonPressed(const MouseButtonEvent& event);
 private:
     void SpawnRocket();
+    void SpawnExplosion(glm::vec3 pos, glm::vec3 dir);
+    void SpawnSmoke(glm::vec3 pos, glm::vec3 dir);
+    glm::vec3 RandDir();
+    float RandFloat();
+    float RandDirFloat();
 };
 
 }

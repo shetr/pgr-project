@@ -7,5 +7,6 @@ Light GlobalSceneState::pointLight;
 Light GlobalSceneState::spotLight;
 float GlobalSceneState::fog = 0.001;
 Unique<ParticleSystem> GlobalSceneState::smokeParticleSystem;
+Unique<ParticleSystem> GlobalSceneState::explosionParticleSystem;
 
 }
