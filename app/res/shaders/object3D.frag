@@ -44,7 +44,7 @@ in vec3 f_position;
 in vec3 f_normal;
 in vec2 f_uv;
 
-vec3 computeLight(Light light, vec3 vertPos, vec3 vertNorm)
+vec3 computeLight(Light light, vec3 vertPos, vec3 vertNorm, vec3 diffuseColor)
 {
     if(light.lightType <= 0 || light.lightType > 3) {
         return vec3(0);
@@ -80,7 +80,7 @@ vec3 computeLight(Light light, vec3 vertPos, vec3 vertNorm)
     vec3 specular = vec3(0);
 
     ambient = light.ambient*material.ambient;
-    diffuse = max(dot(dirToLight, vertNorm),0)*light.diffuse*material.diffuse;
+    diffuse = max(dot(dirToLight, vertNorm),0)*light.diffuse*diffuseColor;
     specular = specularExp*light.specular*material.specular;
     return spotLightEffect*attenuationFactor*(ambient+diffuse+specular);
 }
@@ -94,11 +94,6 @@ void main()
 {
     vec3 normal = normalize(N*f_normal);
 
-    vec3 l1 = computeLight(dirLight, f_position, normal);
-    vec3 l2 = computeLight(pointLight, f_position, normal);
-    vec3 l3 = computeLight(spotLight, f_position, normal);
-    vec3 lightsColor = clamp(material.emission+material.ambient+l1+l2+l3, 0, 1);
-    float f = getFogFactor();
     vec2 uvTrans = (textureMat * vec3(f_uv,1)).xy;
     vec4 texValue;
     if(useOptTexture) {
@@ -107,5 +102,15 @@ void main()
     } else {
         texValue = texture(textureSampler, uvTrans);
     }
-    fragmentColor = vec4(f * lightsColor * texValue.xyz + (1-f) * vec3(0,0,0), 1);
+    vec3 diffuse = texValue.rgb;
+    float alpha = texValue.a;
+
+    vec3 l1 = computeLight(dirLight, f_position, normal, diffuse);
+    vec3 l2 = computeLight(pointLight, f_position, normal, diffuse);
+    vec3 l3 = computeLight(spotLight, f_position, normal, diffuse);
+    vec3 lightsColor = clamp(material.emission+material.ambient*diffuse+l1+l2+l3, 0, 1);
+
+    float f = getFogFactor();
+
+    fragmentColor = vec4(f * lightsColor + (1-f) * vec3(0,0,0), alpha);
 }

@@ -94,13 +94,13 @@ void App::Init()
 
     GlobalSceneState::pointLight.lightType = LightType::POINT;
     GlobalSceneState::pointLight.position = glm::vec4(0,0,0,1);
-    GlobalSceneState::pointLight.specular = glm::vec3(0.05,0.05,0.05);
+    GlobalSceneState::pointLight.specular = glm::vec3(0.1,0.1,0.1);
     GlobalSceneState::pointLight.attenuationConst = 1;
     GlobalSceneState::pointLight.attenuationLin = 0;
 
     GlobalSceneState::dirLight.specular = glm::vec3(0.4,0.4,0.4);
 
-    GlobalSceneState::spotLight.specular = glm::vec3(0.2,0.2,0.2);
+    GlobalSceneState::spotLight.specular = glm::vec3(0.3,0.3,0.3);
     GlobalSceneState::spotLight.spotCutoff = M_PI / 8;
     GlobalSceneState::spotLight.spotExponent = 30;
 

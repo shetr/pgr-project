@@ -15,7 +15,8 @@ void Window::Init(WindowSize size, const char* title)
 
 Window::Window(WindowSize size, const char* title) : m_size(size)
 {
-    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH | GLUT_STENCIL);
+    glutSetOption(GLUT_MULTISAMPLE, 4);
+    glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH | GLUT_STENCIL | GLUT_MULTISAMPLE);
     glutInitWindowSize(m_size.width, m_size.height);
     m_id = glutCreateWindow(title);
     glutCloseFunc(&Window::CloseCallback);
