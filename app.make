@@ -71,6 +71,7 @@ OBJECTS += $(OBJDIR)/CameraController.o
 OBJECTS += $(OBJDIR)/Config.o
 OBJECTS += $(OBJDIR)/Console.o
 OBJECTS += $(OBJDIR)/Engine.o
+OBJECTS += $(OBJDIR)/Framebuffer.o
 OBJECTS += $(OBJDIR)/GlobalSceneState.o
 OBJECTS += $(OBJDIR)/Input.o
 OBJECTS += $(OBJDIR)/Layers.o
@@ -267,6 +268,9 @@ $(OBJDIR)/Spline.o: src/core/math/Spline.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Buffer.o: src/core/render/Buffer.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Framebuffer.o: src/core/render/Framebuffer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/OpenGL.o: src/core/render/OpenGL.cpp

@@ -23,7 +23,7 @@ private:
     glm::vec3 m_speed = glm::vec3(0,0,-1);
     float m_mass = 1;
 public:
-    float smokeSpeed = 60;
+    float smokeSpeed = 5;
     float smokeTimeout = 0;
     Rocket(Layer* layer) {
         Material mat;
