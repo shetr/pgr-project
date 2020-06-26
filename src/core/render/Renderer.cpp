@@ -7,6 +7,23 @@
 
 namespace sadekpet {
 
+
+glm::vec2 Renderer::s_QuadVertices[4] = {
+    glm::vec2( 0.5f,-0.5f),
+    glm::vec2( 0.5f, 0.5f), 
+    glm::vec2(-0.5f, 0.5f),
+    glm::vec2(-0.5f,-0.5f)
+};
+glm::vec2 Renderer::s_QuadUvs[4] = {
+    glm::vec2( 1.0f, 0.0f),
+    glm::vec2( 1.0f, 1.0f), 
+    glm::vec2( 0.0f, 1.0f),
+    glm::vec2( 0.0f, 0.0f)
+};
+int Renderer::s_QuadIndices[6] = {
+    0, 1, 2, 0, 2, 3
+};
+
 Renderer::Renderer()
 {
 
@@ -35,6 +52,20 @@ void Renderer::Init()
     WindowSize winSize = Window::GetSize();
     GL(Viewport(0, 0, winSize.width, winSize.height));
     m_windowSizeHandler = std::make_unique<WindowSizeHandler>(this, &Renderer::OnWindowResize, Window::Get());
+    /*
+    m_offFramebuffer = Unique<Framebuffer>(new Framebuffer());
+    m_offFramebuffer->Bind();
+    m_offTexture = Shared<Texture2D>(new Texture2D(winSize.width, winSize.height, nullptr, TextureChanels::RGB));
+    m_offFramebuffer->AttachTexture2D(m_offTexture, FramebufferColor::_0);
+    m_offRenderbuffer = Shared<Renderbuffer>(new Renderbuffer());
+    m_offRenderbuffer->Bind();
+    m_offRenderbuffer->StorageDephtStencil(winSize.width, winSize.height);
+    m_offRenderbuffer->UnBind();
+    m_offFramebuffer->AttachRenderbufferDepthStencil(m_offRenderbuffer);
+    if(!m_offFramebuffer->IsComplete()) {
+        std::cout << "offscreen framebuffer is not complete" << std::endl;
+    }*/
+    
 }
 
 void Renderer::Clear()
@@ -83,6 +114,16 @@ void Renderer::Draw(ShaderContext& shaderContext)
     shaderContext.DrawFunction();
     VertexArray::UnBind();
     GraphicsProgram::UnBind();
+}
+
+
+void Renderer::StartScene()
+{
+
+}
+void Renderer::EndScene()
+{
+
 }
 
 }

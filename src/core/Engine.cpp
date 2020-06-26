@@ -90,6 +90,7 @@ void Engine::Exit()
 
 void Engine::Draw()
 {
+    m_renderer.StartScene();
     UpdateWorldTransfrom();
     m_renderer.Clear();
     for(size_t l = 0; l < Layers::Count(); l++) {
@@ -116,6 +117,7 @@ void Engine::Draw()
     m_renderer.SwapBuffers();
     Input::StencilUpdate(m_timer.GetDelta());
     Layers::SetCurrent(nullptr);
+    m_renderer.EndScene();
 }
 
 void Engine::Update()

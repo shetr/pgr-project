@@ -6,23 +6,32 @@ namespace sadekpet {
 
 Framebuffer::Framebuffer() : m_id(0)
 {
-    glGenFramebuffers(1, &m_id);
+    GL(GenFramebuffers(1, &m_id));
 }
 Framebuffer::~Framebuffer()
 {
-    glDeleteFramebuffers(1, &m_id);
+    GL(DeleteFramebuffers(1, &m_id));
 }
 void Framebuffer::Bind() const
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, m_id);
+    GL(BindFramebuffer(GL_FRAMEBUFFER, m_id));
 }
 void Framebuffer::UnBind()
 {
-    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    GL(BindFramebuffer(GL_FRAMEBUFFER, 0));
 }
 bool Framebuffer::IsComplete() const
 {
-    return glCheckFramebufferStatus(GL_FRAMEBUFFER) == GL_FRAMEBUFFER_COMPLETE;
+    uint res = GL(CheckFramebufferStatus(GL_FRAMEBUFFER));
+    return res == GL_FRAMEBUFFER_COMPLETE;
+}
+void Framebuffer::AttachTexture2D(const Shared<Texture2D>& texture, FramebufferColor attachment)
+{
+    GL(FramebufferTexture2D(GL_FRAMEBUFFER, static_cast<uint>(attachment), GL_TEXTURE_2D, texture->GetID(), 0));
+}
+void Framebuffer::AttachRenderbufferDepthStencil(const Shared<Renderbuffer>& renderbuffer)
+{
+    GL(FramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, renderbuffer->GetID()));
 }
 
 }

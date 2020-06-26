@@ -70,6 +70,7 @@ OBJECTS += $(OBJDIR)/Camera.o
 OBJECTS += $(OBJDIR)/CameraController.o
 OBJECTS += $(OBJDIR)/Config.o
 OBJECTS += $(OBJDIR)/Console.o
+OBJECTS += $(OBJDIR)/CopyEffect.o
 OBJECTS += $(OBJDIR)/Engine.o
 OBJECTS += $(OBJDIR)/Framebuffer.o
 OBJECTS += $(OBJDIR)/GlobalSceneState.o
@@ -90,6 +91,7 @@ OBJECTS += $(OBJDIR)/Primitives.o
 OBJECTS += $(OBJDIR)/PrimitivesManager.o
 OBJECTS += $(OBJDIR)/Program.o
 OBJECTS += $(OBJDIR)/Rectangle.o
+OBJECTS += $(OBJDIR)/Renderbuffer.o
 OBJECTS += $(OBJDIR)/Renderer.o
 OBJECTS += $(OBJDIR)/Shader.o
 OBJECTS += $(OBJDIR)/ShaderContext.o
@@ -175,6 +177,9 @@ endif
 # #############################################
 
 $(OBJDIR)/App.o: src/app/App.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/CopyEffect.o: src/app/effects/CopyEffect.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/MeshGen.o: src/app/generate/MeshGen.cpp
@@ -280,6 +285,9 @@ $(OBJDIR)/Primitives.o: src/core/render/Primitives.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Program.o: src/core/render/Program.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/Renderbuffer.o: src/core/render/Renderbuffer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Renderer.o: src/core/render/Renderer.cpp

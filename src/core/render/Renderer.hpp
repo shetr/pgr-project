@@ -11,6 +11,12 @@
 #include <core/Window.hpp>
 #include <core/manage/ShaderManager.hpp>
 
+#include "Framebuffer.hpp"
+#include "Renderbuffer.hpp"
+#include "Texture.hpp"
+#include "ShaderContext.hpp"
+#include "Primitives.hpp"
+
 namespace sadekpet {
 
 /**
@@ -21,6 +27,13 @@ class Renderer
     using WindowSizeHandler = ScopedEventHandler<WindowSizeEvent, Renderer>;
 private:
     Unique<WindowSizeHandler> m_windowSizeHandler;
+    Unique<Framebuffer> m_offFramebuffer;
+    Shared<Texture2D> m_offTexture;
+    Shared<Renderbuffer> m_offRenderbuffer;
+    Shared<Mesh2D> m_windowQuad;
+    static glm::vec2 s_QuadVertices[4];
+    static glm::vec2 s_QuadUvs[4];
+    static int s_QuadIndices[6];
 public:
     Renderer();
     ~Renderer();
@@ -36,6 +49,8 @@ public:
     void SetStencilID(uint8_t id);
     void Draw(ShaderContext& shaderContext);
 
+    void StartScene();
+    void EndScene();
 
     void OnWindowResize(const WindowSizeEvent& event);
 };
