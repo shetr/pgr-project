@@ -5,6 +5,7 @@ uniform ivec2 textureSizes;
 uniform vec2 textureOffset;
 
 out vec4 fragmentColor;
+out vec4 brightColor;
 
 in vec2 f_uv;
 in float f_time;
@@ -46,4 +47,5 @@ void main()
     vec2 uv1 = uvRel + vec2(xStart, yStart);
     vec2 uv2 = uvRel + vec2(x2Start, y2Start);
     fragmentColor = (1-t)*texture(textureSampler, uv1) + t*texture(textureSampler, uv2);
+    brightColor = vec4(0);
 }

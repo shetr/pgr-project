@@ -3,26 +3,11 @@
 #include "OpenGL.hpp"
 #include <core/scene/Camera.hpp>
 
+#include <core/effects/CopyEffect.hpp>
+
 #include <iostream>
 
 namespace sadekpet {
-
-
-glm::vec2 Renderer::s_QuadVertices[4] = {
-    glm::vec2( 0.5f,-0.5f),
-    glm::vec2( 0.5f, 0.5f), 
-    glm::vec2(-0.5f, 0.5f),
-    glm::vec2(-0.5f,-0.5f)
-};
-glm::vec2 Renderer::s_QuadUvs[4] = {
-    glm::vec2( 1.0f, 0.0f),
-    glm::vec2( 1.0f, 1.0f), 
-    glm::vec2( 0.0f, 1.0f),
-    glm::vec2( 0.0f, 0.0f)
-};
-int Renderer::s_QuadIndices[6] = {
-    0, 1, 2, 0, 2, 3
-};
 
 Renderer::Renderer()
 {
@@ -52,11 +37,21 @@ void Renderer::Init()
     WindowSize winSize = Window::GetSize();
     GL(Viewport(0, 0, winSize.width, winSize.height));
     m_windowSizeHandler = std::make_unique<WindowSizeHandler>(this, &Renderer::OnWindowResize, Window::Get());
-    /*
+    
     m_offFramebuffer = Unique<Framebuffer>(new Framebuffer());
     m_offFramebuffer->Bind();
     m_offTexture = Shared<Texture2D>(new Texture2D(winSize.width, winSize.height, nullptr, TextureChanels::RGB));
+    m_offTexture->Bind();
+    m_offTexture->Init();
+    GL(TexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+    GL(TexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
     m_offFramebuffer->AttachTexture2D(m_offTexture, FramebufferColor::_0);
+    m_offBrightTexture = Shared<Texture2D>(new Texture2D(winSize.width, winSize.height, nullptr, TextureChanels::RGB));
+    m_offBrightTexture->Bind();
+    m_offBrightTexture->Init();
+    GL(TexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE));
+    GL(TexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE));
+    m_offFramebuffer->AttachTexture2D(m_offBrightTexture, FramebufferColor::_1);
     m_offRenderbuffer = Shared<Renderbuffer>(new Renderbuffer());
     m_offRenderbuffer->Bind();
     m_offRenderbuffer->StorageDephtStencil(winSize.width, winSize.height);
@@ -64,8 +59,9 @@ void Renderer::Init()
     m_offFramebuffer->AttachRenderbufferDepthStencil(m_offRenderbuffer);
     if(!m_offFramebuffer->IsComplete()) {
         std::cout << "offscreen framebuffer is not complete" << std::endl;
-    }*/
+    }
     
+    m_effect = Unique<PostProcessingEffect>(new CopyEffect());
 }
 
 void Renderer::Clear()
@@ -96,6 +92,14 @@ void Renderer::OnWindowResize(const WindowSizeEvent& event)
     for(Camera* camera: Camera::Cameras()) {
         camera->Resize();
     }
+    m_offRenderbuffer->Bind();
+    m_offRenderbuffer->StorageDephtStencil(winSize.width, winSize.height);
+    m_offRenderbuffer->UnBind();
+    m_offTexture->Bind();
+    m_offTexture->Resize(winSize.width, winSize.height);
+    m_offBrightTexture->Bind();
+    m_offBrightTexture->Resize(winSize.width, winSize.height);
+
 }
 
 void Renderer::SetStencilID(uint8_t id)
@@ -119,11 +123,20 @@ void Renderer::Draw(ShaderContext& shaderContext)
 
 void Renderer::StartScene()
 {
-
+    //m_offFramebuffer->UnBind();
+    m_offFramebuffer->Bind();
+    unsigned int attachments[2] = { GL_COLOR_ATTACHMENT0, GL_COLOR_ATTACHMENT1 };
+    GL(DrawBuffers(2, attachments));
 }
 void Renderer::EndScene()
 {
-
+    
+    m_offFramebuffer->UnBind();
+    GL(Disable(GL_DEPTH_TEST));
+    GL(Clear(GL_COLOR_BUFFER_BIT));
+    m_effect->Run(m_offTexture);
+    //m_effect->Run(m_offBrightTexture);
+    GL(Enable(GL_DEPTH_TEST));
 }
 
 }

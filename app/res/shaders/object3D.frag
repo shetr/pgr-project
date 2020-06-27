@@ -39,6 +39,7 @@ uniform float fog;
 uniform bool useOptTexture;
 
 out vec4 fragmentColor;
+out vec4 brightColor;
 
 in vec3 f_position;
 in vec3 f_normal;
@@ -113,4 +114,5 @@ void main()
     float f = getFogFactor();
 
     fragmentColor = vec4(f * lightsColor + (1-f) * vec3(0,0,0), alpha);
+    brightColor = vec4(0);
 }

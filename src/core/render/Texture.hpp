@@ -130,6 +130,7 @@ public:
     Texture2D(int width, int height, uint8_t* data, TextureChanels chanels)
         : Texture(data, chanels), m_width(width), m_height(height) { }
     inline virtual TextureType GetType() const override { return TextureType::_2D; }
+    void Resize(int width, int height);
 protected:
     void SetImage() override;
 };

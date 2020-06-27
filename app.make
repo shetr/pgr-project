@@ -87,6 +87,7 @@ OBJECTS += $(OBJDIR)/ParticleSystem.o
 OBJECTS += $(OBJDIR)/PickPlanetController.o
 OBJECTS += $(OBJDIR)/Planet.o
 OBJECTS += $(OBJDIR)/PlanetarySystem.o
+OBJECTS += $(OBJDIR)/PostProcessingEffect.o
 OBJECTS += $(OBJDIR)/Primitives.o
 OBJECTS += $(OBJDIR)/PrimitivesManager.o
 OBJECTS += $(OBJDIR)/Program.o
@@ -179,9 +180,6 @@ endif
 $(OBJDIR)/App.o: src/app/App.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/CopyEffect.o: src/app/effects/CopyEffect.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/MeshGen.o: src/app/generate/MeshGen.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
@@ -254,6 +252,9 @@ $(OBJDIR)/Timer.o: src/core/Timer.cpp
 $(OBJDIR)/Window.o: src/core/Window.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/CopyEffect.o: src/core/effects/CopyEffect.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/MaterialManager.o: src/core/manage/MaterialManager.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
@@ -279,6 +280,9 @@ $(OBJDIR)/Framebuffer.o: src/core/render/Framebuffer.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/OpenGL.o: src/core/render/OpenGL.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/PostProcessingEffect.o: src/core/render/PostProcessingEffect.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/Primitives.o: src/core/render/Primitives.cpp

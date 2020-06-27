@@ -74,6 +74,14 @@ void Texture1D::SetImage()
         m_data));
 }
 
+
+void Texture2D::Resize(int width, int height)
+{
+    m_width = width;
+    m_height = height;
+    SetImage();
+}
+
 void Texture2D::SetImage()
 {
     GL(TexImage2D(

@@ -16,6 +16,7 @@
 #include "Texture.hpp"
 #include "ShaderContext.hpp"
 #include "Primitives.hpp"
+#include "PostProcessingEffect.hpp"
 
 namespace sadekpet {
 
@@ -29,11 +30,9 @@ private:
     Unique<WindowSizeHandler> m_windowSizeHandler;
     Unique<Framebuffer> m_offFramebuffer;
     Shared<Texture2D> m_offTexture;
+    Shared<Texture2D> m_offBrightTexture;
     Shared<Renderbuffer> m_offRenderbuffer;
-    Shared<Mesh2D> m_windowQuad;
-    static glm::vec2 s_QuadVertices[4];
-    static glm::vec2 s_QuadUvs[4];
-    static int s_QuadIndices[6];
+    Unique<PostProcessingEffect> m_effect;
 public:
     Renderer();
     ~Renderer();

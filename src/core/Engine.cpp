@@ -114,10 +114,10 @@ void Engine::Draw()
             m_renderer.DepthMask(true);
         }
     }
-    m_renderer.SwapBuffers();
     Input::StencilUpdate(m_timer.GetDelta());
     Layers::SetCurrent(nullptr);
     m_renderer.EndScene();
+    m_renderer.SwapBuffers();
 }
 
 void Engine::Update()
