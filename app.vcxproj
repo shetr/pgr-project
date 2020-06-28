@@ -123,6 +123,9 @@
     <ClInclude Include="src\core\Timer.hpp" />
     <ClInclude Include="src\core\Window.hpp" />
     <ClInclude Include="src\core\debug.hpp" />
+    <ClInclude Include="src\core\effects\BloomEffect.hpp" />
+    <ClInclude Include="src\core\effects\BlurEffect.hpp" />
+    <ClInclude Include="src\core\effects\CopyEffect.hpp" />
     <ClInclude Include="src\core\manage\MaterialManager.hpp" />
     <ClInclude Include="src\core\manage\PrimitivesManager.hpp" />
     <ClInclude Include="src\core\manage\ShaderManager.hpp" />
@@ -131,11 +134,14 @@
     <ClInclude Include="src\core\math\PartialLerp.hpp" />
     <ClInclude Include="src\core\math\Spline.hpp" />
     <ClInclude Include="src\core\render\Buffer.hpp" />
+    <ClInclude Include="src\core\render\Framebuffer.hpp" />
     <ClInclude Include="src\core\render\Light.hpp" />
     <ClInclude Include="src\core\render\Material.hpp" />
     <ClInclude Include="src\core\render\OpenGL.hpp" />
+    <ClInclude Include="src\core\render\PostProcessingEffect.hpp" />
     <ClInclude Include="src\core\render\Primitives.hpp" />
     <ClInclude Include="src\core\render\Program.hpp" />
+    <ClInclude Include="src\core\render\Renderbuffer.hpp" />
     <ClInclude Include="src\core\render\Renderer.hpp" />
     <ClInclude Include="src\core\render\Shader.hpp" />
     <ClInclude Include="src\core\render\ShaderContext.hpp" />
@@ -146,6 +152,7 @@
     <ClInclude Include="src\core\scene\Camera.hpp" />
     <ClInclude Include="src\core\scene\Layers.hpp" />
     <ClInclude Include="src\core\scene\Node.hpp" />
+    <ClInclude Include="src\core\scene\ParticleSystem.hpp" />
     <ClInclude Include="src\core\scene\TimeGroup.hpp" />
     <ClInclude Include="src\core\types.hpp" />
   </ItemGroup>
@@ -175,6 +182,9 @@
     <ClCompile Include="src\core\Input.cpp" />
     <ClCompile Include="src\core\Timer.cpp" />
     <ClCompile Include="src\core\Window.cpp" />
+    <ClCompile Include="src\core\effects\BloomEffect.cpp" />
+    <ClCompile Include="src\core\effects\BlurEffect.cpp" />
+    <ClCompile Include="src\core\effects\CopyEffect.cpp" />
     <ClCompile Include="src\core\manage\MaterialManager.cpp" />
     <ClCompile Include="src\core\manage\PrimitivesManager.cpp" />
     <ClCompile Include="src\core\manage\ShaderManager.cpp" />
@@ -182,11 +192,15 @@
     <ClCompile Include="src\core\math\Math.cpp" />
     <ClCompile Include="src\core\math\Spline.cpp" />
     <ClCompile Include="src\core\render\Buffer.cpp" />
+    <ClCompile Include="src\core\render\Framebuffer.cpp" />
     <ClCompile Include="src\core\render\OpenGL.cpp" />
+    <ClCompile Include="src\core\render\PostProcessingEffect.cpp" />
     <ClCompile Include="src\core\render\Primitives.cpp" />
     <ClCompile Include="src\core\render\Program.cpp" />
+    <ClCompile Include="src\core\render\Renderbuffer.cpp" />
     <ClCompile Include="src\core\render\Renderer.cpp" />
     <ClCompile Include="src\core\render\Shader.cpp" />
+    <ClCompile Include="src\core\render\ShaderContext.cpp" />
     <ClCompile Include="src\core\render\Texture.cpp" />
     <ClCompile Include="src\core\render\Uniforms.cpp" />
     <ClCompile Include="src\core\render\VertexArray.cpp" />
@@ -195,6 +209,7 @@
     <ClCompile Include="src\core\scene\Camera.cpp" />
     <ClCompile Include="src\core\scene\Layers.cpp" />
     <ClCompile Include="src\core\scene\Node.cpp" />
+    <ClCompile Include="src\core\scene\ParticleSystem.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

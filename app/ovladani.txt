@@ -1,0 +1,19 @@
+F2 nebo o - vypne aplikaci
+n - zastavení času
+m - normální rychlost času
+šipka dolů/nahoru - zpomalení/zrychlení času
+r - reload konfigurace: config.txt, obsahuje pozice planet
+f - zapnutí/vypnutí fogu
+1, 2, 3, 4 - přepínání kamer
+1 - statická kamera ze strany
+2 - statická kamera ze shora
+V pohledu statické kamery se dá kliknutím myší vybrat planeta a změnit její pozice.
+3 - pohybující se kamera na létajícím ufo
+4 - ovladatelná kamera
+V režimu ovladatelné kamery:
+W A S D - pohyb kamery do stran
+Q E - pohyb kamery nahoru/dolu
+mezerník - zdvojnásobí rychlost pohybu
+levé tlačítko myši - vystřelí raketu
+zmáčknutí kolečka myši - zapne směrové světlo ve směru pohledu kamery
+pravé tlačítko myši - zapne reflektor ve směru pohledu kamery (má krátký dosah, je třeba být blíž objektu)

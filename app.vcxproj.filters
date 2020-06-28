@@ -16,6 +16,9 @@
     <Filter Include="core">
       <UniqueIdentifier>{4E40957C-3A77-960D-E363-7C10CF79120F}</UniqueIdentifier>
     </Filter>
+    <Filter Include="core\effects">
+      <UniqueIdentifier>{1DC6EC8F-0929-7C34-B2AE-B4EA9EF047B7}</UniqueIdentifier>
+    </Filter>
     <Filter Include="core\manage">
       <UniqueIdentifier>{66D5887B-D28A-0171-5B7F-FB47C733F874}</UniqueIdentifier>
     </Filter>
@@ -117,6 +120,15 @@
     <ClInclude Include="src\core\debug.hpp">
       <Filter>core</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\effects\BloomEffect.hpp">
+      <Filter>core\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\effects\BlurEffect.hpp">
+      <Filter>core\effects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\effects\CopyEffect.hpp">
+      <Filter>core\effects</Filter>
+    </ClInclude>
     <ClInclude Include="src\core\manage\MaterialManager.hpp">
       <Filter>core\manage</Filter>
     </ClInclude>
@@ -141,6 +153,9 @@
     <ClInclude Include="src\core\render\Buffer.hpp">
       <Filter>core\render</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\render\Framebuffer.hpp">
+      <Filter>core\render</Filter>
+    </ClInclude>
     <ClInclude Include="src\core\render\Light.hpp">
       <Filter>core\render</Filter>
     </ClInclude>
@@ -150,10 +165,16 @@
     <ClInclude Include="src\core\render\OpenGL.hpp">
       <Filter>core\render</Filter>
     </ClInclude>
+    <ClInclude Include="src\core\render\PostProcessingEffect.hpp">
+      <Filter>core\render</Filter>
+    </ClInclude>
     <ClInclude Include="src\core\render\Primitives.hpp">
       <Filter>core\render</Filter>
     </ClInclude>
     <ClInclude Include="src\core\render\Program.hpp">
+      <Filter>core\render</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\render\Renderbuffer.hpp">
       <Filter>core\render</Filter>
     </ClInclude>
     <ClInclude Include="src\core\render\Renderer.hpp">
@@ -184,6 +205,9 @@
       <Filter>core\scene</Filter>
     </ClInclude>
     <ClInclude Include="src\core\scene\Node.hpp">
+      <Filter>core\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\scene\ParticleSystem.hpp">
       <Filter>core\scene</Filter>
     </ClInclude>
     <ClInclude Include="src\core\scene\TimeGroup.hpp">
@@ -269,6 +293,15 @@
     <ClCompile Include="src\core\Window.cpp">
       <Filter>core</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\effects\BloomEffect.cpp">
+      <Filter>core\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\effects\BlurEffect.cpp">
+      <Filter>core\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\effects\CopyEffect.cpp">
+      <Filter>core\effects</Filter>
+    </ClCompile>
     <ClCompile Include="src\core\manage\MaterialManager.cpp">
       <Filter>core\manage</Filter>
     </ClCompile>
@@ -290,7 +323,13 @@
     <ClCompile Include="src\core\render\Buffer.cpp">
       <Filter>core\render</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\render\Framebuffer.cpp">
+      <Filter>core\render</Filter>
+    </ClCompile>
     <ClCompile Include="src\core\render\OpenGL.cpp">
+      <Filter>core\render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\render\PostProcessingEffect.cpp">
       <Filter>core\render</Filter>
     </ClCompile>
     <ClCompile Include="src\core\render\Primitives.cpp">
@@ -299,10 +338,16 @@
     <ClCompile Include="src\core\render\Program.cpp">
       <Filter>core\render</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\render\Renderbuffer.cpp">
+      <Filter>core\render</Filter>
+    </ClCompile>
     <ClCompile Include="src\core\render\Renderer.cpp">
       <Filter>core\render</Filter>
     </ClCompile>
     <ClCompile Include="src\core\render\Shader.cpp">
+      <Filter>core\render</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\render\ShaderContext.cpp">
       <Filter>core\render</Filter>
     </ClCompile>
     <ClCompile Include="src\core\render\Texture.cpp">
@@ -327,6 +372,9 @@
       <Filter>core\scene</Filter>
     </ClCompile>
     <ClCompile Include="src\core\scene\Node.cpp">
+      <Filter>core\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\scene\ParticleSystem.cpp">
       <Filter>core\scene</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp" />
