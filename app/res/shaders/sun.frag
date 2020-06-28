@@ -18,7 +18,12 @@ float getFogFactor()
 void main()
 {
     float f = getFogFactor();
-    fragmentColor = vec4(f * texture(textureSampler, vec3(f_uv, time)).xyz + (1-f) * vec3(0,0,0), 1);
-    brightColor = fragmentColor;
-    //fragmentColor = time * vec4(1);
+    fragmentColor = vec4(f * (texture(textureSampler, vec3(f_uv, time)).xyz + vec3(0.2)) + (1-f) * vec3(0,0,0), 1);
+    float brightness = dot(fragmentColor.rgb, vec3(0.2126, 0.7152, 0.0722));
+    if(brightness > 0.0) {
+        brightColor = fragmentColor;
+        fragmentColor = vec4(0.0*fragmentColor.rgb,1);
+    } else {
+        brightColor = vec4(0,0,0,1);
+    }
 }

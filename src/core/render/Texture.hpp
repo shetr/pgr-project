@@ -88,7 +88,7 @@ public:
 
     void Init();
     void Bind() const;
-    void Activate(TextureUnit unit) const;
+    static void Activate(TextureUnit unit);
 
     uint GetID() const { return m_id; }
 

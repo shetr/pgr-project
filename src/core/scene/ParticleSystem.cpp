@@ -27,14 +27,16 @@ public:
     }
 };
 
-ParticleSystemUniforms::ParticleSystemUniforms(glm::ivec2 textureSizes, glm::vec2 textureOffset)
+ParticleSystemUniforms::ParticleSystemUniforms(glm::ivec2 textureSizes, glm::vec2 textureOffset, bool useBloom)
 {
     m_textureSampler = new Uniform<int>("textureSampler", 0);
     m_textureSizes = new Uniform<glm::ivec2>("textureSizes", textureSizes);
     m_textureOffset = new Uniform<glm::vec2>("textureOffset", textureOffset);
+    m_useBloom = new Uniform<bool>("useBloom", useBloom);
     AddUniform(m_textureSampler);
     AddUniform(m_textureSizes);
     AddUniform(m_textureOffset);
+    AddUniform(m_useBloom);
 }
 
 glm::vec2 ParticleSystemMesh::s_vertices[4] = {
@@ -81,8 +83,8 @@ void ParticleSystemMesh::BeforeDraw()
     m_vertexArray->SetDivisors();
 }
 
-ParticleSystemShaderContext::ParticleSystemShaderContext(const Shared<ParticleSystemMesh>& mesh, const String& texture, glm::ivec2 textureSizes, glm::vec2 textureOffset)
-    : m_textureUnits(Vector<Shared<Texture>>({TextureManager::GetTexture(texture)})), m_uniforms(textureSizes, textureOffset), m_mesh(mesh), m_primitives(mesh)
+ParticleSystemShaderContext::ParticleSystemShaderContext(const Shared<ParticleSystemMesh>& mesh, const String& texture, glm::ivec2 textureSizes, glm::vec2 textureOffset, bool useBloom)
+    : m_textureUnits(Vector<Shared<Texture>>({TextureManager::GetTexture(texture)})), m_uniforms(textureSizes, textureOffset, useBloom), m_mesh(mesh), m_primitives(mesh)
 {
 }
 
@@ -91,8 +93,8 @@ void ParticleSystemShaderContext::BeforeDraw()
     m_mesh->BeforeDraw();
 }
 
-ParticleSystem::ParticleSystem(uint maxParticleCount, float dieSpeed, const String& texture, glm::ivec2 textureSizes, glm::vec2 textureOffset)
-    : m_mesh(new ParticleSystemMesh(maxParticleCount)), m_shaderContext(m_mesh, texture, textureSizes, textureOffset), m_dieSpeed(dieSpeed),
+ParticleSystem::ParticleSystem(uint maxParticleCount, float dieSpeed, const String& texture, glm::ivec2 textureSizes, glm::vec2 textureOffset, bool useBloom)
+    : m_mesh(new ParticleSystemMesh(maxParticleCount)), m_shaderContext(m_mesh, texture, textureSizes, textureOffset, useBloom), m_dieSpeed(dieSpeed),
       m_particles(maxParticleCount), m_outParticles(maxParticleCount), m_particlesCount(0), m_realParticlesCount(0)
 {
 }

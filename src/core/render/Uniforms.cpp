@@ -68,8 +68,12 @@ void IUniformSingle::Set(int loc, glm::mat4 v)
 {
     GL(UniformMatrix4fv(loc, 1, false, &v[0][0]));
 }
+void IUniformSingle::Set(int loc, Vector<float>& v)
+{
+    GL(Uniform1fv(loc, v.size(), v.data()));
+}
 
-UniformStruct::UniformStruct(const String structName)
+UniformStruct::UniformStruct(const String& structName)
     : m_StructName(structName)
 {}
 void UniformStruct::Set(int programID)

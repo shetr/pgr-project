@@ -44,8 +44,9 @@ private:
     Uniform<int>* m_textureSampler;
     Uniform<glm::ivec2>* m_textureSizes;
     Uniform<glm::vec2>* m_textureOffset;
+    Uniform<bool>* m_useBloom;
 public:
-    ParticleSystemUniforms(glm::ivec2 textureSizes, glm::vec2 textureOffset);
+    ParticleSystemUniforms(glm::ivec2 textureSizes, glm::vec2 textureOffset, bool useBloom);
 };
 
 class ParticleSystemMesh : public Primitives
@@ -75,7 +76,7 @@ private:
     ParticleSystemUniforms m_uniforms;
     TextureUnits m_textureUnits;
 public:
-    ParticleSystemShaderContext(const Shared<ParticleSystemMesh>& mesh, const String& texture, glm::ivec2 textureSizes, glm::vec2 textureOffset);
+    ParticleSystemShaderContext(const Shared<ParticleSystemMesh>& mesh, const String& texture, glm::ivec2 textureSizes, glm::vec2 textureOffset, bool useBloom);
 
     TypeIndex GetType() const override{
         return TypeIndex(typeid(ParticleSystemShaderContext));
@@ -110,7 +111,7 @@ private:
     Queue<ParticleVertex> m_spawnedParticles;
     float m_dieSpeed;
 public:
-    ParticleSystem(uint maxParticleCount, float dieSpeed, const String& texture, glm::ivec2 textureSizes, glm::vec2 textureOffset);
+    ParticleSystem(uint maxParticleCount, float dieSpeed, const String& texture, glm::ivec2 textureSizes, glm::vec2 textureOffset, bool useBloom);
     void Spawn(const ParticleVertex& particle);
     void Update(float deltaTime) override;
     ShaderContext& GetShaderContext() override { return m_shaderContext; }

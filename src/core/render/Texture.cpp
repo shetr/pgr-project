@@ -17,7 +17,7 @@ void Texture::Bind() const
     GL(BindTexture(static_cast<uint>(GetType()), m_id));
 }
 
-void Texture::Activate(TextureUnit unit) const
+void Texture::Activate(TextureUnit unit)
 {
     GL(ActiveTexture(static_cast<uint>(unit)));
 }

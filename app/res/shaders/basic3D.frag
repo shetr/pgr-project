@@ -10,5 +10,5 @@ in vec2 f_uv;
 void main()
 {
     fragmentColor = texture(textureSampler, f_uv);
-    brightColor = vec4(0);
+    brightColor = vec4(0,0,0,1);
 }

@@ -5,7 +5,7 @@
 namespace sadekpet {
 
 Sun::Sun(float size, float density) 
-    : SpaceBody(size, density), m_shaderContext("spherePrecise", "perlinSun"), m_time(0), m_changeSpeed(0.01)
+    : SpaceBody(size, density), m_shaderContext("spherePrecise", "perlinSun"), m_time(0), m_changeSpeed(0.02)
 { 
 }
 

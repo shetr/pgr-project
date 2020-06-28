@@ -47,6 +47,7 @@ protected:
     void Set(int loc, glm::mat2 v);
     void Set(int loc, glm::mat3 v);
     void Set(int loc, glm::mat4 v);
+    void Set(int loc, Vector<float>& v);
 };
 
 template<typename T>
@@ -60,13 +61,34 @@ public:
     }
 };
 
+template<typename T>
+class UniformArray : public IUniform
+{
+private:
+    Unique<Uniform<int>> m_size;
+    Unique<Uniform<Vector<T>>> m_array;
+public:
+    UniformArray(const String& name, const Vector<T>& values) {
+        m_size = Unique<Uniform<int>>(new Uniform<int>(name+"_size", values.size()));
+        m_array = Unique<Uniform<Vector<T>>>(new Uniform<Vector<T>>(name, values));
+    }
+    void Set(int programID) override {
+        m_size->Set(programID);
+        m_array->Set(programID);
+    }
+    void Update(const Vector<T>& values) {
+        m_size->value = values.size();
+        m_array->value = values;
+    }
+};
+
 class UniformStruct : public IUniform
 {
 private:
     Vector<Unique<IUniformSingle>> m_uniforms;
     String m_StructName;
 public:
-    UniformStruct(const String structName);
+    UniformStruct(const String& structName);
     void Set(int programID) override;
 protected:
     template<typename T>

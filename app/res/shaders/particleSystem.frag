@@ -3,6 +3,7 @@
 uniform sampler2D textureSampler;
 uniform ivec2 textureSizes;
 uniform vec2 textureOffset;
+uniform int useBloom;
 
 out vec4 fragmentColor;
 out vec4 brightColor;
@@ -47,5 +48,11 @@ void main()
     vec2 uv1 = uvRel + vec2(xStart, yStart);
     vec2 uv2 = uvRel + vec2(x2Start, y2Start);
     fragmentColor = (1-t)*texture(textureSampler, uv1) + t*texture(textureSampler, uv2);
-    brightColor = vec4(0);
+    float brightness = dot(fragmentColor.rgb, vec3(0.2126, 0.7152, 0.0722));
+    if(useBloom == 1 && fragmentColor.a > 0.99 && brightness > 0.8) {
+        brightColor = vec4(fragmentColor.rgb, 1);
+        //fragmentColor = vec4(0,0,0,1);
+    } else {
+        brightColor = vec4(0,0,0,0);
+    }
 }

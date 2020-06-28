@@ -26,7 +26,9 @@ protected:
     Shared<Mesh2D> m_windowQuad;
 public:
     PostProcessingEffect();
-    virtual void Run(Shared<Texture2D>& frame) = 0;
+    virtual void Run(Shared<Texture2D>& frame) {}
+    virtual void Run(Shared<Texture2D>& tex1, Shared<Texture2D>& tex2) {}
+    virtual void Resize(int width, int height) {}
 };
 
 }

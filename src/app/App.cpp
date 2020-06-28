@@ -12,6 +12,8 @@
 #include <core/scene/Camera.hpp>
 #include <core/scene/ParticleSystem.hpp>
 #include <core/effects/CopyEffect.hpp>
+#include <core/effects/BlurEffect.hpp>
+#include <core/effects/BloomEffect.hpp>
 
 #include <app/scene/CameraController.hpp>
 #include <app/scene/PlanetarySystem.hpp>
@@ -49,6 +51,8 @@ void App::Init()
     ShaderManager::AddRenderProgram(TypeIndex(typeid(SunShaderContext)), "sun");
     ShaderManager::AddRenderProgram(TypeIndex(typeid(ParticleSystemShaderContext)), "particleSystem");
     ShaderManager::AddRenderProgram(TypeIndex(typeid(CopyEffect)), "copyEffect");
+    ShaderManager::AddRenderProgram(TypeIndex(typeid(BlurEffect)), "blurEffect");
+    ShaderManager::AddRenderProgram(TypeIndex(typeid(BloomEffect)), "bloomEffect");
     #ifdef PGR_DEBUG
         std::cout << "shaders loaded" << std::endl;
     #endif
@@ -153,13 +157,13 @@ void App::Init()
 
     m_planetarySystemTimeGroup = Shared<TimeGroup>(new TimeGroup());
 
-    ParticleSystem* smokeParticleSystem = new ParticleSystem(10000, 1.0f, "smoke.png", glm::ivec2(4, 4), glm::vec2(0,0));
+    ParticleSystem* smokeParticleSystem = new ParticleSystem(10000, 1.0f, "smoke.png", glm::ivec2(4, 4), glm::vec2(0,0), false);
     particlesLayer->Add(smokeParticleSystem);
     GlobalSceneState::smokeParticleSystem = Unique<ParticleSystem>(smokeParticleSystem);
     smokeParticleSystem->SetTimeGroup(m_planetarySystemTimeGroup);
 
 
-    ParticleSystem* explosionParticleSystem = new ParticleSystem(10000, 1.2f, "explosion.png", glm::ivec2(8, 8), glm::vec2(0.0,0.25));
+    ParticleSystem* explosionParticleSystem = new ParticleSystem(10000, 1.2f, "explosion.png", glm::ivec2(8, 8), glm::vec2(0.0,0.25), true);
     particlesLayer->Add(explosionParticleSystem);
     GlobalSceneState::explosionParticleSystem = Unique<ParticleSystem>(explosionParticleSystem);
     explosionParticleSystem->SetTimeGroup(m_planetarySystemTimeGroup);

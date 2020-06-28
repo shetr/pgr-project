@@ -10,5 +10,5 @@ in vec3 f_direction;
 void main()
 {
     fragmentColor = vec4(texture(textureSampler, f_direction).xyz,1);
-    brightColor = vec4(0);
+    brightColor = vec4(0,0,0,1);;
 }

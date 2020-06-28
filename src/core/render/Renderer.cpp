@@ -4,6 +4,8 @@
 #include <core/scene/Camera.hpp>
 
 #include <core/effects/CopyEffect.hpp>
+#include <core/effects/BlurEffect.hpp>
+#include <core/effects/BloomEffect.hpp>
 
 #include <iostream>
 
@@ -61,7 +63,8 @@ void Renderer::Init()
         std::cout << "offscreen framebuffer is not complete" << std::endl;
     }
     
-    m_effect = Unique<PostProcessingEffect>(new CopyEffect());
+    //m_effect = Unique<PostProcessingEffect>(new BlurEffect());
+    m_effect = Unique<PostProcessingEffect>(new BloomEffect(winSize.width, winSize.height));
 }
 
 void Renderer::Clear()
@@ -100,6 +103,7 @@ void Renderer::OnWindowResize(const WindowSizeEvent& event)
     m_offBrightTexture->Bind();
     m_offBrightTexture->Resize(winSize.width, winSize.height);
 
+    m_effect->Resize(winSize.width, winSize.height);
 }
 
 void Renderer::SetStencilID(uint8_t id)
@@ -134,8 +138,8 @@ void Renderer::EndScene()
     m_offFramebuffer->UnBind();
     GL(Disable(GL_DEPTH_TEST));
     GL(Clear(GL_COLOR_BUFFER_BIT));
-    m_effect->Run(m_offTexture);
-    //m_effect->Run(m_offBrightTexture);
+    m_effect->Run(m_offTexture, m_offBrightTexture);
+    //m_effect->Run(m_offTexture);
     GL(Enable(GL_DEPTH_TEST));
 }
 

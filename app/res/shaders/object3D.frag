@@ -114,5 +114,5 @@ void main()
     float f = getFogFactor();
 
     fragmentColor = vec4(f * lightsColor + (1-f) * vec3(0,0,0), alpha);
-    brightColor = vec4(0);
+    brightColor = vec4(0,0,0,1);;
 }
