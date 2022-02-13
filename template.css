@@ -22,10 +22,12 @@ code {
 div.center {
 }
 div.footer {
+    height:60px;
 }
 div.footer_inner {
 }
 div.header {
+    height:40px;
 }
 div.left {
 }
