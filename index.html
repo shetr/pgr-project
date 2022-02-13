@@ -37,29 +37,31 @@
           </div>
 
           <h4>Description</h4>
+          
           <p>
-            Cílem projektu bylo vytvořit jednoduchý planetární systém. V žádném případě se nejedná o realistickou
-            simulaci. Například měřítko objektů
-            je zvoleno tak aby bylo vizuálně zajímavé, avšak fyzikálně nedává moc smysl. Tento planetární systém nemá
-            reprezentovat sluneční soustavu
-            ani žádnou jinou známou soustavu, je kompletně smyšlený. To ale zároveň dává větší prostor pro kreativitu.
+            Goal of this project was to create simple planetary system.
+            It's not intended to be realistic simulation.
+            For example scale of the objects is set to be visually interesting, but doesn't make sense in terms of real world physics.
+            This planetary system doesn't represent our solar system, or any other known system, it's completely fictional.
+            But that creates space for more creativity.
+          </p>
+          
+          <p>
+            Scene contains sun, planets and moons.
+            Each of them orbits around it's parent object.
+            There is also an UFO with camera, which moves on spline curve.
+            Planet positions can be changed with mouse.
+            You are able to change speed of time.
+            With movable camera you can shine on objects.
+            Or you can shoot rockets, whose trajectory is curved by gravitational field.
           </p>
 
           <p>
-            Scéna obsahuje slunce, planety, měsíce vždy každý obíhající v kruhu okolo svého rodičovského objektu. Také
-            se zde nachází ufo s kamerou,
-            které se pohybuje po spline křivce. Pozice planet se dá měnit myší. Je zde možnost měnit rychlost času. S
-            pohyblivou kamerou jde na objekty
-            svítit, případně vystřelit raketu jejíž trajektorie je zakřivená podle gravitačního pole.
-          </p>
-
-          <p>
-            Většina použitých textur byla vlastnoručně vyrobena pomocí perlin šumu. Tedy textury slunce, planet, měsíců
-            a skyboxu. Textura slunce
-            se s časem mění dělající dojem prudkého pohybu plynu na povrchu slunce. Dva plynní obři nacházející se v
-            soustavě mají povrch vytvořený
-            kombinací dvou textur, jedna tvořící pruhy stejného složení plynu na rovnoběžkách planety, druhá přidávající
-            větší nepravidelnost nahodilými mraky.
+            Most of the used textures were handmade with perlin noise, specifically textures of sun, planets, moons and skybox.
+            Texture of the sun is changing over time making impression of rapid movement of gass on the surface.
+            Two gass giants located in the system have surface made of two textures,
+            one making lines of differents types of gass mixture,
+            second adding more inconsistency with random clouds.
           </p>
 
           <h4>Controls</h4>
@@ -75,8 +77,8 @@
             2 - static camera looking up <br>
             In the view of static camera, you can move planet by clicking on it and draging. <br>
             3 - moving camera placed on flying UFO <br>
-            4 - controlable camera <br>
-            When using controlable camera: <br>
+            4 - movable camera <br>
+            When using movable camera: <br>
             W A S D - move camera to sides <br>
             Q E - move camera up/down <br>
             SPACE - double movement speed <br>
