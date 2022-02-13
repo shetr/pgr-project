@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+ <title>Petr Šádek &ndash; Semestrální projekt z předmětu B0B39PGR</title>
+ <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+ <link rel="stylesheet" type="text/css" href="template.css" />
+</head><body>
+ <div class="page">
+  <div class="header" id="header">
+   <h1 class="hidden">Semestrální projekt z předmětu B0B39PGR</h1>
+   <hr class="hidden" />
+  </div>
+  <div class="left"><div class="right"><div class="main">
+
+
+   <h2 class="project">Planetární systém</h2>
+
+
+   <h3 class="author">Petr Šádek</h3>
+
+  <div class="screenshots">
+    <a href="img/screenshot1.png"><img class="screenshot" src="img/thumb1.png" alt="Screenshot #1" /></a>
+    <a href="img/screenshot2.png"><img class="screenshot" src="img/thumb2.png" alt="Screenshot #2" /></a>
+    <a href="img/screenshot3.png"><img class="screenshot" src="img/thumb3.png" alt="Screenshot #3" /></a>
+   </div>
+
+   <h4>Zadání</h4>
+   <p>
+    Cílem projektu bylo vytvořit jednoduchý planetární systém. V žádném případě se nejedná o realistickou simulaci. Například měřítko objektů
+    je zvoleno tak aby bylo vizuálně zajímavé, avšak fyzikálně nedává moc smysl. Tento planetární systém nemá reprezentovat sluneční soustavu
+    ani žádnou jinou známou soustavu, je kompletně smyšlený. To ale zároveň dává větší prostor pro kreativitu.
+   </p>
+
+     <p>
+          Scéna obsahuje slunce, planety, měsíce vždy každý obíhající v kruhu okolo svého rodičovského objektu. Také se zde nachází ufo s kamerou,
+          které se pohybuje po spline křivce. Pozice planet se dá měnit myší. Je zde možnost měnit rychlost času. S pohyblivou kamerou jde na objekty
+          svítit, případně vystřelit raketu jejíž trajektorie je zakřivená podle gravitačního pole.
+     </p>
+
+   <p>
+     Většina použitých textur byla vlastnoručně vyrobena pomocí perlin šumu. Tedy textury slunce, planet, měsíců a skyboxu. Textura slunce
+     se s časem mění dělající dojem prudkého pohybu plynu na povrchu slunce. Dva plynní obři nacházející se v soustavě mají povrch vytvořený
+     kombinací dvou textur, jedna tvořící pruhy stejného složení plynu na rovnoběžkách planety, druhá přidávající větší nepravidelnost nahodilými mraky.
+   </p>
+
+   <h4>Ovládání</h4>
+   <p>
+    F2 nebo o - vypne aplikaci <br>
+    n - zastavení času <br>
+    m - normální rychlost času <br>
+    šipka dolů/nahoru - zpomalení/zrychlení času <br>
+    r - reload konfigurace: config.txt, obsahuje pozice planet <br>
+    f - zapnutí/vypnutí fogu <br>
+    1, 2, 3, 4 - přepínání kamer <br>
+    1 - statická kamera ze strany <br>
+    2 - statická kamera ze shora <br>
+    V pohledu statické kamery se dá kliknutím myší vybrat planeta a změnit její pozice. <br>
+    3 - pohybující se kamera na létajícím ufo <br>
+    4 - ovladatelná kamera <br>
+    V režimu ovladatelné kamery: <br>
+    W A S D - pohyb kamery do stran <br>
+    Q E - pohyb kamery nahoru/dolu <br>
+    mezerník - zdvojnásobí rychlost pohybu <br>
+    levé tlačítko myši - vystřelí raketu <br>
+    zmáčknutí kolečka myši - zapne směrové světlo ve směru pohledu kamery <br>
+    pravé tlačítko myši - zapne reflektor ve směru pohledu kamery (má krátký dosah, je třeba být blíž objektu) <br>
+   </p>
+
+   <h4>Download</h4>
+   <ul>
+    <li><a href="code/windows.zip">Spustitelná verze - windows</a></li>
+   </ul>
+
+  </div></div></div>
+  <div class="footer"><hr class="hidden" />
+   <div class="footer_inner">
+   </div>
+  </div>
+ </div>
+</body>
+</html>

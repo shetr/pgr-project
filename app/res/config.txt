@@ -1,7 +1,0 @@
-planet1 32
-planet2 0
-planet3 85
-planet4 171
-planet5 270
-planet6 135
-planet7 180
