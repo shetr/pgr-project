@@ -6,7 +6,7 @@ Planetary system
 <img src="https://shetr.github.io/pgr-project/gifs/rockets.gif" height="250" />
 
 
-This program was made as semestral project within PGR at CTU FEE.
+This program was made as semestral project within subject PGR (graphics programming) at CTU FEE.
 
 Download windows build here: <https://shetr.github.io/pgr-project/code/windows.zip>
 
